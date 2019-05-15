@@ -1,3 +1,3 @@
-import TestComponent from './TestComponent';
+import EmailUserModal from './EmailUserModal';
 
-export { TestComponent };
+export { EmailUserModal };

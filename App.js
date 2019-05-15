@@ -18,9 +18,10 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       isAuthenticationReady: false,
-      isAuthenticated: false
+      isAuthenticated: false,
+      displayName: ""
     };
-
+    console.log(this.state.user, "from constructor");
     // Initialize firebase...
     if (!firebase.apps.length) {
       firebase.initializeApp(ApiKeys.FirebaseConfig);
@@ -66,6 +67,8 @@ export default class App extends React.Component {
               var data = {
                 displayName,
                 email,
+                phoneNumber,
+                photoUrl,
                 uid
               };
               var setDoc = db
@@ -81,7 +84,7 @@ export default class App extends React.Component {
               );
               console.log(uid, "Document added");
             } else {
-              console.log("Document data:", doc.data());
+              console.log("Document data: From App.js", doc.data());
             }
           })
           .catch(err => {

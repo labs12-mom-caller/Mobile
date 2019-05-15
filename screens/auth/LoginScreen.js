@@ -3,7 +3,7 @@ import { Button, Icon, Text, Input, Item } from "native-base";
 import { SocialIcon } from "react-native-elements";
 
 import { StyleSheet, View, Alert } from "react-native";
-import { GoogleSignin, statusCodes } from "react-native-google-signin";
+import { GoogleSignin } from "react-native-google-signin";
 import * as firebase from "firebase";
 import TestScreen from "../TestScreen";
 
@@ -30,37 +30,7 @@ export default class LoginScreen extends React.Component {
       userInfo: null,
       error: null
     };
-    console.log(this.state.userInfo);
   }
-
-  async componentDidMount() {
-    // this._configureGoogleSignIn();
-    // await this._getCurrentUser();
-  }
-
-  // _configureGoogleSignIn() {
-  //   GoogleSignin.configure({
-  //     webClientId:
-  //       "448806748779-mldp0sim81htt9oapau99r1647m26278.apps.googleusercontent.com",
-  //     offlineAccess: false
-  //   });
-  // }
-
-  // async _getCurrentUser() {
-  //   try {
-  //     const userInfo = await GoogleSignin.signInSilently();
-  //     this.setState({ userInfo, error: null });
-  //     // console.log(userInfo.user, "Getting current user");
-  //   } catch (error) {
-  //     const errorMessage =
-  //       error.code === statusCodes.SIGN_IN_REQUIRED
-  //         ? "Please sign in :)"
-  //         : error.message;
-  //     this.setState({
-  //       error: new Error(errorMessage)
-  //     });
-  //   }
-  // }
 
   _signIn = async () => {
     try {
@@ -87,13 +57,13 @@ export default class LoginScreen extends React.Component {
     }
   };
 
-  onPress = () => {
-    if (this.state.user) {
-      this.signOutAsync();
-    } else {
-      this.signInAsync();
-    }
-  };
+  // onPress = () => {
+  //   if (this.state.user) {
+  //     this.signOutAsync();
+  //   } else {
+  //     this.signInAsync();
+  //   }
+  // };
 
   checkIfLoggedIn = () => {
     firebase.auth().onAuthStateChanged(user => {
@@ -119,16 +89,11 @@ export default class LoginScreen extends React.Component {
     this.props.navigation.navigate("Signup");
   };
 
-  onForgotPasswordPress = () => {
-    this.props.navigation.navigate("ForgotPassword");
-  };
-
   render() {
-    const { errorCode } = this.state;
-    if (this.state.user || this.state.userInfo !== null) {
-      console.log("Authenticated!");
+    if (this.state.user || this.state.userInfo != null) {
       return <TestScreen user={this.state.userInfo.user} />;
     }
+
     return (
       <View style={styles.Wrapper}>
         <Text

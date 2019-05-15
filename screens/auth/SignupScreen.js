@@ -20,9 +20,7 @@ export default class SignupScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayName: "",
       email: "",
-      phone: "",
       password: "",
       passwordConfirm: ""
     };
@@ -61,10 +59,6 @@ export default class SignupScreen extends React.Component {
     this.props.navigation.navigate("Signup");
   };
 
-  onForgotPasswordPress = () => {
-    this.props.navigation.navigate("ForgotPassword");
-  };
-
   render() {
     return (
       <ScrollView>
@@ -96,18 +90,6 @@ export default class SignupScreen extends React.Component {
           </Text>
 
           <View style={{ width: "75%" }}>
-            <Item regular style={{ borderColor: "black" }}>
-              <Input
-                style={{ width: 200, height: 40, borderWidth: 1 }}
-                value={this.state.displayName}
-                onChangeText={text => {
-                  this.setState({ displayName: text });
-                }}
-                placeholder="Full Name"
-                autoCapitalize="none"
-                autoCorrect={false}
-              />
-            </Item>
             <View style={{ paddingTop: 20 }} />
             <Item regular style={{ borderColor: "black" }}>
               <Input

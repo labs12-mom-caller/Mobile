@@ -10,22 +10,44 @@ import {
   Button
 } from "react-native";
 import { GoogleSignin } from "react-native-google-signin";
-// import { db, auth } from "../constants/ApiKeys";
+import { db } from "../constants/ApiKeys";
 
 import * as firebase from "firebase";
 
-import { TestComponent } from "./../components/AppComponents";
+import { EmailUserModal } from "./../components/AppComponents";
 import LoginScreen from "./auth/LoginScreen";
 
 export default class TestScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.props.user
+      user: null
     };
-    // console.log(this.props.user, "From testscreen");
-    console.log(this.state.user, "From testscreen");
+
   }
+
+  componentDidMount() {
+    this.getUser();
+  }
+
+  getUser = () => {
+    var user = firebase.auth().currentUser;
+
+    var userRef = db.collection("users").doc(user.uid);
+    var getDoc = userRef
+      .get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log("No such document!");
+        } else {
+          console.log("Document data: From TestScreen", doc.data());
+          this.setState({ user: doc.data()})
+        }
+      })
+      .catch(err => {
+        console.log("Error getting document", err);
+      });
+  };
 
   signOut = async () => {
     try {
@@ -58,14 +80,15 @@ export default class TestScreen extends React.Component {
   };
 
   render() {
-    // if (this.state.user === null) {
-    //   return;
-    // }
+    if (this.props.user === null) {
+      return;
+    }
     return this.state.user === null ? (
       <LoginScreen />
     ) : (
       <View style={{ paddingTop: 20 }}>
-        <TestComponent />
+        <EmailUserModal user={this.state.user} />
+        <Text>{this.state.user.displayName}</Text>
         <Button title="Signout" onPress={this._signOut} />
       </View>
     );

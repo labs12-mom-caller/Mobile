@@ -3,6 +3,7 @@ import { StyleSheet, View, Alert, ScrollView } from "react-native";
 import { Button, Icon, Text, Input, Item } from "native-base";
 import { SocialIcon } from "react-native-elements";
 import * as firebase from "firebase";
+import Dashboard from "../Dashboard";
 
 export default class SignupScreen extends React.Component {
   static navigationOptions = {
@@ -19,11 +20,13 @@ export default class SignupScreen extends React.Component {
   };
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = ["Setting a timer"];
     this.state = {
       email: "",
       password: "",
       passwordConfirm: ""
     };
+
   }
 
   onSignupPress = () => {
@@ -39,16 +42,6 @@ export default class SignupScreen extends React.Component {
       .catch(error => {
         Alert.alert(error.message);
       });
-  };
-
-  checkIfLoggedIn = () => {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.props.navigation.navigate("TestScreen");
-      } else {
-        this.props.navigation.navigate("LoginScreen");
-      }
-    });
   };
 
   onBackToLoginPress = () => {

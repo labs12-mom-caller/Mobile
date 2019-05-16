@@ -4,19 +4,30 @@ import { Container, Header, Content, Form, Item, Input } from "native-base";
 import { db } from "../../constants/ApiKeys";
 import * as firebase from "firebase";
 
-export default class EmailUserModal extends Component {
+export default class GoogleUserModal extends Component {
   constructor(props) {
     super(props);
     console.ignoredYellowBox = [
       'Setting a timer'
       ];
     this.state = {
-      // user: this.props.user,
       modalVisible: true,
-      displayName: "",
       phoneNumber: ""
     };
   }
+
+  formatPhoneNumber = number => {
+    const numberCopy = [...number];
+    const digitsOnly = numberCopy.slice(2);
+    const withDashes = `${digitsOnly.slice(0, 3)}-${digitsOnly.slice(
+      3,
+      6
+    )}-${digitsOnly.slice(6)}`;
+    const formatted = [...withDashes];
+    const phoneNumber = formatted.filter(n => n !== ",");
+    phoneNumber.join("");
+    this.setState({ phoneNumber });
+  };
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
@@ -25,33 +36,27 @@ export default class EmailUserModal extends Component {
   updateUser = () => {
     var user = firebase.auth().currentUser;
     console.log(user, "from update");
-    const formattedPhone = String("+1").concat(
-      String(this.state.phoneNumber).replace(/[^\d]/g, "")
-    );
-    if (Array.from(formattedPhone.length != 12)) {
-      Alert.alert("Please Enter a Valid Number");
-      db.doc(`users/${user.uid}`)
-        .set(
-          {
-            displayName: this.state.displayName,
-            phoneNumber: formattedPhone
-          },
-          { merge: true }
-        )
-        .then(function() {
-          // Update successful.
-          console.log("success");
-        })
-        .catch(function(error) {
-          console.log("failed");
-          // An error happened.
-        });
-    }
+    this.formatPhoneNumber(user.phoneNumber);
+    db.doc(`users/${user.uid}`)
+      .set(
+        {
+          phoneNumber: this.state.phoneNumber
+        },
+        { merge: true }
+      )
+      .then(function() {
+        // Update successful.
+        console.log("success");
+      })
+      .catch(function(error) {
+        console.log("failed");
+        // An error happened.
+      });
   };
 
   render() {
     return this.props.user.phoneNumber === null &&
-      this.props.user.displayName === null ? (
+      this.props.user.displayName ? (
       <View style={{ marginTop: 22 }}>
         <Modal
           animationType="slide"
@@ -63,22 +68,10 @@ export default class EmailUserModal extends Component {
         >
           <View style={{ marginTop: 22 }}>
             <View>
-              <Text>Display Name & Phone Number</Text>
+              <Text>Phone Number</Text>
 
               <Form>
-                <Item regular error style={{ borderColor: "black" }}>
-                  <Input
-                    style={{ width: 200, height: 40, borderWidth: 1 }}
-                    value={this.state.displayName}
-                    onChangeText={text => {
-                      this.setState({ displayName: text });
-                    }}
-                    placeholder="Display Name"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                  />
-                </Item>
-                <Item regular error style={{ borderColor: "black" }}>
+                <Item regular style={{ borderColor: "black" }}>
                   <Input
                     style={{ width: 200, height: 40, borderWidth: 1 }}
                     value={this.state.phoneNumber}

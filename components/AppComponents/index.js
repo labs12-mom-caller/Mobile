@@ -1,3 +1,4 @@
 import EmailUserModal from './EmailUserModal';
+import GoogleUserModal from './GoogleUserModal';
 
-export { EmailUserModal };
+export { EmailUserModal, GoogleUserModal };

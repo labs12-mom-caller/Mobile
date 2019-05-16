@@ -14,12 +14,15 @@ import { db } from "../constants/ApiKeys";
 
 import * as firebase from "firebase";
 
-import { EmailUserModal } from "./../components/AppComponents";
+import { EmailUserModal, GoogleUserModal } from "./../components/AppComponents";
 import LoginScreen from "./auth/LoginScreen";
 
-export default class TestScreen extends React.Component {
+export default class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = [
+      'Setting a timer'
+      ];
     this.state = {
       user: null
     };
@@ -51,7 +54,7 @@ export default class TestScreen extends React.Component {
 
   signOut = async () => {
     try {
-      await GoogleSignin.revokeAccess();
+      // await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
       this.setState({ user: null }); // Remember to remove the user from your app's state as well
     } catch (error) {
@@ -68,7 +71,7 @@ export default class TestScreen extends React.Component {
           // Sign-out successful.
           console.log("Signed out");
         });
-      await GoogleSignin.revokeAccess();
+      // await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
 
       this.setState({ user: null, error: null });
@@ -88,6 +91,7 @@ export default class TestScreen extends React.Component {
     ) : (
       <View style={{ paddingTop: 20 }}>
         <EmailUserModal user={this.state.user} />
+        <GoogleUserModal user={this.state.user} />
         <Text>{this.state.user.displayName}</Text>
         <Button title="Signout" onPress={this._signOut} />
       </View>

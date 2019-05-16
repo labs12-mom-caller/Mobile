@@ -4,8 +4,8 @@ import { SocialIcon } from "react-native-elements";
 
 import { StyleSheet, View, Alert } from "react-native";
 import { GoogleSignin } from "react-native-google-signin";
+import Dashboard from "../Dashboard";
 import * as firebase from "firebase";
-import TestScreen from "../TestScreen";
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -24,13 +24,17 @@ export default class LoginScreen extends React.Component {
   };
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = [
+      'Setting a timer'
+      ];
     this.state = {
       email: "",
       password: "",
       userInfo: null,
       error: null
     };
-  }
+
+}
 
   _signIn = async () => {
     try {
@@ -57,24 +61,6 @@ export default class LoginScreen extends React.Component {
     }
   };
 
-  // onPress = () => {
-  //   if (this.state.user) {
-  //     this.signOutAsync();
-  //   } else {
-  //     this.signInAsync();
-  //   }
-  // };
-
-  checkIfLoggedIn = () => {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.props.navigation.navigate("TestScreen");
-      } else {
-        this.props.navigation.navigate("LoginScreen");
-      }
-    });
-  };
-
   onLoginPress = async () => {
     firebase
       .auth()
@@ -91,7 +77,7 @@ export default class LoginScreen extends React.Component {
 
   render() {
     if (this.state.user || this.state.userInfo != null) {
-      return <TestScreen user={this.state.userInfo.user} />;
+      return <Dashboard user={this.state.userInfo.user} />
     }
 
     return (

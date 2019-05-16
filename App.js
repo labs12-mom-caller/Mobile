@@ -16,6 +16,9 @@ import * as firebase from "firebase";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = [
+      'Setting a timer'
+      ];
     this.state = {
       isAuthenticationReady: false,
       isAuthenticated: false,
@@ -49,12 +52,8 @@ export default class App extends React.Component {
           phoneNumber = user.phoneNumber;
           photoUrl = user.photoURL;
           emailVerified = user.emailVerified;
-          uid = user.uid; // The user's ID, unique to the Firebase project. Do NOT use
-          // this value to authenticate with your backend server, if
-          // you have one. Use User.getToken() instead.
+          uid = user.uid;
         }
-        // User is signed in.
-        // console.log(user.uid, "From user");
 
         var userRef = db.collection("users").doc(uid);
 

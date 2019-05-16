@@ -26,7 +26,6 @@ export default class SignupScreen extends React.Component {
       password: "",
       passwordConfirm: ""
     };
-
   }
 
   onSignupPress = () => {
@@ -85,6 +84,7 @@ export default class SignupScreen extends React.Component {
           <View style={{ width: "75%" }}>
             <View style={{ paddingTop: 20 }} />
             <Item regular style={{ borderColor: "black" }}>
+              <Icon active name="mail" />
               <Input
                 style={{ width: 200, height: 40, borderWidth: 1 }}
                 value={this.state.email}
@@ -99,6 +99,7 @@ export default class SignupScreen extends React.Component {
             </Item>
             <View style={{ paddingTop: 20 }} />
             <Item regular style={{ borderColor: "black" }}>
+              <Icon active name="done-all" />
               <Input
                 style={{ width: 200, height: 40, borderWidth: 1 }}
                 value={this.state.password}
@@ -112,6 +113,7 @@ export default class SignupScreen extends React.Component {
 
             <View style={{ paddingTop: 20 }} />
             <Item regular style={{ borderColor: "black" }}>
+              <Icon active name="done-all" />
               <Input
                 style={{ width: 200, height: 40, borderWidth: 1 }}
                 value={this.state.passwordConfirm}

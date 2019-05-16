@@ -105,6 +105,7 @@ export default class LoginScreen extends React.Component {
 
         <View style={{ width: "75%" }}>
           <Item regular style={{ borderColor: "black" }}>
+            <Icon active name="mail" />
             <Input
               placeholder="Rounded Textbox"
               value={this.state.email}
@@ -120,6 +121,7 @@ export default class LoginScreen extends React.Component {
           </Item>
           <View style={{ paddingTop: 20 }} />
           <Item regular style={{ borderColor: "black" }}>
+            <Icon active name="done-all" />
             <Input
               value={this.state.password}
               onChangeText={text => {

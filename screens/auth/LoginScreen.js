@@ -24,17 +24,14 @@ export default class LoginScreen extends React.Component {
   };
   constructor(props) {
     super(props);
-    console.ignoredYellowBox = [
-      'Setting a timer'
-      ];
+    console.ignoredYellowBox = ["Setting a timer"];
     this.state = {
-      email: "",
-      password: "",
+      email: "dain@test.com",
+      password: "testing",
       userInfo: null,
       error: null
     };
-
-}
+  }
 
   _signIn = async () => {
     try {
@@ -77,7 +74,7 @@ export default class LoginScreen extends React.Component {
 
   render() {
     if (this.state.user || this.state.userInfo != null) {
-      return <Dashboard user={this.state.userInfo.user} />
+      return <Dashboard user={this.state.userInfo.user} />;
     }
 
     return (

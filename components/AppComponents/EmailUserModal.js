@@ -3,13 +3,12 @@ import { Modal, Text, TouchableHighlight, View, Alert } from "react-native";
 import { Container, Header, Content, Form, Item, Input } from "native-base";
 import { db } from "../../constants/ApiKeys";
 import * as firebase from "firebase";
+import { format } from "util";
 
 export default class EmailUserModal extends Component {
   constructor(props) {
     super(props);
-    console.ignoredYellowBox = [
-      'Setting a timer'
-      ];
+    console.ignoredYellowBox = ["Setting a timer"];
     this.state = {
       // user: this.props.user,
       modalVisible: true,
@@ -28,8 +27,13 @@ export default class EmailUserModal extends Component {
     const formattedPhone = String("+1").concat(
       String(this.state.phoneNumber).replace(/[^\d]/g, "")
     );
-    if (Array.from(formattedPhone.length != 12)) {
-      Alert.alert("Please Enter a Valid Number");
+    if (this.state.displayName != null && this.state.phoneNumber != null) {
+      Alert.alert(this.state.displayName, this.state.phoneNumber);
+      return;
+    } else if (
+      this.state.displayName != null &&
+      (this.state.phoneNumber.length === this.state.phoneNumber.length) === 12
+    ) {
       db.doc(`users/${user.uid}`)
         .set(
           {
@@ -46,6 +50,7 @@ export default class EmailUserModal extends Component {
           console.log("failed");
           // An error happened.
         });
+      this.setState({ modalVisible: !this.state.modalVisible });
     }
   };
 
@@ -63,7 +68,7 @@ export default class EmailUserModal extends Component {
         >
           <View style={{ marginTop: 22 }}>
             <View>
-              <Text>Display Name & Phone Number</Text>
+              <Text>Display Name and Phone Number</Text>
 
               <Form>
                 <Item regular error style={{ borderColor: "black" }}>
@@ -90,11 +95,17 @@ export default class EmailUserModal extends Component {
                 </Item>
                 <TouchableHighlight
                   onPress={() => {
-                    this.updateUser(),
-                      this.setModalVisible(!this.state.modalVisible);
+                    this.updateUser();
                   }}
                 >
                   <Text>Submit</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  onPress={() => {
+                    this.setState({ modalVisible: !this.state.modalVisible });
+                  }}
+                >
+                  <Text>Close Modal</Text>
                 </TouchableHighlight>
               </Form>
             </View>

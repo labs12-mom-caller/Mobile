@@ -86,7 +86,11 @@ export default class SignupScreen extends React.Component {
             <Item regular style={{ borderColor: "black" }}>
               <Icon active name="mail" />
               <Input
-                style={{ width: 200, height: 40, borderWidth: 1 }}
+                style={{
+                  width: 200,
+                  height: 40,
+                  borderLeftWidth: 0.5
+                }}
                 value={this.state.email}
                 onChangeText={text => {
                   this.setState({ email: text });
@@ -101,7 +105,7 @@ export default class SignupScreen extends React.Component {
             <Item regular style={{ borderColor: "black" }}>
               <Icon active name="done-all" />
               <Input
-                style={{ width: 200, height: 40, borderWidth: 1 }}
+                style={{ width: 200, height: 40, borderLeftWidth: 0.5 }}
                 value={this.state.password}
                 onChangeText={text => {
                   this.setState({ password: text });
@@ -115,7 +119,7 @@ export default class SignupScreen extends React.Component {
             <Item regular style={{ borderColor: "black" }}>
               <Icon active name="done-all" />
               <Input
-                style={{ width: 200, height: 40, borderWidth: 1 }}
+                style={{ width: 200, height: 40, borderLeftWidth: 0.5 }}
                 value={this.state.passwordConfirm}
                 onChangeText={text => {
                   this.setState({ passwordConfirm: text });
@@ -143,7 +147,11 @@ export default class SignupScreen extends React.Component {
             <Button
               title="Back to Login"
               onPress={this.onBackToLoginPress}
-              style={{ alignSelf: "center", width: 185, marginBottom: "10%" }}
+              style={{
+                alignSelf: "center",
+                width: 185,
+                marginBottom: "10%"
+              }}
               iconLeft
               type="outline"
             >

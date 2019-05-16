@@ -107,6 +107,7 @@ export default class LoginScreen extends React.Component {
           <Item regular style={{ borderColor: "black" }}>
             <Icon active name="mail" />
             <Input
+              style={{ borderLeft: "1px", borderLeftWidth: 0.5 }}
               placeholder="Rounded Textbox"
               value={this.state.email}
               onChangeText={text => {
@@ -123,6 +124,7 @@ export default class LoginScreen extends React.Component {
           <Item regular style={{ borderColor: "black" }}>
             <Icon active name="done-all" />
             <Input
+              style={{ borderLeftWidth: 0.5 }}
               value={this.state.password}
               onChangeText={text => {
                 this.setState({ password: text });

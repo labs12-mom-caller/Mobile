@@ -12,7 +12,7 @@ import {
   Button
 } from "react-native";
 import { Container, Header, Content, Form, Item, Input } from "native-base";
-// import { db } from "../../constants/ApiKeys";
+import { db } from "../../constants/ApiKeys";
 import * as firebase from "firebase";
 import ImagePicker from "react-native-image-picker";
 
@@ -76,7 +76,7 @@ export default class EmailUserModal extends Component {
       .storage()
       .ref(`user-profiles`)
       .child(this.props.user.uid)
-      .child(this.props.user.uid)
+      .child(this.props.user.uid);
     const snapshot = await ref.put(blob);
 
     // We're done with the blob, close and release it
@@ -123,7 +123,10 @@ export default class EmailUserModal extends Component {
   }
 
   numCheck = number => {
-    if (Array.from(number).length != 12) {
+    if (
+      Array.from(number).length != 12 &&
+      (this.state.displayName != null || this.state.displayName != "")
+    ) {
       Alert.alert("enter valid number");
       return;
     } else {
@@ -158,7 +161,8 @@ export default class EmailUserModal extends Component {
           .set(
             {
               displayName: this.state.displayName,
-              phoneNumber: this.state.correctPhone
+              phoneNumber: this.state.correctPhone,
+              photoUrl: this.state.image
             },
             { merge: true }
           )
@@ -237,7 +241,7 @@ export default class EmailUserModal extends Component {
                 <View style={styles.container}>
                   <View style={styles.placeholder}>
                     <Image
-                      source={this.state.image}
+                      source={{ uri: this.state.image }}
                       style={styles.previewImage}
                     />
                   </View>
@@ -256,6 +260,14 @@ export default class EmailUserModal extends Component {
                   }}
                 >
                   <Text>Submit</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  style={styles.Button}
+                  onPress={() => {
+                    this.setState({ modalVisible: !this.state.modalVisible });
+                  }}
+                >
+                  <Text>close modal</Text>
                 </TouchableHighlight>
               </Form>
             </View>

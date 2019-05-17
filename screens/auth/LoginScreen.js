@@ -28,8 +28,8 @@ export default class LoginScreen extends React.Component {
     super(props);
     console.ignoredYellowBox = ["Setting a timer"];
     this.state = {
-      email: "dain@test.com",
-      password: "testing",
+      email: "",
+      password: "",
       userInfo: null,
       error: null
     };
@@ -88,7 +88,7 @@ export default class LoginScreen extends React.Component {
             fontWeight: "bold",
             marginTop: "5%",
             color: "black",
-            fontFamily: "monospace"
+            fontFamily: "pacifico"
           }}
         >
           ReCaller

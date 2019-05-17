@@ -54,6 +54,10 @@ const ScheduledContacts = ({ user }) => {
     fetchData();
   }, [uid]);
 
+  const goContacts = () => {
+    this.props.navigation.navigate("Contact");
+  };
+
   //   console.log(contacts[1], "from user 2")
 
   return (
@@ -85,7 +89,7 @@ const ScheduledContacts = ({ user }) => {
               <List style={{ flexDirection: "column" }}>
                 <ListItem selected>
                   <Left>
-                    <Text>{c.user2.displayName}</Text>
+                    <Text onPress={this.goContacts}>{c.user2.displayName}</Text>
                   </Left>
                   <Right>
                     <Icon name="arrow-forward" />

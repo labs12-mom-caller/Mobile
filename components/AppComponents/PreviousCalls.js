@@ -36,6 +36,11 @@ const PreviousCalls = ({ userId }) => {
     };
     fetchData();
   }, [userId]);
+
+  // goPrevCalls = () => {
+  //   this.props.navigation.navigate("PrevCalls");
+  // };
+
   if (calls.empty) return <Text>No Calls Available...</Text>;
   return (
     <>

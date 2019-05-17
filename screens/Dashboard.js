@@ -26,6 +26,7 @@ import * as firebase from "firebase";
 import { EmailUserModal, GoogleUserModal } from "./../components/AppComponents";
 import LoginScreen from "./auth/LoginScreen";
 import ScheduledContacts from "../components/AppComponents/ScheduledContacts";
+import PreviousCalls from "../components/AppComponents/PreviousCalls";
 
 console.disableYellowBox = true;
 
@@ -125,33 +126,21 @@ export default class Dashboard extends React.Component {
         <Button style={styles.userButton} rounded dark onPress={this._signOut}>
           <Text>Signout</Text>
         </Button>
+
         <List>
           <ListItem itemHeader first style={styles.yourContact}>
-            <Text>Your Contacts</Text>
-            {/*  </ListItem>
-          <ListItem style={styles.contact}>
-          <Text>Joe </Text>
-          <Text>May 15th </Text>
-          <Text>3:15PM</Text>
+            <Text style={{ textAlign: "center" }}>Your Contacts</Text>
           </ListItem>
-          <ListItem style={styles.contact}>
-          <Text>Mike </Text>
-          <Text>May 10th </Text>
-        <Text>8:15PM</Text> */}
-          </ListItem>
-        <ScheduledContacts user={this.state.user.uid} />
+          <ScheduledContacts user={this.state.user.uid} />
         </List>
 
-        <List style={{ marginBottom: "15%" }}>
+        <List>
           <ListItem itemHeader style={styles.prevCall}>
-            <Text>Previous Calls</Text>
+            <Text style={{ textAlign: "center" }}>Previous Calls</Text>
           </ListItem>
-          <ListItem style={styles.call}>
-            <Text>Jon </Text>
-            <Text>June 10th </Text>
-            <Text>9:25AM </Text>
-          </ListItem>
+          <PreviousCalls userId={this.state.user.uid} />
         </List>
+
         <EmailUserModal user={this.state.user} />
         <GoogleUserModal user={this.state.user} />
       </ScrollView>

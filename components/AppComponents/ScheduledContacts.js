@@ -7,7 +7,7 @@ import { db } from "../../constants/ApiKeys";
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
-  console.log(contacts);
+//   console.log(contacts);
   const { uid } = user;
   React.useEffect(() => {
     const fetchData = async () => {

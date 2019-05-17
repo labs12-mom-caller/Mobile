@@ -274,11 +274,7 @@ export default class EmailUserModal extends Component {
           </View>
         </Modal>
       </View>
-    ) : (
-      <View>
-        <Text>No</Text>
-      </View>
-    );
+    ) : null;
   }
 }
 

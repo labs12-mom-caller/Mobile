@@ -1,19 +1,27 @@
 import React, { Component } from "react";
-import { Modal, Text, TouchableHighlight, View, Alert } from "react-native";
+import {
+  Modal,
+  Text,
+  TouchableHighlight,
+  View,
+  Alert,
+  YellowBox
+} from "react-native";
 import { Container, Header, Content, Form, Item, Input } from "native-base";
 import { db } from "../../constants/ApiKeys";
 import * as firebase from "firebase";
-import { format } from "util";
 
 export default class EmailUserModal extends Component {
   constructor(props) {
     super(props);
     console.ignoredYellowBox = ["Setting a timer"];
+
     this.state = {
       // user: this.props.user,
       modalVisible: true,
-      displayName: "",
-      phoneNumber: ""
+      displayName: null,
+      phoneNumber: null,
+      correctPhone: null
     };
   }
 
@@ -21,36 +29,58 @@ export default class EmailUserModal extends Component {
     this.setState({ modalVisible: visible });
   }
 
-  updateUser = () => {
-    var user = firebase.auth().currentUser;
-    console.log(user, "from update");
-    const formattedPhone = String("+1").concat(
-      String(this.state.phoneNumber).replace(/[^\d]/g, "")
-    );
-    if (this.state.displayName != null && this.state.phoneNumber != null) {
-      Alert.alert(this.state.displayName, this.state.phoneNumber);
+  numCheck = number => {
+    if (Array.from(number).length != 12) {
+      Alert.alert("enter valid number");
+      return;
+    } else {
+      const theNumber = number;
+      Alert.alert("good number");
+      console.log(theNumber);
+      this.setState({ correctPhone: String(theNumber) });
+      return theNumber;
+    }
+  };
+
+  updateUser = async () => {
+    if (this.state.phoneNumber == null && this.state.displayName == null) {
       return;
     } else if (
-      this.state.displayName != null &&
-      (this.state.phoneNumber.length === this.state.phoneNumber.length) === 12
+      this.state.phoneNumber != null &&
+      this.state.displayName != null
     ) {
-      db.doc(`users/${user.uid}`)
-        .set(
-          {
-            displayName: this.state.displayName,
-            phoneNumber: formattedPhone
-          },
-          { merge: true }
-        )
-        .then(function() {
-          // Update successful.
-          console.log("success");
-        })
-        .catch(function(error) {
-          console.log("failed");
-          // An error happened.
-        });
-      this.setState({ modalVisible: !this.state.modalVisible });
+      var user = await firebase.auth().currentUser;
+      console.log(user, "from update");
+      const formattedPhone = await String("+1").concat(
+        String(this.state.phoneNumber).replace(/[^\d]/g, "")
+      );
+      console.log(formattedPhone);
+      this.numCheck(formattedPhone);
+      // if (this.state.phoneNumber == null) {
+      //   return;
+      // }
+      if (this.state.correctPhone != null) {
+        await db
+          .doc(`users/${user.uid}`)
+          .set(
+            {
+              displayName: this.state.displayName,
+              phoneNumber: this.state.correctPhone
+            },
+            { merge: true }
+          )
+          .then(function() {
+            // Update successful.
+            console.log("success");
+          })
+          .catch(function(error) {
+            console.log("failed");
+            // An error happened.
+          });
+        this.setState({ modalVisible: !this.state.modalVisible });
+      }
+    } else {
+      Alert.alert("Please Enter a Valid Number and a Username");
     }
   };
 
@@ -68,7 +98,7 @@ export default class EmailUserModal extends Component {
         >
           <View style={{ marginTop: 22 }}>
             <View>
-              <Text>Display Name and Phone Number</Text>
+              <Text>Display Name & Phone Number</Text>
 
               <Form>
                 <Item regular error style={{ borderColor: "black" }}>
@@ -99,13 +129,6 @@ export default class EmailUserModal extends Component {
                   }}
                 >
                   <Text>Submit</Text>
-                </TouchableHighlight>
-                <TouchableHighlight
-                  onPress={() => {
-                    this.setState({ modalVisible: !this.state.modalVisible });
-                  }}
-                >
-                  <Text>Close Modal</Text>
                 </TouchableHighlight>
               </Form>
             </View>

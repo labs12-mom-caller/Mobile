@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Button, Icon, Text, Input, Item } from "native-base";
 import { SocialIcon } from "react-native-elements";
 
-import { StyleSheet, View, Alert } from "react-native";
+import { StyleSheet, View, Alert, YellowBox } from "react-native";
 import { GoogleSignin } from "react-native-google-signin";
+import Dashboard from "../Dashboard";
 import * as firebase from "firebase";
-import TestScreen from "../TestScreen";
+
+console.disableYellowBox = true;
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -24,6 +26,7 @@ export default class LoginScreen extends React.Component {
   };
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = ["Setting a timer"];
     this.state = {
       email: "",
       password: "",
@@ -44,6 +47,7 @@ export default class LoginScreen extends React.Component {
       const data = await GoogleSignin.signIn();
 
       // create a new firebase credential with the token
+      await GoogleSignin.revokeAccess();
       const credential = firebase.auth.GoogleAuthProvider.credential(
         data.idToken,
         data.accessToken
@@ -55,24 +59,6 @@ export default class LoginScreen extends React.Component {
     } catch (e) {
       Alert.alert("Canceled Login");
     }
-  };
-
-  // onPress = () => {
-  //   if (this.state.user) {
-  //     this.signOutAsync();
-  //   } else {
-  //     this.signInAsync();
-  //   }
-  // };
-
-  checkIfLoggedIn = () => {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.props.navigation.navigate("TestScreen");
-      } else {
-        this.props.navigation.navigate("LoginScreen");
-      }
-    });
   };
 
   onLoginPress = async () => {
@@ -91,7 +77,7 @@ export default class LoginScreen extends React.Component {
 
   render() {
     if (this.state.user || this.state.userInfo != null) {
-      return <TestScreen user={this.state.userInfo.user} />;
+      return <Dashboard user={this.state.userInfo.user} />;
     }
 
     return (
@@ -102,7 +88,7 @@ export default class LoginScreen extends React.Component {
             fontWeight: "bold",
             marginTop: "5%",
             color: "black",
-            fontFamily: "monospace"
+            fontFamily: "pacifico"
           }}
         >
           ReCaller
@@ -122,7 +108,9 @@ export default class LoginScreen extends React.Component {
 
         <View style={{ width: "75%" }}>
           <Item regular style={{ borderColor: "black" }}>
+            <Icon active name="mail" />
             <Input
+              style={{ borderLeftWidth: 0.5 }}
               placeholder="Rounded Textbox"
               value={this.state.email}
               onChangeText={text => {
@@ -137,41 +125,39 @@ export default class LoginScreen extends React.Component {
           </Item>
           <View style={{ paddingTop: 20 }} />
           <Item regular style={{ borderColor: "black" }}>
+            <Icon type="FontAwesome" name="lock" />
             <Input
+              style={{ borderLeftWidth: 0.5 }}
               value={this.state.password}
               onChangeText={text => {
                 this.setState({ password: text });
               }}
               placeholder="Password"
               secureTextEntry={true}
-              leftIcon={{ type: "font-awesome", name: "lock" }}
             />
           </Item>
 
           <View style={{ paddingTop: 20 }} />
 
-          <View style={{}}>
+          <View>
             <Button
-              iconLeft
-              type="outline"
+              style={{ alignSelf: "center" }}
+              dark
               onPress={this.onLoginPress}
-              style={{ alignSelf: "center", width: 185 }}
             >
-              <Icon name="md-send" />
-              <Text uppercase={false}>Submit Email Login</Text>
+              <Text style={{ color: "white" }}>Login</Text>
             </Button>
 
             <View style={{ paddingTop: 20 }} />
 
             <Button
-              iconLeft
-              type="outline"
+              style={{ alignSelf: "center" }}
+              light
               onPress={this.onCreateAccountPress}
-              style={{ alignSelf: "center", width: 185 }}
             >
-              <Icon name="md-create" />
-              <Text uppercase={false}>Sign Up With Email</Text>
+              <Text style={{ color: "black" }}>SignUp</Text>
             </Button>
+
             <Text style={{ marginTop: 15, alignSelf: "center" }}>
               Don't have an account?{" "}
               <Icon style={{ fontSize: 20 }} name="arrow-round-up" />

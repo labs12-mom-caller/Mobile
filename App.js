@@ -4,7 +4,7 @@ import {
   StatusBar,
   StyleSheet,
   View,
-  AsyncStorage
+  YellowBox
 } from "react-native";
 
 import AppNavigator from "./navigation/AppNavigator";
@@ -16,9 +16,7 @@ import * as firebase from "firebase";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    console.ignoredYellowBox = [
-      'Setting a timer'
-      ];
+    console.ignoredYellowBox = ["Setting a timer"];
     this.state = {
       isAuthenticationReady: false,
       isAuthenticated: false,

@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Modal, Text, TouchableHighlight, View, Alert } from "react-native";
+import {
+  Modal,
+  Text,
+  TouchableHighlight,
+  View,
+  Alert,
+  YellowBox
+} from "react-native";
 import { Container, Header, Content, Form, Item, Input } from "native-base";
 import { db } from "../../constants/ApiKeys";
 import * as firebase from "firebase";
@@ -7,14 +14,13 @@ import * as firebase from "firebase";
 export default class EmailUserModal extends Component {
   constructor(props) {
     super(props);
-    console.ignoredYellowBox = [
-      'Setting a timer'
-      ];
+    console.ignoredYellowBox = ["Setting a timer"];
+
     this.state = {
       // user: this.props.user,
       modalVisible: true,
-      displayName: "",
-      phoneNumber: ""
+      displayName: null,
+      phoneNumber: null
     };
   }
 
@@ -22,14 +28,30 @@ export default class EmailUserModal extends Component {
     this.setState({ modalVisible: visible });
   }
 
+  numCheck = number => {
+    if (Array.from(number).length != 12) {
+      Alert.alert("enter valid number");
+    } else {
+      if (Array.from(number).length) {
+        Alert.alert("good number");
+        return String(number);
+      }
+    }
+  };
+
   updateUser = () => {
-    var user = firebase.auth().currentUser;
-    console.log(user, "from update");
-    const formattedPhone = String("+1").concat(
-      String(this.state.phoneNumber).replace(/[^\d]/g, "")
-    );
-    if (Array.from(formattedPhone.length != 12)) {
-      Alert.alert("Please Enter a Valid Number");
+    if ((this.state.phoneNumber == null && this.state.displayName == null)) {
+      return;
+    } else if (
+      this.state.phoneNumber != null &&
+      this.state.displayName != null
+    ) {
+      var user = firebase.auth().currentUser;
+      console.log(user, "from update");
+      const formattedPhone = String("+1").concat(
+        String(this.state.phoneNumber).replace(/[^\d]/g, "")
+      );
+
       db.doc(`users/${user.uid}`)
         .set(
           {
@@ -46,6 +68,9 @@ export default class EmailUserModal extends Component {
           console.log("failed");
           // An error happened.
         });
+      this.setState({ modalVisible: !this.state.modalVisible });
+    } else {
+      Alert.alert("Please Enter a Valid Number and a Username");
     }
   };
 
@@ -90,11 +115,17 @@ export default class EmailUserModal extends Component {
                 </Item>
                 <TouchableHighlight
                   onPress={() => {
-                    this.updateUser(),
-                      this.setModalVisible(!this.state.modalVisible);
+                    this.updateUser();
                   }}
                 >
                   <Text>Submit</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                  onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                  }}
+                >
+                  <Text>Close Modal</Text>
                 </TouchableHighlight>
               </Form>
             </View>

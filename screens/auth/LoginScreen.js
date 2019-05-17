@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Icon, Text, Input, Item } from "native-base";
 import { SocialIcon } from "react-native-elements";
 
-import { StyleSheet, View, Alert } from "react-native";
+import { StyleSheet, View, Alert, YellowBox } from "react-native";
 import { GoogleSignin } from "react-native-google-signin";
 import Dashboard from "../Dashboard";
 import * as firebase from "firebase";
@@ -24,12 +24,10 @@ export default class LoginScreen extends React.Component {
   };
   constructor(props) {
     super(props);
-    console.ignoredYellowBox = [
-      'Setting a timer'
-      ];
+    console.ignoredYellowBox = ["Setting a timer"];
     this.state = {
-      email: "",
-      password: "",
+      email: "shawn@test.com",
+      password: "123456",
       userInfo: null,
       error: null
     };

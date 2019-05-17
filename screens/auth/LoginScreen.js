@@ -28,8 +28,8 @@ export default class LoginScreen extends React.Component {
     super(props);
     console.ignoredYellowBox = ["Setting a timer"];
     this.state = {
-      email: "shawn@gmail.com",
-      password: "123456",
+      email: "",
+      password: "",
       userInfo: null,
       error: null
     };

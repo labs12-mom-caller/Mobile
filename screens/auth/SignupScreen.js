@@ -3,6 +3,8 @@ import { StyleSheet, View, Alert, ScrollView } from "react-native";
 import { Button, Icon, Text, Input, Item } from "native-base";
 import * as firebase from "firebase";
 
+console.disableYellowBox = true;
+
 export default class SignupScreen extends React.Component {
   static navigationOptions = {
     title: "Go back to login",

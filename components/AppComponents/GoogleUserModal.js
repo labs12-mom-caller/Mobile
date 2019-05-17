@@ -11,6 +11,8 @@ import { Container, Header, Content, Form, Item, Input } from "native-base";
 import { db } from "../../constants/ApiKeys";
 import * as firebase from "firebase";
 
+console.disableYellowBox = true;
+
 export default class GoogleUserModal extends Component {
   constructor(props) {
     super(props);
@@ -92,7 +94,15 @@ export default class GoogleUserModal extends Component {
           <View style={styles.Wrapper}>
             <Text style={styles.Label}>Please enter your phone number</Text>
             <Form>
-              <Item regular style={{ borderColor: "black", width: "70%", height: 40, alignSelf: "center" }}>
+              <Item
+                regular
+                style={{
+                  borderColor: "black",
+                  width: "70%",
+                  height: 40,
+                  alignSelf: "center"
+                }}
+              >
                 <Input
                   // style={{ borderWidth: 1 }}
                   value={this.state.phoneNumber}
@@ -108,7 +118,7 @@ export default class GoogleUserModal extends Component {
                   this.updateUser();
                 }}
               >
-                <Text style={{color: "blue"}}>Submit</Text>
+                <Text style={{ color: "blue" }}>Submit</Text>
               </TouchableHighlight>
             </Form>
           </View>
@@ -131,12 +141,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: "3%",
     color: "black",
-    fontSize:  20,
+    fontSize: 20
   },
   Button: {
     alignSelf: "center",
-    marginTop:  "3%",
+    marginTop: "3%",
     borderWidth: 1,
-    padding:  5
+    padding: 5
   }
 });

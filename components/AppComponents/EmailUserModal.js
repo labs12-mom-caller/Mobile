@@ -6,11 +6,24 @@ import {
   View,
   Alert,
   YellowBox,
-  StyleSheet
+  StyleSheet,
+  Platform,
+  Image,
+  Button
 } from "react-native";
 import { Container, Header, Content, Form, Item, Input } from "native-base";
-import { db } from "../../constants/ApiKeys";
+// import { db } from "../../constants/ApiKeys";
 import * as firebase from "firebase";
+import ImagePicker from "react-native-image-picker";
+
+const options = {
+  title: "Upload an image",
+  storageOptions: {
+    skipBackup: true,
+    path: `user-profiles`
+  }
+};
+
 export default class EmailUserModal extends Component {
   constructor(props) {
     super(props);
@@ -20,12 +33,95 @@ export default class EmailUserModal extends Component {
       modalVisible: true,
       displayName: null,
       phoneNumber: null,
-      correctPhone: null
+      correctPhone: null,
+      pickedImage: null,
+      image: null,
+      uploading: false
     };
   }
+
+  _handleImagePicked = async pickerResult => {
+    try {
+      this.setState({ uploading: true });
+
+      uploadUrl = await this.uploadImageAsync(pickerResult.uri);
+      this.setState({ image: uploadUrl });
+    } catch (e) {
+      console.log(e);
+      alert("Upload failed, sorry :(");
+    } finally {
+      this.setState({ uploading: false });
+    }
+  };
+
+  uploadImageAsync = async uri => {
+    // Why are we using XMLHttpRequest? See:
+    // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function(e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+    // console.log(blob)
+    // console.log(this.state.image, "from image");
+    const ref = firebase
+      .storage()
+      .ref(`user-profiles`)
+      .child(this.props.user.uid)
+      .child(this.props.user.uid)
+    const snapshot = await ref.put(blob);
+
+    // We're done with the blob, close and release it
+    blob.close();
+    // console.log(snapshot.ref.getDownloadURL());
+    return await snapshot.ref.getDownloadURL();
+  };
+
+  // reset = () => {
+  //   this.setState({
+  //     pickedImage: null
+  //   });
+  // };
+
+  pickImageHandler = () => {
+    ImagePicker.showImagePicker(options, response => {
+      if (response.didCancel) {
+        console.log("User cancelled image picker");
+      } else if (response.error) {
+        console.log("ImagePicker Error: ", response.error);
+      } else if (response.customButton) {
+        console.log("User tapped custom button: ", response.customButton);
+      } else {
+        console.log(response);
+        this._handleImagePicked(response);
+        // pictureRef =  snapshot.ref.getDownloadURL();
+        this.setState({
+          image: response.data.uri
+        });
+      }
+    });
+  };
+
+  // uploadImage = image => {
+  //   var storageRef = firebase
+  //     .storage()
+  //     .ref(`user-profiles/${this.props.user.uid}`);
+
+  //   storageRef.putString(image, "base64", { contentType: "image/jpg" });
+  // };
+
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
+
   numCheck = number => {
     if (Array.from(number).length != 12) {
       Alert.alert("enter valid number");
@@ -38,6 +134,7 @@ export default class EmailUserModal extends Component {
       return theNumber;
     }
   };
+
   updateUser = async () => {
     if (this.state.phoneNumber == null && this.state.displayName == null) {
       return;
@@ -136,6 +233,22 @@ export default class EmailUserModal extends Component {
                     placeholder="Phone Number"
                   />
                 </Item>
+
+                <View style={styles.container}>
+                  <View style={styles.placeholder}>
+                    <Image
+                      source={this.state.image}
+                      style={styles.previewImage}
+                    />
+                  </View>
+                  <View style={styles.button}>
+                    <Button
+                      title="Pick Image"
+                      onPress={this.pickImageHandler}
+                    />
+                  </View>
+                </View>
+
                 <TouchableHighlight
                   style={styles.Button}
                   onPress={() => {
@@ -162,6 +275,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center"
   },
+  container: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: "5%"
+  },
   Label: {
     alignSelf: "center",
     marginBottom: "3%",
@@ -173,5 +291,24 @@ const styles = StyleSheet.create({
     marginTop: "3%",
     borderWidth: 1,
     padding: 5
+  },
+  gallery: {
+    fontSize: 20,
+    textAlign: "center",
+    margin: 10
+  },
+  placeholder: {
+    borderWidth: 1,
+    borderColor: "black",
+    backgroundColor: "#eee",
+    width: "80%",
+    height: 150
+  },
+  button: {
+    margin: 8
+  },
+  previewImage: {
+    width: "100%",
+    height: "100%"
   }
 });

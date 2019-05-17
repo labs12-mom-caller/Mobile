@@ -26,6 +26,8 @@ import * as firebase from "firebase";
 import { EmailUserModal, GoogleUserModal } from "./../components/AppComponents";
 import LoginScreen from "./auth/LoginScreen";
 
+console.disableYellowBox = true;
+
 const userProfile = {
   name: "Shawn",
   avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg"

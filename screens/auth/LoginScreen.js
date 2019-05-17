@@ -7,6 +7,8 @@ import { GoogleSignin } from "react-native-google-signin";
 import Dashboard from "../Dashboard";
 import * as firebase from "firebase";
 
+console.disableYellowBox = true;
+
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
     title: "Welcome To ReCaller",
@@ -108,7 +110,7 @@ export default class LoginScreen extends React.Component {
           <Item regular style={{ borderColor: "black" }}>
             <Icon active name="mail" />
             <Input
-              style={{ borderLeft: "1px", borderLeftWidth: 0.5 }}
+              style={{ borderLeftWidth: 0.5 }}
               placeholder="Rounded Textbox"
               value={this.state.email}
               onChangeText={text => {

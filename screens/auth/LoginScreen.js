@@ -88,7 +88,7 @@ export default class LoginScreen extends React.Component {
             fontWeight: "bold",
             marginTop: "5%",
             color: "black",
-            fontFamily: "monospace"
+            fontFamily: "pacifico"
           }}
         >
           ReCaller

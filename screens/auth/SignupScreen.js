@@ -1,9 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Alert, ScrollView } from "react-native";
 import { Button, Icon, Text, Input, Item } from "native-base";
-import { SocialIcon } from "react-native-elements";
 import * as firebase from "firebase";
-import Dashboard from "../Dashboard";
 
 export default class SignupScreen extends React.Component {
   static navigationOptions = {
@@ -26,7 +24,6 @@ export default class SignupScreen extends React.Component {
       password: "",
       passwordConfirm: ""
     };
-
   }
 
   onSignupPress = () => {
@@ -85,8 +82,13 @@ export default class SignupScreen extends React.Component {
           <View style={{ width: "75%" }}>
             <View style={{ paddingTop: 20 }} />
             <Item regular style={{ borderColor: "black" }}>
+              <Icon active name="mail" />
               <Input
-                style={{ width: 200, height: 40, borderWidth: 1 }}
+                style={{
+                  width: 200,
+                  height: 40,
+                  borderLeftWidth: 0.5
+                }}
                 value={this.state.email}
                 onChangeText={text => {
                   this.setState({ email: text });
@@ -99,8 +101,9 @@ export default class SignupScreen extends React.Component {
             </Item>
             <View style={{ paddingTop: 20 }} />
             <Item regular style={{ borderColor: "black" }}>
+              <Icon type="FontAwesome" name="lock" />
               <Input
-                style={{ width: 200, height: 40, borderWidth: 1 }}
+                style={{ width: 200, height: 40, borderLeftWidth: 0.5 }}
                 value={this.state.password}
                 onChangeText={text => {
                   this.setState({ password: text });
@@ -112,8 +115,9 @@ export default class SignupScreen extends React.Component {
 
             <View style={{ paddingTop: 20 }} />
             <Item regular style={{ borderColor: "black" }}>
+              <Icon type="FontAwesome" name="unlock" />
               <Input
-                style={{ width: 200, height: 40, borderWidth: 1 }}
+                style={{ width: 200, height: 40, borderLeftWidth: 0.5 }}
                 value={this.state.passwordConfirm}
                 onChangeText={text => {
                   this.setState({ passwordConfirm: text });
@@ -125,29 +129,30 @@ export default class SignupScreen extends React.Component {
 
             <View style={{ paddingTop: 20 }} />
 
-            <Button
-              title="Signup"
-              onPress={this.onSignupPress}
-              style={{ alignSelf: "center", width: 185 }}
-              iconLeft
-              type="outline"
-            >
-              <Icon name="md-create" />
-              <Text uppercase={false}>Submit Details</Text>
-            </Button>
+            <View>
+              <Button
+                style={{ alignSelf: "center" }}
+                dark
+                onPress={this.onSignupPress}
+              >
+                <Text style={{ color: "white" }}>Sign Up</Text>
+              </Button>
 
-            <View style={{ paddingTop: 20 }} />
+              <View style={{ paddingTop: 20 }} />
 
-            <Button
-              title="Back to Login"
-              onPress={this.onBackToLoginPress}
-              style={{ alignSelf: "center", width: 185, marginBottom: "10%" }}
-              iconLeft
-              type="outline"
-            >
-              <Icon name="md-arrow-round-back" />
-              <Text uppercase={false}>Back to Login</Text>
-            </Button>
+              <Button
+                style={{ alignSelf: "center" }}
+                light
+                onPress={this.onBackToLoginPress}
+              >
+                <Text style={{ color: "black" }}>Back To Login</Text>
+              </Button>
+
+              <Text style={{ marginTop: 15, alignSelf: "center" }}>
+                Already have an account?{" "}
+                <Icon style={{ fontSize: 20 }} name="arrow-round-up" />
+              </Text>
+            </View>
           </View>
         </View>
       </ScrollView>

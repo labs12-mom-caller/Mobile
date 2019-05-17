@@ -65,7 +65,7 @@ export default class Dashboard extends React.Component {
 
   signOut = async () => {
     try {
-      // await GoogleSignin.revokeAccess();
+      await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
       this.setState({ user: null }); // Remember to remove the user from your app's state as well
     } catch (error) {
@@ -148,7 +148,7 @@ export default class Dashboard extends React.Component {
             <Text>9:25AM </Text>
           </ListItem>
         </List>
-        {/* <EmailUserModal user={this.state.user} /> */}
+        <EmailUserModal user={this.state.user} />
         <GoogleUserModal user={this.state.user} />
       </ScrollView>
     );

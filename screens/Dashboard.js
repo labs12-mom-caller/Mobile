@@ -167,7 +167,8 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   contact: {
-    alignSelf: "center"
+    alignSelf: "center",
+    flexDirection: "column"
   },
   prevCall: {
     alignSelf: "center"

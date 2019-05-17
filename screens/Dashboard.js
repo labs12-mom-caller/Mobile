@@ -25,7 +25,7 @@ import * as firebase from "firebase";
 
 import { EmailUserModal, GoogleUserModal } from "./../components/AppComponents";
 import LoginScreen from "./auth/LoginScreen";
-// import PreviousCalls from "../components/AppComponents/PreviousCalls";
+import ScheduledContacts from "../components/AppComponents/ScheduledContacts";
 
 console.disableYellowBox = true;
 
@@ -128,17 +128,18 @@ export default class Dashboard extends React.Component {
         <List>
           <ListItem itemHeader first style={styles.yourContact}>
             <Text>Your Contacts</Text>
+            {/*  </ListItem>
+          <ListItem style={styles.contact}>
+          <Text>Joe </Text>
+          <Text>May 15th </Text>
+          <Text>3:15PM</Text>
           </ListItem>
           <ListItem style={styles.contact}>
-            <Text>Joe </Text>
-            <Text>May 15th </Text>
-            <Text>3:15PM</Text>
+          <Text>Mike </Text>
+          <Text>May 10th </Text>
+        <Text>8:15PM</Text> */}
           </ListItem>
-          <ListItem style={styles.contact}>
-            <Text>Mike </Text>
-            <Text>May 10th </Text>
-            <Text>8:15PM</Text>
-          </ListItem>
+          <ScheduledContacts user={this.state.user.uid} />
         </List>
 
         <List style={{ marginBottom: "15%" }}>

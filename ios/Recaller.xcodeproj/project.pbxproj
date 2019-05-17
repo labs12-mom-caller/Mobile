@@ -79,6 +79,7 @@
 		BD05B8CAA5274605BD3B5F37 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23DEA16497D74C1E89ED84A8 /* Zocial.ttf */; };
 		E407D3CCD22E4C40BCA575B7 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 074656BDBBAC4EDC843A163D /* libRNImagePicker.a */; };
 		2A641DDAAA7648C38EAB0FC2 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD02932284B64B78A2C61ED3 /* libRNFetchBlob.a */; };
+		D94D18D125464CEBB101D3D9 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07F7025D70134C89A130F2DE /* Pacifico.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -431,6 +432,7 @@
 		074656BDBBAC4EDC843A163D /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		BFEF562A810F4005838F8EB6 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; name = "RNFetchBlob.xcodeproj"; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		CD02932284B64B78A2C61ED3 /* libRNFetchBlob.a */ = {isa = PBXFileReference; name = "libRNFetchBlob.a"; path = "libRNFetchBlob.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		07F7025D70134C89A130F2DE /* Pacifico.ttf */ = {isa = PBXFileReference; name = "Pacifico.ttf"; path = "../assets/fonts/Pacifico.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -744,6 +746,7 @@
 				4C6EC541DBC240A889047572 /* rubicon-icon-font.ttf */,
 				50E6CCBA76734ABBA562DA32 /* SimpleLineIcons.ttf */,
 				23DEA16497D74C1E89ED84A8 /* Zocial.ttf */,
+				07F7025D70134C89A130F2DE /* Pacifico.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1228,6 +1231,7 @@
 				C7BC0DA84DC14B5D869E23EA /* rubicon-icon-font.ttf in Resources */,
 				203C9E12D0C14674A46099C1 /* SimpleLineIcons.ttf in Resources */,
 				BD05B8CAA5274605BD3B5F37 /* Zocial.ttf in Resources */,
+				D94D18D125464CEBB101D3D9 /* Pacifico.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

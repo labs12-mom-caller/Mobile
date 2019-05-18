@@ -1,17 +1,17 @@
 /* eslint-disable no-inner-declarations */
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
+
+import Icon from "react-native-vector-icons/FontAwesome";
+
 import moment from "moment";
 import {
-  Container,
-  Header,
   Content,
   List,
   ListItem,
   Text,
   Left,
-  Right,
-  Icon
+  Right
 } from "native-base";
 
 import { db } from "../../constants/ApiKeys";
@@ -62,29 +62,9 @@ const ScheduledContacts = ({ user }) => {
 
   return (
     <View style={styles.Wrapper}>
-      {/* <View>
-        <Text>Name</Text>
-        <Text style={{ marginTop: "10%" }}>Upcoming Call</Text>
-      </View> */}
       {contacts &&
         contacts.map(c => {
           return (
-            // <View>
-            //   <View style={styles.Contact}>
-            //     <Text>{c.user2.displayName}</Text>
-            //     <Text>
-            //       {moment(c.next_call, "X")
-            //         // .tz(c.time_zone)
-            //         .format(`MMMM Do`)}
-            //     </Text>
-            //     <Text style={{ marginLeft: "5%" }}>
-            //       {moment(c.next_call, "X")
-            //         // .tz(c.time_zone)
-            //         .format(`h:mm A`)}
-            //     </Text>
-            //     <View />
-            //   </View>
-            // </View>
             <Content>
               <List style={{ flexDirection: "column" }}>
                 <ListItem selected>
@@ -92,7 +72,7 @@ const ScheduledContacts = ({ user }) => {
                     <Text onPress={this.goContacts}>{c.user2.displayName}</Text>
                   </Left>
                   <Right>
-                    <Icon name="arrow-forward" />
+                    <Icon name="info" />
                   </Right>
                 </ListItem>
               </List>

@@ -116,12 +116,12 @@ export default class App extends React.Component {
     return (
       <Router>
         <Scene key="root">
-          <Scene key="auth" hideNavBar={true}>
+          <Scene key="auth" hideNavBar={true} >
             <Scene key="login" component={LoginScreen} />
-            <Scene key="signup" hideNavBar={true} component={SignupScreen} />
+            <Scene key="signup" component={SignupScreen} />
           </Scene>
 
-          <Scene key="main">
+          <Scene key="main" hideNavBar={true} >
             <Scene key="dashboard" initial={true} component={Dashboard} />
           </Scene>
         </Scene>

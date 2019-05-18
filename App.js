@@ -110,7 +110,7 @@ export default class App extends React.Component {
   };
 
   render() {
-    if (this.state.isAuthenticated) {
+    if (this.state.user) {
       this.retrieveData();
     }
     return (

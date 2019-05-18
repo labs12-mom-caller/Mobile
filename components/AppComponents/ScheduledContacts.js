@@ -65,7 +65,7 @@ const ScheduledContacts = ({ user }) => {
       {contacts &&
         contacts.map(c => {
           return (
-            <Content>
+            <Content key={c.user2.uid}>
               <List style={{ flexDirection: "column" }}>
                 <ListItem selected>
                   <Left>

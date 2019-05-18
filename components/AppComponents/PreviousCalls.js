@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     width: "100%",
-    marginLeft: 25,
+    marginLeft: 25
   },
   placeholder: {
     borderColor: "black",

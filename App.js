@@ -14,6 +14,7 @@ import * as firebase from "firebase";
 import Dashboard from "./screens/Dashboard";
 import LoginScreen from "./screens/auth/LoginScreen";
 import SignupScreen from "./screens/auth/SignupScreen";
+import UpdateAccount from './screens/UpdateAccount'
 
 console.disableYellowBox = true;
 export default class App extends React.Component {
@@ -25,7 +26,7 @@ export default class App extends React.Component {
       isAuthenticated: false,
       displayName: ""
     };
-    console.log(this.state.user, "from constructor");
+    // console.log(this.state.user, "from constructor");
     // Initialize firebase...
     if (!firebase.apps.length) {
       firebase.initializeApp(ApiKeys.FirebaseConfig);
@@ -84,7 +85,7 @@ export default class App extends React.Component {
               );
               console.log(uid, "Document added");
             } else {
-              console.log("Document data: From App.js", doc.data());
+              // console.log("Document data: From App.js", doc.data());
             }
           })
           .catch(err => {
@@ -110,7 +111,7 @@ export default class App extends React.Component {
   };
 
   render() {
-    if (this.state.user) {
+    if (this.state.isAuthenticated) {
       this.retrieveData();
     }
     return (
@@ -123,6 +124,7 @@ export default class App extends React.Component {
 
           <Scene key="main" hideNavBar={true} >
             <Scene key="dashboard" initial={true} component={Dashboard} />
+            <Scene key="update"  component={UpdateAccount} />
           </Scene>
         </Scene>
       </Router>

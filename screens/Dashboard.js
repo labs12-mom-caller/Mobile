@@ -14,11 +14,10 @@ import { GoogleSignin } from "react-native-google-signin";
 import { db } from "../constants/ApiKeys";
 import * as firebase from "firebase";
 import RNExitApp from "react-native-exit-app";
-
+import { Actions } from "react-native-router-flux";
 import { EmailUserModal, GoogleUserModal } from "./../components/AppComponents";
 import ScheduledContacts from "../components/AppComponents/ScheduledContacts";
 import PreviousCalls from "../components/AppComponents/PreviousCalls";
-import { Actions } from "react-native-router-flux";
 
 console.disableYellowBox = true;
 
@@ -105,6 +104,22 @@ export default class Dashboard extends React.Component {
     }
   };
 
+  updateAcc = () => {
+    Actions.update({ user: this.state.user });
+  };
+
+  formatForDisplay = num => {
+    let clean = ("" + num).replace(/\D/g, "");
+    let match = clean.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      let international = match[1] ? "+1" : "";
+      return [international, "(", match[2], ") ", match[3], "-", match[4]]
+        .join("")
+        .replace("+1", "");
+    }
+    return null;
+  };
+
   render() {
     const buttons = ["Add Call", "Billing"];
     const { selectedIndex } = this.state;
@@ -131,15 +146,20 @@ export default class Dashboard extends React.Component {
               // showEditButton
               size="xlarge"
               rounded
-              onPress={() => console.log("Works!")}
+              onPress={this.updateAcc}
               activeOpacity={0.7}
             />
             <ProfileInfo>
-              <ProfileText style={{ marginBottom: 20, color: "blue" }}>
+              <ProfileText
+                onPress={this.updateAcc}
+                style={{ marginBottom: 20, color: "blue" }}
+              >
                 Update Profile
               </ProfileText>
               <ProfileText>{this.state.user.displayName}</ProfileText>
-              <ProfileText>{this.state.user.phoneNumber}</ProfileText>
+              <ProfileText>
+                {this.formatForDisplay(this.state.user.phoneNumber)}
+              </ProfileText>
               <ProfileText>{this.state.user.email}</ProfileText>
             </ProfileInfo>
           </Card>

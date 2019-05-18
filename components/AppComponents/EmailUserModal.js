@@ -169,6 +169,7 @@ export default class EmailUserModal extends Component {
           .then(function() {
             // Update successful.
             console.log("success");
+            Actions.main();
           })
           .catch(function(error) {
             console.log("failed");

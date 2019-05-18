@@ -45,6 +45,8 @@ export default class LoginScreen extends React.Component {
       const currentUser = await firebase
         .auth()
         .signInWithCredential(credential);
+      this.storeData();
+      Actions.main();
     } catch (e) {
       Alert.alert("Canceled Login");
     }
@@ -63,6 +65,7 @@ export default class LoginScreen extends React.Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
+        this.storeData();
         Actions.main();
       })
       .catch(error => {

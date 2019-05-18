@@ -2,28 +2,15 @@ import React, { useState } from "react";
 import { Button, Icon, Text, Input, Item } from "native-base";
 import { SocialIcon } from "react-native-elements";
 
-import { StyleSheet, View, Alert, YellowBox } from "react-native";
+import { StyleSheet, View, Alert, YellowBox, AsyncStorage } from "react-native";
 import { GoogleSignin } from "react-native-google-signin";
 import Dashboard from "../Dashboard";
 import * as firebase from "firebase";
+import { Actions } from "react-native-router-flux";
 
 console.disableYellowBox = true;
 
 export default class LoginScreen extends React.Component {
-  static navigationOptions = {
-    title: "Welcome To ReCaller",
-    headerTitleStyle: {
-      fontWeight: "500",
-      fontSize: 18,
-      alignSelf: "center",
-      color: "white",
-      textAlign: "center",
-      flex: 1
-    },
-    headerStyle: {
-      backgroundColor: "grey"
-    }
-  };
   constructor(props) {
     super(props);
     console.ignoredYellowBox = ["Setting a timer"];
@@ -61,18 +48,28 @@ export default class LoginScreen extends React.Component {
     }
   };
 
+  storeData = async () => {
+    try {
+      await AsyncStorage.setItem("token");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   onLoginPress = async () => {
     firebase
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => {})
+      .then(() => {
+        Actions.main();
+      })
       .catch(error => {
         Alert.alert(error.message);
       });
   };
 
   onCreateAccountPress = () => {
-    this.props.navigation.navigate("Signup");
+    Actions.signup();
   };
 
   render() {
@@ -86,7 +83,6 @@ export default class LoginScreen extends React.Component {
           style={{
             fontSize: 35,
             fontWeight: "bold",
-            marginTop: "5%",
             color: "black",
             fontFamily: "pacifico"
           }}

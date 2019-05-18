@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  YellowBox
+  AsyncStorage
 } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import {
@@ -22,11 +22,13 @@ import {
 import { GoogleSignin } from "react-native-google-signin";
 import { db } from "../constants/ApiKeys";
 import * as firebase from "firebase";
+import RNExitApp from "react-native-exit-app";
 
 import { EmailUserModal, GoogleUserModal } from "./../components/AppComponents";
 import LoginScreen from "./auth/LoginScreen";
 import ScheduledContacts from "../components/AppComponents/ScheduledContacts";
 import PreviousCalls from "../components/AppComponents/PreviousCalls";
+import { Actions } from "react-native-router-flux";
 
 console.disableYellowBox = true;
 
@@ -47,6 +49,15 @@ export default class Dashboard extends React.Component {
   componentDidMount() {
     this.getUser();
   }
+
+  removeData = async () => {
+    try {
+      const value = await AsyncStorage.removeItem("token");
+      RNExitApp.exitApp();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   getUser = () => {
     var user = firebase.auth().currentUser;
@@ -71,13 +82,15 @@ export default class Dashboard extends React.Component {
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
-      this.setState({ user: null }); // Remember to remove the user from your app's state as well
+      // this.setState({ user: null }); // Remember to remove the user from your app's state as well
+      this.removeData();
     } catch (error) {
       console.error(error);
     }
   };
 
   _signOut = async () => {
+    this.removeData();
     try {
       firebase
         .auth()
@@ -89,7 +102,7 @@ export default class Dashboard extends React.Component {
       // await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
 
-      this.setState({ user: null, error: null });
+      // this.setState({ user: null, error: null });
     } catch (error) {
       this.setState({
         error
@@ -98,12 +111,13 @@ export default class Dashboard extends React.Component {
   };
 
   render() {
-    if (this.props.user === null) {
-      return;
+    if (this.state.user === null) {
+      return <Text>Loading...</Text>;
     }
-    return this.state.user === null ? (
-      <LoginScreen />
-    ) : (
+    // return this.state.user === null ? (
+    //   <LoginScreen />
+    // ) : (
+    return (
       <ScrollView style={{ paddingTop: 20 }}>
         <Card>
           <View style={styles.user}>
@@ -123,9 +137,7 @@ export default class Dashboard extends React.Component {
             </Button>
           </View>
         </Card>
-        <Button style={styles.userButton} rounded dark onPress={this._signOut}>
-          <Text>Signout</Text>
-        </Button>
+        <Text onPress={this._signOut}>Signout/Exit</Text>
 
         <List>
           <ListItem itemHeader first style={styles.yourContact}>

@@ -2,22 +2,11 @@ import React from "react";
 import { StyleSheet, View, Alert, ScrollView } from "react-native";
 import { Button, Icon, Text, Input, Item } from "native-base";
 import * as firebase from "firebase";
+import { Actions } from "react-native-router-flux";
 
 console.disableYellowBox = true;
 
 export default class SignupScreen extends React.Component {
-  static navigationOptions = {
-    title: "Go back to login",
-    headerTitleStyle: {
-      fontWeight: "400",
-      fontSize: 16,
-      color: "white",
-      flex: 1
-    },
-    headerStyle: {
-      backgroundColor: "grey"
-    }
-  };
   constructor(props) {
     super(props);
     console.ignoredYellowBox = ["Setting a timer"];
@@ -37,14 +26,16 @@ export default class SignupScreen extends React.Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => {})
+      .then(() => {
+        Actions.main({ type: "reset" });
+      })
       .catch(error => {
         Alert.alert(error.message);
       });
   };
 
   onBackToLoginPress = () => {
-    this.props.navigation.navigate("Login");
+    Actions.pop();
   };
 
   onCreateAccountPress = () => {

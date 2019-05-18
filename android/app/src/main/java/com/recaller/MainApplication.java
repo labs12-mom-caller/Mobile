@@ -4,6 +4,7 @@ import android.app.Application;
 
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.react.ReactApplication;
+import com.github.wumke.RNExitApp.RNExitAppPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.react.ReactNativeHost;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNExitAppPackage(),
             new ImagePickerPackage(),
             new RNFetchBlobPackage(),
             new VectorIconsPackage(),

@@ -1,7 +1,18 @@
 /* eslint-disable no-inner-declarations */
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import moment from "moment";
+import {
+  Container,
+  Header,
+  Content,
+  List,
+  ListItem,
+  Text,
+  Left,
+  Right,
+  Icon
+} from "native-base";
 
 import { db } from "../../constants/ApiKeys";
 
@@ -43,35 +54,49 @@ const ScheduledContacts = ({ user }) => {
     fetchData();
   }, [uid]);
 
+  const goContacts = () => {
+    this.props.navigation.navigate("Contact");
+  };
+
   //   console.log(contacts[1], "from user 2")
 
   return (
     <View style={styles.Wrapper}>
-      <View>
+      {/* <View>
         <Text>Name</Text>
-        <Text style={{marginTop: "10%"}}>Upcoming Call</Text>
-      </View>
+        <Text style={{ marginTop: "10%" }}>Upcoming Call</Text>
+      </View> */}
       {contacts &&
         contacts.map(c => {
           return (
-            <View>
-              {/* <CallLink to={`/contact/${c.id}`} key={c.id}> */}
-              <View style={styles.Contact}>
-                <Text>{c.user2.displayName}</Text>
-                <Text>
-                  {moment(c.next_call, "X")
-                    // .tz(c.time_zone)
-                    .format(`MMMM Do`)}
-                </Text>
-                <Text style={{ marginLeft: "5%" }}>
-                  {moment(c.next_call, "X")
-                    // .tz(c.time_zone)
-                    .format(`h:mm A`)}
-                </Text>
-                <View />
-              </View>
-              {/* </CallLink> */}
-            </View>
+            // <View>
+            //   <View style={styles.Contact}>
+            //     <Text>{c.user2.displayName}</Text>
+            //     <Text>
+            //       {moment(c.next_call, "X")
+            //         // .tz(c.time_zone)
+            //         .format(`MMMM Do`)}
+            //     </Text>
+            //     <Text style={{ marginLeft: "5%" }}>
+            //       {moment(c.next_call, "X")
+            //         // .tz(c.time_zone)
+            //         .format(`h:mm A`)}
+            //     </Text>
+            //     <View />
+            //   </View>
+            // </View>
+            <Content>
+              <List style={{ flexDirection: "column" }}>
+                <ListItem selected>
+                  <Left>
+                    <Text onPress={this.goContacts}>{c.user2.displayName}</Text>
+                  </Left>
+                  <Right>
+                    <Icon name="arrow-forward" />
+                  </Right>
+                </ListItem>
+              </List>
+            </Content>
           );
         })}
     </View>
@@ -82,9 +107,17 @@ export default ScheduledContacts;
 
 const styles = StyleSheet.create({
   Wrapper: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    flex: 1,
+    flexDirection: "column"
+    // justifyContent: "space-around",
+    // flex: 1,
+    // borderWidth: 1,
+    // borderColor: "#cecece",
+    // alignItems: "center",
+    // width: "100%",
+    // color: "#7d7d7d",
+    // backgroundColor: "#cecece",
+    // height: "40%",
+    // padding: 5
   },
   Contact: {
     flex: 1,

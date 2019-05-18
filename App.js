@@ -4,14 +4,16 @@ import {
   StatusBar,
   StyleSheet,
   View,
-  YellowBox
+  AsyncStorage
 } from "react-native";
+import { Router, Scene, Actions } from "react-native-router-flux";
 
-import AppNavigator from "./navigation/AppNavigator";
-import MainTabNavigator from "./navigation/MainTabNavigator";
 import { db } from "./constants/ApiKeys";
 
 import * as firebase from "firebase";
+import Dashboard from "./screens/Dashboard";
+import LoginScreen from "./screens/auth/LoginScreen";
+import SignupScreen from "./screens/auth/SignupScreen";
 
 console.disableYellowBox = true;
 export default class App extends React.Component {
@@ -95,12 +97,35 @@ export default class App extends React.Component {
     });
   };
 
+  retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("token");
+      if (!value) {
+        console.log(value);
+        Actions.main({ type: "replace" });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   render() {
+    if (this.state.isAuthenticated) {
+      this.retrieveData();
+    }
     return (
-      <View style={styles.container}>
-        {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-        {this.state.isAuthenticated ? <MainTabNavigator /> : <AppNavigator />}
-      </View>
+      <Router>
+        <Scene key="root">
+          <Scene key="auth" hideNavBar={true}>
+            <Scene key="login" component={LoginScreen} />
+            <Scene key="signup" hideNavBar={true} component={SignupScreen} />
+          </Scene>
+
+          <Scene key="main">
+            <Scene key="dashboard" initial={true} component={Dashboard} />
+          </Scene>
+        </Scene>
+      </Router>
     );
   }
 }

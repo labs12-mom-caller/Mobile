@@ -131,7 +131,7 @@ export default class EmailUserModal extends Component {
       return;
     } else {
       const theNumber = number;
-      Alert.alert("good number");
+      // Alert.alert("good number");
       console.log(theNumber);
       this.setState({ correctPhone: String(theNumber) });
       return theNumber;
@@ -152,10 +152,28 @@ export default class EmailUserModal extends Component {
       );
       console.log(formattedPhone);
       this.numCheck(formattedPhone);
-      // if (this.state.phoneNumber == null) {
-      //   return;
-      // }
+
       if (this.state.correctPhone != null) {
+        // await db
+        //   .doc(`users/${user.uid}`)
+        //   .set(
+        //     {
+        //       displayName: this.state.displayName,
+        //       phoneNumber: this.state.correctPhone,
+        //       photoUrl: this.state.image
+        //     },
+        //     { merge: true }
+        //   )
+        //   .then(function() {
+        //     // Update successful.
+        //     console.log("success");
+        //     Actions.main();
+        //   })
+        //   .catch(function(error) {
+        //     console.log("failed");
+        //     // An error happened.
+        //   });
+
         await db
           .doc(`users/${user.uid}`)
           .set(
@@ -166,15 +184,10 @@ export default class EmailUserModal extends Component {
             },
             { merge: true }
           )
-          .then(function() {
-            // Update successful.
-            console.log("success");
+          .then(user => {
             Actions.main();
-          })
-          .catch(function(error) {
-            console.log("failed");
-            // An error happened.
           });
+
         this.setState({ modalVisible: !this.state.modalVisible });
       }
     } else {

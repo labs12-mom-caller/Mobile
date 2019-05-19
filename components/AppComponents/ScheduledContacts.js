@@ -5,20 +5,13 @@ import { View, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 import moment from "moment";
-import {
-  Content,
-  List,
-  ListItem,
-  Text,
-  Left,
-  Right
-} from "native-base";
+import { Content, List, ListItem, Text, Left, Right } from "native-base";
 
 import { db } from "../../constants/ApiKeys";
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
-//   console.log(contacts);
+  //   console.log(contacts);
   const { uid } = user;
   React.useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +51,7 @@ const ScheduledContacts = ({ user }) => {
     this.props.navigation.navigate("Contact");
   };
 
-  //   console.log(contacts[1], "from user 2")
+  console.log(contacts, "from contcts");
 
   return (
     <View style={styles.Wrapper}>
@@ -69,7 +62,19 @@ const ScheduledContacts = ({ user }) => {
               <List style={{ flexDirection: "column" }}>
                 <ListItem selected>
                   <Left>
-                    <Text onPress={this.goContacts}>{c.user2.displayName}</Text>
+                    <Text onPress={this.goContacts}>
+                      Name: {c.user2.displayName}
+                      {" "}
+                    </Text>
+                    <Text>
+                      Date: {moment(c.next_call, "X").format(`MMMM Do`)}
+                      {" "}
+                    </Text>
+                    <Text>
+                      Time:
+                      {moment(c.next_call, "X").format(`h:mm A`)}
+                      {" "}
+                    </Text>
                   </Left>
                   <Right>
                     <Icon name="info" />

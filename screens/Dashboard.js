@@ -182,7 +182,7 @@ export default class Dashboard extends React.Component {
             <Lists>
               <Header>Your Contacts</Header>
             </Lists>
-            <ScheduledContacts user={this.state.user.uid} />
+            <ScheduledContacts user={this.state.user} />
           </List>
 
           <List style={{ marginBottom: 35 }}>

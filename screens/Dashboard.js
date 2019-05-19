@@ -135,7 +135,7 @@ export default class Dashboard extends React.Component {
           centerComponent={{ text: "MY TITLE", style: { color: "#fff" } }}
           rightComponent={{ icon: "home", color: "#fff" }}
         />
-        <SignOut onPress={this._signOut}>Signout/Exit</SignOut>
+        <SignOut onPress={this._signOut}>Signout</SignOut>
         <Container>
           <Card>
             <Avatar

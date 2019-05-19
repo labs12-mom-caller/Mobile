@@ -4,7 +4,8 @@ import {
   StatusBar,
   StyleSheet,
   View,
-  AsyncStorage
+  AsyncStorage,
+  Text
 } from "react-native";
 import { Router, Scene, Actions } from "react-native-router-flux";
 
@@ -14,7 +15,8 @@ import * as firebase from "firebase";
 import Dashboard from "./screens/Dashboard";
 import LoginScreen from "./screens/auth/LoginScreen";
 import SignupScreen from "./screens/auth/SignupScreen";
-import UpdateAccount from './screens/UpdateAccount'
+import UpdateAccount from "./screens/UpdateAccount";
+import Billing from "./screens/Billing";
 
 console.disableYellowBox = true;
 export default class App extends React.Component {
@@ -101,8 +103,10 @@ export default class App extends React.Component {
   retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("token");
-      if (!value) {
-        console.log(value);
+      if(value === null) {
+        return <Text>Loading...</Text>
+      }
+      if (value != null) {
         Actions.main({ type: "replace" });
       }
     } catch (err) {
@@ -113,18 +117,20 @@ export default class App extends React.Component {
   render() {
     if (this.state.isAuthenticated) {
       this.retrieveData();
+      // Actions.main();
     }
     return (
       <Router>
         <Scene key="root">
-          <Scene key="auth" hideNavBar={true} >
+          <Scene key="auth" hideNavBar={true}>
             <Scene key="login" component={LoginScreen} />
             <Scene key="signup" component={SignupScreen} />
           </Scene>
 
-          <Scene key="main" hideNavBar={true} >
+          <Scene key="main" hideNavBar={true}>
             <Scene key="dashboard" initial={true} component={Dashboard} />
-            <Scene key="update"  component={UpdateAccount} />
+            <Scene key="update" component={UpdateAccount} />
+            <Scene key="billing" component={Billing} />
           </Scene>
         </Scene>
       </Router>

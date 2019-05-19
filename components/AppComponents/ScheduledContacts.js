@@ -1,12 +1,11 @@
 /* eslint-disable no-inner-declarations */
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-
+import { Content, List, ListItem, Text, Left, Right } from "native-base";
+import { Avatar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 import moment from "moment";
-import { Content, List, ListItem, Text, Left, Right } from "native-base";
-
 import { db } from "../../constants/ApiKeys";
 
 const ScheduledContacts = ({ user }) => {
@@ -28,7 +27,7 @@ const ScheduledContacts = ({ user }) => {
             const contact = {
               user2: {
                 ...user2Snap.data(),
-                id: user2Snap.id
+                id: user2Snap.id,
               },
               call_frequency: doc.data().call_frequency,
               next_call: doc.data().next_call,
@@ -51,33 +50,54 @@ const ScheduledContacts = ({ user }) => {
     this.props.navigation.navigate("Contact");
   };
 
-  console.log(contacts, "from contcts");
+  console.log(contacts, "from contacts");
 
   return (
     <View style={styles.Wrapper}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          marginRight: "10%"
+        }}
+      >
+        <Text>Name</Text>
+        <Text>Date</Text>
+        <Text>Time</Text>
+      </View>
       {contacts &&
         contacts.map(c => {
           return (
             <Content key={c.user2.uid}>
-              <List style={{ flexDirection: "column" }}>
+              <List
+                style={{
+                  flexDirection: "column"
+                }}
+              >
                 <ListItem selected>
                   <Left>
-                    <Text onPress={this.goContacts}>
-                      Name: {c.user2.displayName}
-                      {" "}
-                    </Text>
-                    <Text>
-                      Date: {moment(c.next_call, "X").format(`MMMM Do`)}
-                      {" "}
-                    </Text>
-                    <Text>
-                      Time:
-                      {moment(c.next_call, "X").format(`h:mm A`)}
-                      {" "}
+                    <Avatar
+                      rounded
+                      source={{
+                        uri: c.user2.photoUrl
+                      }}
+                    />
+                    <Text style={{ marginLeft: 10 }} onPress={this.goContacts}>
+                      {c.user2.displayName}
                     </Text>
                   </Left>
                   <Right>
-                    <Icon name="info" />
+                    <View
+                      style={{
+                        justifyContent: "space-evenly",
+                        flexDirection: "row",
+                        width: 250
+                      }}
+                    >
+                      <Text>{moment(c.next_call, "X").format(`MMMM Do`)}</Text>
+                      <Text>{moment(c.next_call, "X").format(`h:mm A`)} </Text>
+                      <Icon style={{ marginLeft: 20 }} name="info" />
+                    </View>
                   </Right>
                 </ListItem>
               </List>

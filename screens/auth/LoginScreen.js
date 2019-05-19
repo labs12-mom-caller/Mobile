@@ -130,20 +130,23 @@ export default class LoginScreen extends React.Component {
             secureTextEntry={true}
           />
           <View style={{ paddingTop: 40 }} />
-          <View>
+          <View style={{ width: "50%", alignSelf: "center" }}>
             <Button
               title="Login"
+              type="outline"
               onPress={this.onLoginPress}
-              containerStyle={{ alignSelf: "center", width: "45%" }}
-              buttonStyle={{ backgroundColor: "green" }}
-            />
+              buttonStyle={{ borderColor: "black" }}
+              titleStyle={{ color: "black" }}
+              />
 
             <View style={{ paddingTop: 20 }} />
 
             <Button
               title="Create an account"
+              type="outline"
               onPress={this.onCreateAccountPress}
-              containerStyle={{ alignSelf: "center", width: "45%" }}
+              buttonStyle={{ borderColor: "black" }}
+              titleStyle={{ color: "black" }}
             />
 
             <Text style={{ marginTop: 15, alignSelf: "center" }}>

@@ -109,6 +109,10 @@ export default class Dashboard extends React.Component {
     Actions.billing({ user: this.state.user });
   };
 
+  ScheduleFreeCall = () => {
+    Actions.schedulefreecall({ user: this.state.user });
+  };
+
   formatForDisplay = num => {
     let clean = ("" + num).replace(/\D/g, "");
     let match = clean.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
@@ -166,6 +170,7 @@ export default class Dashboard extends React.Component {
         <View style={{ alignSelf: "center", flexDirection: "row" }}>
           <Button
             title="Add Call"
+            onPress={this.ScheduleFreeCall}
             type="outline"
             buttonStyle={{
               backgroundColor: "white",

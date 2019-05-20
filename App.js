@@ -17,7 +17,7 @@ import LoginScreen from "./screens/auth/LoginScreen";
 import SignupScreen from "./screens/auth/SignupScreen";
 import UpdateAccount from "./screens/UpdateAccount";
 import Billing from "./screens/Billing";
-import ChooseCallPlan from "./screens/ChooseCallPlan";
+import ScheduleFreeCall from "./screens/ScheduleFreeCall";
 
 console.disableYellowBox = true;
 export default class App extends React.Component {
@@ -132,7 +132,7 @@ export default class App extends React.Component {
             <Scene key="dashboard" initial={true} component={Dashboard} />
             <Scene key="update" component={UpdateAccount} />
             <Scene key="billing" component={Billing} />
-            <Scene key="addcall" component={ChooseCallPlan} />
+            <Scene key="schedulefreecall" component={ScheduleFreeCall} />
           </Scene>
         </Scene>
       </Router>

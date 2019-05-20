@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import moment from "moment";
+// import moment from "moment";
+import moment from "moment-timezone";
 import styled from "styled-components";
 import { View, Text } from "react-native";
 
 import { db } from "../constants/ApiKeys";
+import Time from "../components/AppComponents/Time";
 
 const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   // const initialState = {
@@ -120,6 +122,7 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
           Please select the block of hours that you have availability. A call
           will be randomly scheduled in one of the time blocks selected.
         </Text>
+        <Time />
       </View>
       {/* <form onSubmit={handleSubmit}>
         <View className="timezone-select">

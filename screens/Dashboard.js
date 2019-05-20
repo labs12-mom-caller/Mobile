@@ -41,7 +41,8 @@ export default class Dashboard extends React.Component {
     try {
       const value = await AsyncStorage.removeItem("token");
       // RNExitApp.exitApp();
-      Actions.login({ type: "replace", reset });
+      Actions.login({ type: "reset" });
+      // Actions.pop('login')
     } catch (err) {
       console.log(err);
     }

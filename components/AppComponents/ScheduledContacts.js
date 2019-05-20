@@ -64,6 +64,7 @@ const ScheduledContacts = ({ user }) => {
         <Text>Name</Text>
         <Text>Date</Text>
         <Text>Time</Text>
+        {/* <Text>{moment(1558332000).format()}</Text> */}
       </View>
       {contacts &&
         contacts.map(c => {

@@ -170,7 +170,7 @@ export default class LoginScreen extends React.Component {
                   borderColor: "black",
                   borderWidth: 1.5,
                   backgroundColor: "rgba(0, 0, 0, 0.6)",
-                  borderRadius: 10,
+                  // borderRadius: 10,
                   padding: 5,
                   height: 40
                 }}
@@ -189,7 +189,7 @@ export default class LoginScreen extends React.Component {
                   borderWidth: 1.5,
                   backgroundColor: "white",
                   backgroundColor: "rgba(0, 0, 0, 0.6)",
-                  borderRadius: 10,
+                  // borderRadius: 10,
                   padding: 5,
                   height: 40
                 }}
@@ -214,9 +214,10 @@ export default class LoginScreen extends React.Component {
               buttonStyle={{
                 backgroundColor: "red",
                 padding: 20,
-                borderRadius: 5,
+                borderRadius: 25,
                 height: 40
               }}
+              titleStyle={{ fontSize: 14 }}
             />
           </View>
         </View>

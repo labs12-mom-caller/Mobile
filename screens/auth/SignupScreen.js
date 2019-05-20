@@ -181,7 +181,7 @@ export default class SignupScreen extends React.Component {
                   borderWidth: 1.5,
                   backgroundColor: "white",
                   backgroundColor: "rgba(0, 0, 0, 0.6)",
-                  borderRadius: 10,
+                  // borderRadius: 10,
                   padding: 5,
                   height: 40
                 }}
@@ -199,7 +199,7 @@ export default class SignupScreen extends React.Component {
                   borderWidth: 1.5,
                   backgroundColor: "white",
                   backgroundColor: "rgba(0, 0, 0, 0.6)",
-                  borderRadius: 10,
+                  // borderRadius: 10,
                   padding: 5,
                   height: 40
                 }}

@@ -130,42 +130,44 @@ const UpdateAccount = props => {
     });
   };
 
-  numCheck = number => {
+  numCheck = async number => {
     if (Array.from(number).length != 12) {
       Alert.alert("enter valid number");
       return;
     } else {
-      const theNumber = number;
+      let theNumber = await number;
       Alert.alert("good number");
       console.log(theNumber, "from check");
-      setCorrectPhone(String(theNumber));
-    //   return theNumber;
+      await setCorrectPhone(...String(theNumber));
+      return theNumber;
     }
   };
 
   const update = async () => {
-    const formattedPhone = await String("+1").concat(
+    let formattedPhone = await String("+1").concat(
       String(phoneNumber).replace(/[^\d]/g, "")
     );
 
     numCheck(formattedPhone);
+    console.log(correctPhone);
 
-    console.log(correctPhone, "from update");
+    // console.log(correctPhone, "from update");
+    // console.log(theNumber, "from update");
 
     // if (correctPhone != null) {
-      await db
-        .doc(`users/${props.user.uid}`)
-        .set(
-          {
-            displayName,
-            phoneNumber: correctPhone,
-            email
-          },
-          { merge: true }
-        )
-        .then(user => {
-          Actions.main();
-        });
+    await db
+      .doc(`users/${props.user.uid}`)
+      .set(
+        {
+          displayName,
+          phoneNumber: correctPhone,
+          email
+        },
+        { merge: true }
+      )
+      .then(user => {
+        Actions.main();
+      });
     // }
   };
 

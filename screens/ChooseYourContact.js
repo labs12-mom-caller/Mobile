@@ -24,7 +24,34 @@ export default class ChooseYourContact extends React.Component {
     };
   }
 
-  gotoChoosePlan = () => {
+  gotoChoosePlan = async () => {
+    const formattedPhone = await String("+1").concat(
+      String(this.state.phoneNumber).replace(/[^\d]/g, "")
+    );
+    this.setState({ phoneNumber: formattedPhone });
+
+    setTimeout(async () => {
+      const userRef = await db
+        .collection("users")
+        .where("email", "==", this.state.email)
+        .get();
+      if (userRef.empty) {
+        db.collection(`users`)
+          .add(this.state)
+          .then(ref => {
+            Alert.alert("Success");
+            Actions.choosecallplan({ userId: this.props.user.uid, contactId: ref.id });
+            // navigate(`/choose/${userId}/${ref.id}/call-plan`);
+          });
+      } else {
+        Alert.alert("Failed");
+        Actions.choosecallplan({
+          user: this.props.user.uid,
+          userRef: userRef.docs[0].id
+        });
+        // navigate(`/choose/${userId}/${userRef.docs[0].id}/call-plan`);
+      }
+    }, 1000);
     // Actions.choosecontact({ user: this.props.user });
   };
 

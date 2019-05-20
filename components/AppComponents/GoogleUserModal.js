@@ -34,7 +34,7 @@ export default class GoogleUserModal extends Component {
       return;
     } else {
       const theNumber = number;
-      Alert.alert("good number");
+      // Alert.alert("good number");
       console.log(theNumber);
       this.setState({ correctPhone: String(theNumber) });
       return theNumber;

@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import { Button, Icon, Text, Input, Item } from "native-base";
-import { SocialIcon } from "react-native-elements";
+import {
+  StyleSheet,
+  View,
+  Alert,
+  AsyncStorage,
+  ImageBackground
+} from "react-native";
+import { Text, Item } from "native-base";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { SocialIcon, Button, Input, Image, Tile } from "react-native-elements";
 
-import { StyleSheet, View, Alert, YellowBox, AsyncStorage } from "react-native";
 import { GoogleSignin } from "react-native-google-signin";
 import Dashboard from "../Dashboard";
 import * as firebase from "firebase";
 import { Actions } from "react-native-router-flux";
+import styled from "styled-components";
 
 console.disableYellowBox = true;
 
@@ -43,6 +51,8 @@ export default class LoginScreen extends React.Component {
       const currentUser = await firebase
         .auth()
         .signInWithCredential(credential);
+      this.storeData();
+      Actions.main();
     } catch (e) {
       Alert.alert("Canceled Login");
     }
@@ -61,6 +71,7 @@ export default class LoginScreen extends React.Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
+        this.storeData();
         Actions.main();
       })
       .catch(error => {
@@ -78,98 +89,131 @@ export default class LoginScreen extends React.Component {
     }
 
     return (
-      <View style={styles.Wrapper}>
+      <ImageBackground
+        source={require("../../assets/landing.jpg")}
+        style={styles.Wrapper}
+        imageStyle={{
+          resizeMode: "cover"
+        }}
+      >
         <Text
           style={{
-            fontSize: 35,
-            fontWeight: "bold",
+            fontSize: 60,
             color: "black",
-            fontFamily: "pacifico"
+            fontFamily: "Pacifico"
           }}
         >
           ReCaller
         </Text>
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "bold",
-            color: "black",
-            marginBottom: "10%",
-            marginTop: "5%",
-            textDecorationLine: "underline"
-          }}
-        >
-          Login
-        </Text>
+        <Header>Login if you have a account</Header>
 
         <View style={{ width: "75%" }}>
-          <Item regular style={{ borderColor: "black" }}>
-            <Icon active name="mail" />
-            <Input
-              style={{ borderLeftWidth: 0.5 }}
-              placeholder="Rounded Textbox"
-              value={this.state.email}
-              onChangeText={text => {
-                this.setState({ email: text });
-              }}
-              placeholder="Email"
-              leftIcon={{ type: "font-awesome", name: "envelope" }}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-          </Item>
+          <Input
+            placeholder="Email"
+            leftIcon={
+              <Icon
+                name="envelope"
+                size={18}
+                color="black"
+                style={{ marginRight: 10 }}
+              />
+            }
+            value={this.state.email}
+            onChangeText={text => {
+              this.setState({ email: text });
+            }}
+            inputStyle={{
+              color: "white",
+              backgroundColor: "rgba(0, 0, 0, 0.4)",
+              paddingLeft: 10
+            }}
+            placeholderTextColor="white"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
           <View style={{ paddingTop: 20 }} />
-          <Item regular style={{ borderColor: "black" }}>
-            <Icon type="FontAwesome" name="lock" />
-            <Input
-              style={{ borderLeftWidth: 0.5 }}
-              value={this.state.password}
-              onChangeText={text => {
-                this.setState({ password: text });
-              }}
-              placeholder="Password"
-              secureTextEntry={true}
-            />
-          </Item>
-
-          <View style={{ paddingTop: 20 }} />
-
-          <View>
+          <Input
+            leftIcon={
+              <Icon
+                name="lock"
+                size={24}
+                color="black"
+                style={{ marginRight: 10 }}
+              />
+            }
+            style={{ borderLeftWidth: 0.5 }}
+            value={this.state.password}
+            onChangeText={text => {
+              this.setState({ password: text });
+            }}
+            inputStyle={{
+              color: "white",
+              backgroundColor: "rgba(0, 0, 0, 0.4)",
+              paddingLeft: 10
+            }}
+            placeholderTextColor="white"
+            placeholder="Password"
+            secureTextEntry={true}
+          />
+          <View style={{ paddingTop: 40 }} />
+          <View style={{ width: "50%", alignSelf: "center" }}>
             <Button
-              style={{ alignSelf: "center" }}
-              dark
+              title="Login"
+              type="solid"
               onPress={this.onLoginPress}
-            >
-              <Text style={{ color: "white" }}>Login</Text>
-            </Button>
+              containerStyle={{ width: 150 }}
+              buttonStyle={{
+                borderColor: "black",
+                borderWidth: 1.5,
+                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                borderRadius: 10,
+                padding: 5
+              }}
+              titleStyle={{ color: "white" }}
+            />
 
             <View style={{ paddingTop: 20 }} />
 
             <Button
-              style={{ alignSelf: "center" }}
-              light
+              title="Create an account"
+              type="outline"
               onPress={this.onCreateAccountPress}
-            >
-              <Text style={{ color: "black" }}>SignUp</Text>
-            </Button>
+              containerStyle={{ width: 150 }}
+              buttonStyle={{
+                borderColor: "black",
+                borderWidth: 1.5,
+                backgroundColor: "white",
+                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                borderRadius: 10,
+                padding: 5
+              }}
+              titleStyle={{ color: "white" }}
+            />
 
-            <Text style={{ marginTop: 15, alignSelf: "center" }}>
-              Don't have an account?{" "}
-              <Icon style={{ fontSize: 20 }} name="arrow-round-up" />
+            <Icon
+              style={{ fontSize: 18, alignSelf: "center", marginTop: 5 }}
+              name="arrow-up"
+            />
+            <Text style={{ marginTop: 5, alignSelf: "center" }}>
+              Otherwise create one{" "}
             </Text>
           </View>
-
-          <View style={{ paddingTop: 50 }} />
-          <SocialIcon
+          <View style={{ paddingTop: 30 }} />
+          <Button
+            icon={<Icon name="google" size={15} color="white" />}
             title="Sign In With Google"
-            button
-            type="google"
             onPress={this._signIn}
-            style={{ backgroundColor: "red", width: 185, alignSelf: "center" }}
+            containerStyle={{ alignSelf: "center", width: "45%" }}
+            buttonStyle={{
+              backgroundColor: "red",
+              padding: 20,
+              borderRadius: 5,
+              height: 40
+            }}
           />
         </View>
-      </View>
+      </ImageBackground>
     );
   }
 }
@@ -177,8 +221,18 @@ export default class LoginScreen extends React.Component {
 const styles = StyleSheet.create({
   Wrapper: {
     backgroundColor: "#dbdbdb",
+    width: "100%",
     height: "100%",
-    paddingTop: 30,
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
+
+const Header = styled.Text`
+  font-size: 22;
+  font-family: Roboto;
+  color: black;
+  margin-bottom: 5%;
+  margin-top: 2%;
+  /* text-decoration-line: underline; */
+`;

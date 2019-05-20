@@ -1,24 +1,16 @@
 /* eslint-disable no-inner-declarations */
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import moment from "moment";
-import {
-  Container,
-  Header,
-  Content,
-  List,
-  ListItem,
-  Text,
-  Left,
-  Right,
-  Icon
-} from "native-base";
+import { Content, List, ListItem, Text, Left, Right } from "native-base";
+import { Avatar } from "react-native-elements";
+import Icon from "react-native-vector-icons/FontAwesome";
 
+import moment from "moment";
 import { db } from "../../constants/ApiKeys";
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
-//   console.log(contacts);
+  //   console.log(contacts);
   const { uid } = user;
   React.useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +27,7 @@ const ScheduledContacts = ({ user }) => {
             const contact = {
               user2: {
                 ...user2Snap.data(),
-                id: user2Snap.id
+                id: user2Snap.id,
               },
               call_frequency: doc.data().call_frequency,
               next_call: doc.data().next_call,
@@ -58,41 +50,54 @@ const ScheduledContacts = ({ user }) => {
     this.props.navigation.navigate("Contact");
   };
 
-  //   console.log(contacts[1], "from user 2")
+  console.log(contacts, "from contacts");
 
   return (
     <View style={styles.Wrapper}>
-      {/* <View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          marginRight: "10%"
+        }}
+      >
         <Text>Name</Text>
-        <Text style={{ marginTop: "10%" }}>Upcoming Call</Text>
-      </View> */}
+        <Text>Date</Text>
+        <Text>Time</Text>
+      </View>
       {contacts &&
         contacts.map(c => {
           return (
-            // <View>
-            //   <View style={styles.Contact}>
-            //     <Text>{c.user2.displayName}</Text>
-            //     <Text>
-            //       {moment(c.next_call, "X")
-            //         // .tz(c.time_zone)
-            //         .format(`MMMM Do`)}
-            //     </Text>
-            //     <Text style={{ marginLeft: "5%" }}>
-            //       {moment(c.next_call, "X")
-            //         // .tz(c.time_zone)
-            //         .format(`h:mm A`)}
-            //     </Text>
-            //     <View />
-            //   </View>
-            // </View>
-            <Content>
-              <List style={{ flexDirection: "column" }}>
+            <Content key={c.user2.uid}>
+              <List
+                style={{
+                  flexDirection: "column"
+                }}
+              >
                 <ListItem selected>
                   <Left>
-                    <Text onPress={this.goContacts}>{c.user2.displayName}</Text>
+                    <Avatar
+                      rounded
+                      source={{
+                        uri: c.user2.photoUrl
+                      }}
+                    />
+                    <Text style={{ marginLeft: 10 }} onPress={this.goContacts}>
+                      {c.user2.displayName}
+                    </Text>
                   </Left>
                   <Right>
-                    <Icon name="arrow-forward" />
+                    <View
+                      style={{
+                        justifyContent: "space-evenly",
+                        flexDirection: "row",
+                        width: 250
+                      }}
+                    >
+                      <Text>{moment(c.next_call, "X").format(`MMMM Do`)}</Text>
+                      <Text>{moment(c.next_call, "X").format(`h:mm A`)} </Text>
+                      <Icon style={{ marginLeft: 20 }} name="info" />
+                    </View>
                   </Right>
                 </ListItem>
               </List>

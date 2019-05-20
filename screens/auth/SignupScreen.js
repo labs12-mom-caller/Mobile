@@ -1,6 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Alert, ScrollView } from "react-native";
-import { Button, Icon, Text, Input, Item } from "native-base";
+import { Text, Item } from "native-base";
+
+import Icon from "react-native-vector-icons/FontAwesome";
+import { SocialIcon, Button, Input, Image, Tile } from "react-native-elements";
+
 import * as firebase from "firebase";
 import { Actions } from "react-native-router-flux";
 
@@ -26,9 +30,7 @@ export default class SignupScreen extends React.Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => {
-        Actions.main({ type: "reset" });
-      })
+      .then(() => {})
       .catch(error => {
         Alert.alert(error.message);
       });
@@ -74,77 +76,61 @@ export default class SignupScreen extends React.Component {
 
           <View style={{ width: "75%" }}>
             <View style={{ paddingTop: 20 }} />
-            <Item regular style={{ borderColor: "black" }}>
-              <Icon active name="mail" />
-              <Input
-                style={{
-                  width: 200,
-                  height: 40,
-                  borderLeftWidth: 0.5
-                }}
-                value={this.state.email}
-                onChangeText={text => {
-                  this.setState({ email: text });
-                }}
-                placeholder="Email"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                autoCorrect={false}
-              />
-            </Item>
-            <View style={{ paddingTop: 20 }} />
-            <Item regular style={{ borderColor: "black" }}>
-              <Icon type="FontAwesome" name="lock" />
-              <Input
-                style={{ width: 200, height: 40, borderLeftWidth: 0.5 }}
-                value={this.state.password}
-                onChangeText={text => {
-                  this.setState({ password: text });
-                }}
-                placeholder="Password"
-                secureTextEntry={true}
-              />
-            </Item>
+
+            <Input
+              placeholder="Email"
+              leftIcon={<Icon name="envelope" size={18} color="black" />}
+              value={this.state.email}
+              onChangeText={text => {
+                this.setState({ email: text });
+              }}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
 
             <View style={{ paddingTop: 20 }} />
-            <Item regular style={{ borderColor: "black" }}>
-              <Icon type="FontAwesome" name="unlock" />
-              <Input
-                style={{ width: 200, height: 40, borderLeftWidth: 0.5 }}
-                value={this.state.passwordConfirm}
-                onChangeText={text => {
-                  this.setState({ passwordConfirm: text });
-                }}
-                placeholder="Confirm Password"
-                secureTextEntry={true}
-              />
-            </Item>
+
+            <Input
+              leftIcon={<Icon name="lock" size={24} color="black" />}
+              style={{ borderLeftWidth: 0.5 }}
+              value={this.state.password}
+              onChangeText={text => {
+                this.setState({ password: text });
+              }}
+              placeholder="Password"
+              secureTextEntry={true}
+            />
+
+            <View style={{ paddingTop: 20 }} />
+
+            <Input
+              leftIcon={<Icon name="unlock" size={24} color="black" />}
+              value={this.state.passwordConfirm}
+              onChangeText={text => {
+                this.setState({ passwordConfirm: text });
+              }}
+              placeholder="Confirm Password"
+              secureTextEntry={true}
+            />
 
             <View style={{ paddingTop: 20 }} />
 
             <View>
               <Button
-                style={{ alignSelf: "center" }}
-                dark
+                title="Signup"
                 onPress={this.onSignupPress}
-              >
-                <Text style={{ color: "white" }}>Sign Up</Text>
-              </Button>
+                containerStyle={{ alignSelf: "center", width: "45%" }}
+                buttonStyle={{ backgroundColor: "green" }}
+              />
 
               <View style={{ paddingTop: 20 }} />
 
               <Button
-                style={{ alignSelf: "center" }}
-                light
+                title="Back to Login"
                 onPress={this.onBackToLoginPress}
-              >
-                <Text style={{ color: "black" }}>Back To Login</Text>
-              </Button>
-
-              <Text style={{ marginTop: 15, alignSelf: "center" }}>
-                Already have an account?{" "}
-                <Icon style={{ fontSize: 20 }} name="arrow-round-up" />
-              </Text>
+                containerStyle={{ alignSelf: "center", width: "45%" }}
+              />
             </View>
           </View>
         </View>
@@ -157,8 +143,8 @@ const styles = StyleSheet.create({
   Wrapper: {
     backgroundColor: "#dbdbdb",
     height: "100%",
-    paddingTop: 30,
-    paddingBottom: 80,
+    paddingTop: 40,
+    paddingBottom: 200,
     alignItems: "center"
   }
 });

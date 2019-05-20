@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Alert, AsyncStorage } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Alert,
+  AsyncStorage,
+  ImageBackground
+} from "react-native";
 import { Text, Item } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { SocialIcon, Button, Input, Image, Tile } from "react-native-elements";
@@ -83,7 +89,13 @@ export default class LoginScreen extends React.Component {
     }
 
     return (
-      <View style={styles.Wrapper}>
+      <ImageBackground
+        source={require("../../assets/landing.jpg")}
+        style={styles.Wrapper}
+        imageStyle={{
+          resizeMode: "cover"
+        }}
+      >
         <Text
           style={{
             fontSize: 60,
@@ -93,39 +105,54 @@ export default class LoginScreen extends React.Component {
         >
           ReCaller
         </Text>
-        <Text
-          style={{
-            fontSize: 20,
-            fontFamily: "roboto",
-            color: "black",
-            marginBottom: "10%",
-            marginTop: "5%",
-            textDecorationLine: "underline"
-          }}
-        >
-          Login if you have a account
-        </Text>
+        <Header>Login if you have a account</Header>
 
         <View style={{ width: "75%" }}>
           <Input
             placeholder="Email"
-            leftIcon={<Icon name="envelope" size={18} color="black" />}
+            leftIcon={
+              <Icon
+                name="envelope"
+                size={18}
+                color="black"
+                style={{ marginRight: 10 }}
+              />
+            }
             value={this.state.email}
             onChangeText={text => {
               this.setState({ email: text });
             }}
+            inputStyle={{
+              color: "white",
+              backgroundColor: "rgba(0, 0, 0, 0.4)",
+              paddingLeft: 10
+            }}
+            placeholderTextColor="white"
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
           />
           <View style={{ paddingTop: 20 }} />
           <Input
-            leftIcon={<Icon name="lock" size={24} color="black" />}
+            leftIcon={
+              <Icon
+                name="lock"
+                size={24}
+                color="black"
+                style={{ marginRight: 10 }}
+              />
+            }
             style={{ borderLeftWidth: 0.5 }}
             value={this.state.password}
             onChangeText={text => {
               this.setState({ password: text });
             }}
+            inputStyle={{
+              color: "white",
+              backgroundColor: "rgba(0, 0, 0, 0.4)",
+              paddingLeft: 10
+            }}
+            placeholderTextColor="white"
             placeholder="Password"
             secureTextEntry={true}
           />
@@ -133,11 +160,18 @@ export default class LoginScreen extends React.Component {
           <View style={{ width: "50%", alignSelf: "center" }}>
             <Button
               title="Login"
-              type="outline"
+              type="solid"
               onPress={this.onLoginPress}
-              buttonStyle={{ borderColor: "black" }}
-              titleStyle={{ color: "black" }}
-              />
+              containerStyle={{ width: 150 }}
+              buttonStyle={{
+                borderColor: "black",
+                borderWidth: 1.5,
+                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                borderRadius: 10,
+                padding: 5
+              }}
+              titleStyle={{ color: "white" }}
+            />
 
             <View style={{ paddingTop: 20 }} />
 
@@ -145,16 +179,27 @@ export default class LoginScreen extends React.Component {
               title="Create an account"
               type="outline"
               onPress={this.onCreateAccountPress}
-              buttonStyle={{ borderColor: "black" }}
-              titleStyle={{ color: "black" }}
+              containerStyle={{ width: 150 }}
+              buttonStyle={{
+                borderColor: "black",
+                borderWidth: 1.5,
+                backgroundColor: "white",
+                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                borderRadius: 10,
+                padding: 5
+              }}
+              titleStyle={{ color: "white" }}
             />
 
-            <Text style={{ marginTop: 15, alignSelf: "center" }}>
+            <Icon
+              style={{ fontSize: 18, alignSelf: "center", marginTop: 5 }}
+              name="arrow-up"
+            />
+            <Text style={{ marginTop: 5, alignSelf: "center" }}>
               Otherwise create one{" "}
-              <Icon style={{ fontSize: 18 }} name="arrow-up" />
             </Text>
           </View>
-          <View style={{ paddingTop: 50 }} />
+          <View style={{ paddingTop: 30 }} />
           <Button
             icon={<Icon name="google" size={15} color="white" />}
             title="Sign In With Google"
@@ -162,13 +207,13 @@ export default class LoginScreen extends React.Component {
             containerStyle={{ alignSelf: "center", width: "45%" }}
             buttonStyle={{
               backgroundColor: "red",
-              paddingHorizontal: 20,
+              padding: 20,
               borderRadius: 5,
-              height: 45
+              height: 40
             }}
           />
         </View>
-      </View>
+      </ImageBackground>
     );
   }
 }
@@ -176,8 +221,18 @@ export default class LoginScreen extends React.Component {
 const styles = StyleSheet.create({
   Wrapper: {
     backgroundColor: "#dbdbdb",
+    width: "100%",
     height: "100%",
-    paddingTop: 30,
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
+
+const Header = styled.Text`
+  font-size: 22;
+  font-family: Roboto;
+  color: black;
+  margin-bottom: 5%;
+  margin-top: 2%;
+  /* text-decoration-line: underline; */
+`;

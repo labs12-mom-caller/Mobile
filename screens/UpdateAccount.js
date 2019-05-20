@@ -117,7 +117,7 @@ const UpdateAccount = props => {
   };
 
   const update = async () => {
-    const formattedPhone = await String("+1").concat(
+    let formattedPhone = await String("+1").concat(
       String(phoneNumber).replace(/[^\d]/g, "")
     );
 
@@ -172,7 +172,7 @@ const UpdateAccount = props => {
                 borderRadius: 5,
                 height: 40,
                 marginTop: 10
-            }}
+              }}
             />
           </View>
           {/* <Text>{props.user.displayName}</Text> */}

@@ -41,7 +41,7 @@ export default class Dashboard extends React.Component {
     try {
       const value = await AsyncStorage.removeItem("token");
       // RNExitApp.exitApp();
-      Actions.login({ type: "replace" });
+      Actions.login({ type: "replace", reset });
     } catch (err) {
       console.log(err);
     }
@@ -167,6 +167,7 @@ export default class Dashboard extends React.Component {
         <View style={{ alignSelf: "center", flexDirection: "row" }}>
           <Button
             title="Add Call"
+            onPress={this.ScheduleFreeCall}
             type="outline"
             onPress={this.gotoChooseContact}
             buttonStyle={{

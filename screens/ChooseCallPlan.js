@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { Button } from "react-native-elements";
 import styled from "styled-components";
+import { Actions } from "react-native-router-flux";
 
 const ChooseCallPlan = ({ contactId, userId }) => {
   const [free, setFree] = useState(null);
@@ -34,6 +35,12 @@ const ChooseCallPlan = ({ contactId, userId }) => {
     e.preventDefault();
     navigate(`/choose/${userId}/${contactId}/${paid}/schedule`);
   };
+
+  const freecall = () => {
+    Actions.schedulefreecall()
+  };
+
+
 
   return (
     <Container>
@@ -158,7 +165,7 @@ const ChooseCallPlan = ({ contactId, userId }) => {
           <Button
             title="Choose Plan"
             type="outline"
-            onPress={this.addCall}
+            onPress={freecall}
             buttonStyle={{
               backgroundColor: "white",
               borderColor: "black",

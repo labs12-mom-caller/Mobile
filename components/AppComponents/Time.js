@@ -32,7 +32,7 @@ const Time = props => {
   //   setTimeList(...timeList, format);
   // };
   const handleTimePicked = timeSelect => {
-    // console.log("time: ", timeSelect);
+    console.log("time: ", timeSelect);
     const format = moment1(timeSelect).format();
     // console.log(format);
     // saveIt(format);

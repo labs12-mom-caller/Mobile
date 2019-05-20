@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import moment from "moment";
 import { db } from "../../constants/ApiKeys";
+import { firstNameOnly } from "../../app/utils";
 import profileImage from "../../assets/recaller.png";
 // import deepgram from "../../assets/images/deepgram-logo.svg";
 
@@ -58,10 +59,10 @@ const PreviousCalls = ({ userId }) => {
         calls.map(call => (
           <View style={styles.Contact}>
             <View style={styles.Name}>
-              <Text>{call.user2.displayName}</Text>
+              <Text>{firstNameOnly(call.user2.displayName)}</Text>
               <View style={styles.placeholder}>
                 <Image
-                  source={profileImage}
+                  source={call.user2.photoUrl || profileImage}
                   style={{ height: 60, width: 60, flex: 1 }}
                 />
               </View>

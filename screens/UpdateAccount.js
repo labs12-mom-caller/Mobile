@@ -17,7 +17,6 @@ import styled from "styled-components";
 import { db, storage, auth } from "../constants/ApiKeys";
 import * as firebase from "firebase";
 import ImagePicker from "react-native-image-picker";
-// const user = firebase.auth().currentUser;
 
 const options = {
   title: "Upload an image",
@@ -27,21 +26,11 @@ const options = {
   }
 };
 
-// const useInputValue = initialValue => {
-//   const [value, setValue] = React.useState(initialValue);
-//   return {
-//     value,
-//     onChangeText: e => {
-//       setValue(e.target.value || e.target.innerText);
-//     }
-//   };
-// };
-
 const UpdateAccount = props => {
-  //   const displayName = useInputValue(props.user.displayName);
-
   const [displayName, setDisplayName] = useState(props.user.displayName);
-  const [phoneNumber, setPhoneNumber] = useState(props.user.phoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState(
+    props.user.phoneNumber.replace("+1", "")
+  );
   const [email, setEmail] = useState(props.user.email);
   const [correctPhone, setCorrectPhone] = useState(null);
   const [newPassword, setNewPassword] = useState(null);
@@ -63,8 +52,6 @@ const UpdateAccount = props => {
   };
 
   uploadImageAsync = async uri => {
-    // Why are we using XMLHttpRequest? See:
-    // https://github.com/expo/expo/issues/2402#issuecomment-443726662
     const blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = function() {
@@ -78,8 +65,7 @@ const UpdateAccount = props => {
       xhr.open("GET", uri, true);
       xhr.send(null);
     });
-    // console.log(blob)
-    // console.log(this.state.image, "from image");
+
     const ref = firebase
       .storage()
       .ref(`user-profiles`)
@@ -130,6 +116,7 @@ const UpdateAccount = props => {
     });
   };
 
+<<<<<<< HEAD
   numCheck = async number => {
     if (Array.from(number).length != 12) {
       Alert.alert("enter valid number");
@@ -143,11 +130,14 @@ const UpdateAccount = props => {
     }
   };
 
+=======
+>>>>>>> 0491ee4b6134ea7414c79c7eec22acf915837393
   const update = async () => {
     let formattedPhone = await String("+1").concat(
       String(phoneNumber).replace(/[^\d]/g, "")
     );
 
+<<<<<<< HEAD
     numCheck(formattedPhone);
     console.log(correctPhone);
 
@@ -178,7 +168,29 @@ const UpdateAccount = props => {
       console.log("successfully updated password");
     } catch (error) {
       console.log("error updating password", error);
+=======
+    if (Array.from(formattedPhone).length != 12) {
+      Alert.alert("enter valid number");
+      return;
+    } else {
+      //   Alert.alert("good number");
+      console.log(formattedPhone, "from check");
+>>>>>>> 0491ee4b6134ea7414c79c7eec22acf915837393
     }
+
+    await db
+      .doc(`users/${props.user.uid}`)
+      .set(
+        {
+          displayName,
+          phoneNumber: formattedPhone,
+          email
+        },
+        { merge: true }
+      )
+      .then(user => {
+        Actions.main();
+      });
   };
 
   if (props.user == null) {
@@ -199,9 +211,20 @@ const UpdateAccount = props => {
           <Image resizeMode="cover" source={{ uri: props.user.photoUrl }} />
           <View>
             <View />
-            <Button title="Pick Image" onPress={pickImageHandler} />
+            <Button
+              title="Pick Image"
+              onPress={pickImageHandler}
+              containerStyle={{ alignSelf: "center", width: "45%" }}
+              buttonStyle={{
+                backgroundColor: "black",
+                paddingHorizontal: 15,
+                borderRadius: 5,
+                height: 40,
+                marginTop: 10
+            }}
+            />
           </View>
-          <Text>{props.user.displayName}</Text>
+          {/* <Text>{props.user.displayName}</Text> */}
           <View>
             <Input
               style={{ width: 200, height: 40 }}
@@ -243,16 +266,6 @@ const UpdateAccount = props => {
               containerStyle={{ alignSelf: "center", width: "45%" }}
               buttonStyle={{ backgroundColor: "green" }}
             />
-            {/* <Input
-              leftIcon={<Icon name="lock" size={24} color="black" />}
-              style={{ borderLeftWidth: 0.5 }}
-              value={newPassword}
-              onChangeText={text => {
-                newPassword(text);
-              }}
-              placeholder="Password"
-              secureTextEntry={true}
-            /> */}
           </View>
         </View>
       </Card>

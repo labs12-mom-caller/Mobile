@@ -1,9 +1,23 @@
 /* eslint-disable import/prefer-default-export */
+import { useEffect, useState } from 'react';
 import { db, auth } from '../constants/ApiKeys';
 
 export function logout() {
   return auth().signOut();
-  // navigate('/');
+}
+
+export function useLocalStorage(key, value) {
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+}
+export function useLocalStorageState(key, defaultValue) {
+  const stored = localStorage.getItem(key);
+  const [value, setValue] = useState(
+    stored ? JSON.parse(stored) : defaultValue,
+  );
+  useLocalStorage(key, value);
+  return [value, setValue];
 }
 
 export async function signup({
@@ -30,6 +44,7 @@ export async function signup({
         'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico',
       phoneNumber: formattedPhone,
     });
+    return user.uid;
   } catch (e) {
     throw e;
   }
@@ -82,4 +97,21 @@ export function fetchUser(uid) {
 }
 export function deleteUser(id) {
   return db.doc(`users/${id}`).delete();
+}
+
+export function firstNameOnly(name) {
+  const splitName = name.split(' ');
+  return splitName[0];
+}
+export function formatPhoneNumber(number) {
+  const numberCopy = [...number];
+  const digitsOnly = numberCopy.slice(2);
+  const withDashes = `${digitsOnly.slice(0, 3)}-${digitsOnly.slice(
+    3,
+    6,
+  )}-${digitsOnly.slice(6)}`;
+  const formatted = [...withDashes];
+  const phoneNumber = formatted.filter(n => n !== ',');
+  phoneNumber.join('');
+  return phoneNumber;
 }

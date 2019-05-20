@@ -6,8 +6,8 @@ import {
   View,
   AsyncStorage
 } from "react-native";
-import { Card, Avatar, ButtonGroup } from "react-native-elements";
-import { Button, Text, List, ListItem } from "native-base";
+import { Card, Avatar, Button } from "react-native-elements";
+import { Text, List, ListItem } from "native-base";
 import styled from "styled-components";
 
 import { GoogleSignin } from "react-native-google-signin";
@@ -32,7 +32,7 @@ export default class Dashboard extends React.Component {
     console.ignoredYellowBox = ["Setting a timer"];
     this.state = {
       user: null,
-      selectedIndex: 2
+      selectedIndex: null
     };
   }
 
@@ -40,14 +40,11 @@ export default class Dashboard extends React.Component {
     this.getUser();
   }
 
-  updateIndex = selectedIndex => {
-    this.setState({ selectedIndex });
-  };
-
   removeData = async () => {
     try {
       const value = await AsyncStorage.removeItem("token");
-      RNExitApp.exitApp();
+      // RNExitApp.exitApp();
+      Actions.login({ type: "replace"});
     } catch (err) {
       console.log(err);
     }
@@ -108,6 +105,10 @@ export default class Dashboard extends React.Component {
     Actions.update({ user: this.state.user });
   };
 
+  gotoBilling = () => {
+    Actions.billing({ user: this.state.user });
+  };
+
   formatForDisplay = num => {
     let clean = ("" + num).replace(/\D/g, "");
     let match = clean.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
@@ -121,9 +122,6 @@ export default class Dashboard extends React.Component {
   };
 
   render() {
-    const buttons = ["Add Call", "Billing"];
-    const { selectedIndex } = this.state;
-
     if (this.state.user === null) {
       return <Loading>Loading...</Loading>;
     }
@@ -137,7 +135,7 @@ export default class Dashboard extends React.Component {
           centerComponent={{ text: "MY TITLE", style: { color: "#fff" } }}
           rightComponent={{ icon: "home", color: "#fff" }}
         />
-        <SignOut onPress={this._signOut}>Signout/Exit</SignOut>
+        <SignOut onPress={this._signOut}>Signout</SignOut>
         <Container>
           <Card>
             <Avatar
@@ -164,25 +162,40 @@ export default class Dashboard extends React.Component {
             </ProfileInfo>
           </Card>
         </Container>
-        <ButtonGroup
-          onPress={this.updateIndex}
-          selectedIndex={selectedIndex}
-          buttons={buttons}
-          containerStyle={{
-            height: 50,
-            width: "69%",
-            alignSelf: "center",
-            marginTop: 15,
-            justifyContent: "space-around"
-          }}
-        />
+
+        <View style={{ alignSelf: "center", flexDirection: "row" }}>
+          <Button
+            title="Add Call"
+            type="outline"
+            buttonStyle={{
+              backgroundColor: "white",
+              borderColor: "black",
+              marginTop: 10,
+              marginHorizontal: 5,
+              width: 100
+            }}
+            titleStyle={{ color: "black" }}
+          />
+          <Button
+            title="Billing"
+            type="outline"
+            onPress={this.gotoBilling}
+            buttonStyle={{
+              backgroundColor: "white",
+              borderColor: "black",
+              marginTop: 10,
+              width: 100
+            }}
+            titleStyle={{ color: "black" }}
+          />
+        </View>
 
         <ComponentContainer>
           <List style={{ marginBottom: 35 }}>
             <Lists>
               <Header>Your Contacts</Header>
             </Lists>
-            <ScheduledContacts user={this.state.user.uid} />
+            <ScheduledContacts user={this.state.user} />
           </List>
 
           <List style={{ marginBottom: 35 }}>

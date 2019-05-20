@@ -13,7 +13,6 @@ import styled from "styled-components";
 import { GoogleSignin } from "react-native-google-signin";
 import { db } from "../constants/ApiKeys";
 import * as firebase from "firebase";
-import RNExitApp from "react-native-exit-app";
 import { Actions } from "react-native-router-flux";
 import { EmailUserModal, GoogleUserModal } from "./../components/AppComponents";
 import ScheduledContacts from "../components/AppComponents/ScheduledContacts";
@@ -29,10 +28,8 @@ const userProfile = {
 export default class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    console.ignoredYellowBox = ["Setting a timer"];
     this.state = {
-      user: null,
-      selectedIndex: null
+      user: null
     };
   }
 
@@ -44,7 +41,7 @@ export default class Dashboard extends React.Component {
     try {
       const value = await AsyncStorage.removeItem("token");
       // RNExitApp.exitApp();
-      Actions.login({ type: "replace" });
+      Actions.login({ type: "replace", reset });
     } catch (err) {
       console.log(err);
     }
@@ -109,8 +106,8 @@ export default class Dashboard extends React.Component {
     Actions.billing({ user: this.state.user });
   };
 
-  ScheduleFreeCall = () => {
-    Actions.schedulefreecall({ user: this.state.user });
+  gotoChooseContact = () => {
+    Actions.choosecontact({ user: this.state.user });
   };
 
   formatForDisplay = num => {
@@ -172,6 +169,7 @@ export default class Dashboard extends React.Component {
             title="Add Call"
             onPress={this.ScheduleFreeCall}
             type="outline"
+            onPress={this.gotoChooseContact}
             buttonStyle={{
               backgroundColor: "white",
               borderColor: "black",
@@ -181,6 +179,7 @@ export default class Dashboard extends React.Component {
             }}
             titleStyle={{ color: "black" }}
           />
+
           <Button
             title="Billing"
             type="outline"

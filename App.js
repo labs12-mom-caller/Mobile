@@ -17,7 +17,11 @@ import LoginScreen from "./screens/auth/LoginScreen";
 import SignupScreen from "./screens/auth/SignupScreen";
 import UpdateAccount from "./screens/UpdateAccount";
 import Billing from "./screens/Billing";
+import ChooseYourContact from './screens/ChooseYourContact'
+import ChooseCallPlan from './screens/ChooseCallPlan';
 import ScheduleFreeCall from "./screens/ScheduleFreeCall";
+import CallConfirmation from "./screens/CallConfirmation";
+
 
 console.disableYellowBox = true;
 export default class App extends React.Component {
@@ -104,8 +108,9 @@ export default class App extends React.Component {
   retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("token");
-      if (value === null) {
-        return <Text>Loading...</Text>;
+      if(value === null) {
+        // return <Text>Loading...</Text>
+        return;
       }
       if (value != null) {
         Actions.main({ type: "replace" });
@@ -132,7 +137,10 @@ export default class App extends React.Component {
             <Scene key="dashboard" initial={true} component={Dashboard} />
             <Scene key="update" component={UpdateAccount} />
             <Scene key="billing" component={Billing} />
+            <Scene key="choosecontact" component={ChooseYourContact} />
+            <Scene key="choosecallplan" component={ChooseCallPlan} />
             <Scene key="schedulefreecall" component={ScheduleFreeCall} />
+            <Scene key="callconfirmation" component={CallConfirmation} />
           </Scene>
         </Scene>
       </Router>

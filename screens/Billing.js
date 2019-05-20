@@ -36,18 +36,18 @@ const Billing = ({ user }) => {
           subs.map(sub => {
             return (
               <View key={sub.contact_id}>
-                <H2>
+                <Text>
                   {" "}
-                  <Link to={`/contact/${sub.contact_id}`}>
+                  <Text>
                     {sub.user2.displayName}
-                  </Link>{" "}
+                  </Text>{" "}
                   | {sub.contact.call_frequency}
-                </H2>
-                <Contact>
+                </Text>
+                <View>
                   <Text>
                     {sub.contact.scheduled_day}s at {sub.contact.scheduled_time}
                   </Text>
-                </Contact>
+                </View>
                 {/* <Link to={`/contact/${sub.contact_id}`}>Contact Details</Link> */}
 
                 <Text>Previous Charges</Text>

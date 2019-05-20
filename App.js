@@ -18,6 +18,8 @@ import SignupScreen from "./screens/auth/SignupScreen";
 import UpdateAccount from "./screens/UpdateAccount";
 import Billing from "./screens/Billing";
 
+import ChooseYourContact from './screens/ChooseYourContact'
+
 console.disableYellowBox = true;
 export default class App extends React.Component {
   constructor(props) {
@@ -131,6 +133,8 @@ export default class App extends React.Component {
             <Scene key="dashboard" initial={true} component={Dashboard} />
             <Scene key="update" component={UpdateAccount} />
             <Scene key="billing" component={Billing} />
+
+            <Scene key="choosecontact" component={ChooseYourContact} />
           </Scene>
         </Scene>
       </Router>

@@ -116,66 +116,17 @@ const UpdateAccount = props => {
     });
   };
 
-<<<<<<< HEAD
-  numCheck = async number => {
-    if (Array.from(number).length != 12) {
-      Alert.alert("enter valid number");
-      return;
-    } else {
-      let theNumber = await number;
-      Alert.alert("good number");
-      console.log(theNumber, "from check");
-      await setCorrectPhone(...String(theNumber));
-      return theNumber;
-    }
-  };
-
-=======
->>>>>>> 0491ee4b6134ea7414c79c7eec22acf915837393
   const update = async () => {
     let formattedPhone = await String("+1").concat(
       String(phoneNumber).replace(/[^\d]/g, "")
     );
 
-<<<<<<< HEAD
-    numCheck(formattedPhone);
-    console.log(correctPhone);
-
-    // console.log(correctPhone, "from update");
-    // console.log(theNumber, "from update");
-
-    // if (correctPhone != null) {
-    await db
-      .doc(`users/${props.user.uid}`)
-      .set(
-        {
-          displayName,
-          phoneNumber: correctPhone,
-          email
-        },
-        { merge: true }
-      )
-      .then(user => {
-        Actions.main();
-      });
-    // }
-  };
-
-  const passwordUpdate = async () => {
-    const userOne = auth().currentUser;
-    try {
-      await userOne.updatePassword(newPassword.value);
-      console.log("successfully updated password");
-    } catch (error) {
-      console.log("error updating password", error);
-=======
     if (Array.from(formattedPhone).length != 12) {
       Alert.alert("enter valid number");
       return;
     } else {
       //   Alert.alert("good number");
       console.log(formattedPhone, "from check");
->>>>>>> 0491ee4b6134ea7414c79c7eec22acf915837393
     }
 
     await db
@@ -221,7 +172,7 @@ const UpdateAccount = props => {
                 borderRadius: 5,
                 height: 40,
                 marginTop: 10
-            }}
+              }}
             />
           </View>
           {/* <Text>{props.user.displayName}</Text> */}

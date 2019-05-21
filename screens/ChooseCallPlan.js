@@ -38,7 +38,7 @@ const ChooseCallPlan = ({ contactId, userId }) => {
   };
 
   const freecall = () => {
-    Actions.schedulefreecall();
+    Actions.schedulefreecall({ userId, contactId, free });
   };
 
   const showBtns = () => {

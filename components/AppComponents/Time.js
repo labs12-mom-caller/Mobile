@@ -40,6 +40,8 @@ const Time = props => {
       // timeList.push(format);
       setTimeList([format]);
       showTPicker();
+      console.log(timeList);
+      // console.log(time, day)
     } else {
       setTimeList([...timeList, format]);
       showTPicker();
@@ -52,10 +54,12 @@ const Time = props => {
   // }
   const timeFunction = tz => {
     setTime(tz);
+    console.log(time);
   };
 
   const dayFunction = d => {
     setDay(d);
+    console.log(day);
   };
 
   // const setTimezone = e => {
@@ -80,38 +84,43 @@ const Time = props => {
     }
   };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const thisTime = randomTime(timeList);
-    let nextCall = moment(thisTime).toDate();
-    if (
-      nextCall <
-      moment()
-        .tz(time.timezone)
-        .toDate()
-    ) {
-      nextCall = moment(nextCall)
-        .add(1, "w")
-        .toDate();
-    }
-    try {
-      const docRef = await db.collection("contacts").add({
-        call_frequency: frequency,
-        call_type: "free",
-        next_call: nextCall,
-        timezone: time.timezone,
-        selected_times: time.selectedTimes,
-        user1: db.collection("users").doc(userId),
-        user2: db.collection("users").doc(contactId),
-        created_at: moment().toDate(),
-        updated_at: moment().toDate(),
-        canceled: false
-      });
-      navigate(`/confirmation/${docRef.id}`);
-    } catch (err) {
-      console.log(err);
-    }
+  const allInfo = () => {
+    const info = { day, time, timeList };
+    console.log("from time", info);
   };
+
+  // const handleSubmit = async e => {
+  //   e.preventDefault();
+  //   const thisTime = randomTime(timeList);
+  //   let nextCall = moment(thisTime).toDate();
+  //   if (
+  //     nextCall <
+  //     moment()
+  //       .tz(time.timezone)
+  //       .toDate()
+  //   ) {
+  //     nextCall = moment(nextCall)
+  //       .add(1, "w")
+  //       .toDate();
+  //   }
+  //   try {
+  //     const docRef = await db.collection("contacts").add({
+  //       call_frequency: frequency,
+  //       call_type: "free",
+  //       next_call: nextCall,
+  //       timezone: time.timezone,
+  //       selected_times: time.selectedTimes,
+  //       user1: db.collection("users").doc(userId),
+  //       user2: db.collection("users").doc(contactId),
+  //       created_at: moment().toDate(),
+  //       updated_at: moment().toDate(),
+  //       canceled: false
+  //     });
+  //     navigate(`/confirmation/${docRef.id}`);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <View>
@@ -132,7 +141,7 @@ const Time = props => {
           <Picker.Item label="Pacific" value="US/Pacific" />
           <Picker.Item label="Pacific-New" value="US/Pacific-New" />
         </Picker>
-        <Text>Select Day</Text>
+        <Text onPress={allInfo}>Select Day</Text>
         <Picker selectedValue={day} onValueChange={dayFunction}>
           <Picker.Item label="Sunday" value="Sunday" />
           <Picker.Item label="Monday" value="Monday" />
@@ -143,7 +152,7 @@ const Time = props => {
           <Picker.Item label="Saturday" value="Saturday" />
         </Picker>
         <Text>Choose Time</Text>
-        <Button onPress={() => handleSubmit()} title="Submit" />
+        <Button onPress={() => props.handleSubmit()} title="Submit" />
         <Button onPress={() => showTPicker()} title="choose time" />
         {isVisibleTime && (
           <DateTimePicker

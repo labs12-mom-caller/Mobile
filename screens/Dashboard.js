@@ -41,7 +41,6 @@ export default class Dashboard extends React.Component {
     try {
       const value = await AsyncStorage.removeItem("token");
       // RNExitApp.exitApp();
-      this.props.changeAuth();
       Actions.login({ type: "reset" });
       // Actions.pop('login')
     } catch (err) {
@@ -73,6 +72,7 @@ export default class Dashboard extends React.Component {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
       // this.setState({ user: null }); // Remember to remove the user from your app's state as well
+      this.props.changeAuth();
       this.removeData();
     } catch (error) {
       console.error(error);
@@ -80,6 +80,7 @@ export default class Dashboard extends React.Component {
   };
 
   _signOut = async () => {
+    this.props.changeAuth();
     this.removeData();
     try {
       firebase

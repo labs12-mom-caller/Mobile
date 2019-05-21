@@ -51,9 +51,9 @@ const PreviousCalls = ({ userId }) => {
   // console.log(calls, "from calls");
   // console.log(userId, "from user id calls");
 
-  const gotoCall = (userId, call) => {
-    Actions.callinfo({ userId, callId: call.id });
-  };
+  // const gotoCall = (userId, call) => {
+  //   Actions.callinfo({ userId, callId: call.id });
+  // };
 
   return (
     <View style={styles.Wrapper}>
@@ -62,6 +62,11 @@ const PreviousCalls = ({ userId }) => {
           <View>
             {console.log(call.id, "from render")}
             <View style={styles.Name}>
+              {
+                (gotoCall = (userId) => {
+                  Actions.callinfo({ userId, callId: call.id });
+                })
+              }
               <Text onPress={gotoCall}>
                 {firstNameOnly(call.user2.displayName)}
               </Text>

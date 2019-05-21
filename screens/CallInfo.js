@@ -1,17 +1,17 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, ScrollView } from "react-native";
 import { Button } from "react-native-elements";
 import moment from "moment-timezone";
 
 import { formatPhoneNumber } from "../app/utils";
 
 import { db } from "../constants/ApiKeys";
+
 const CallRecord = ({ callId }) => {
-  console.log(calls, "from calls");
-  console.log(callId, "from user contact");
   const [call, setCall] = React.useState(null);
   const [contact, setContact] = React.useState(null);
   const [callInfo, setCallInfo] = React.useState(null);
+
   React.useEffect(() => {
     return db.doc(`calls/${callId}`).onSnapshot(document => {
       setCall({
@@ -21,6 +21,7 @@ const CallRecord = ({ callId }) => {
       console.log(call);
     });
   }, [callId]);
+
   React.useEffect(() => {
     if (call) {
       function fetchCallInfo() {
@@ -57,7 +58,7 @@ const CallRecord = ({ callId }) => {
   console.log(call);
   return (
     call && (
-      <View key={call.id}>
+      <ScrollView key={call.id}>
         <View>
           <View>
             <Image
@@ -80,7 +81,7 @@ const CallRecord = ({ callId }) => {
             <View>
               <Text>{contact.displayName}</Text>
               <Text>{contact.email}</Text>
-              <Text>{formatPhoneBNumber(contact.phoneNumber)}</Text>
+              <Text>{formatPhoneNumber(contact.phoneNumber)}</Text>
               {/* <Button title='Go Back' onPress={} /> */}
             </View>
           </View>
@@ -109,7 +110,7 @@ const CallRecord = ({ callId }) => {
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     )
   );
 };

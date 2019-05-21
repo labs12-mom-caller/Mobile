@@ -1,5 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Alert, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Alert,
+  ScrollView,
+  ImageBackground
+} from "react-native";
 import { Text, Item } from "native-base";
 
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -46,13 +52,20 @@ export default class SignupScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView>
+      // <ScrollView>
+      <ImageBackground
+        source={require("../../assets/womanOnPhone.jpg")}
+        style={styles.Wrapper}
+        imageStyle={{
+          resizeMode: "cover"
+        }}
+      >
         <View style={styles.Wrapper}>
           <Text
             style={{
               fontSize: 30,
               fontWeight: "bold",
-              color: "black",
+              color: "white",
               fontFamily: "monospace"
             }}
           >
@@ -61,7 +74,7 @@ export default class SignupScreen extends React.Component {
           <Text
             style={{
               fontSize: 16,
-              color: "black",
+              color: "white",
               marginBottom: "10%",
               marginTop: "5%",
               width: "80%",
@@ -79,25 +92,52 @@ export default class SignupScreen extends React.Component {
 
             <Input
               placeholder="Email"
-              leftIcon={<Icon name="envelope" size={18} color="black" />}
+              leftIcon={
+                <Icon
+                  name="envelope"
+                  size={18}
+                  color="white"
+                  style={{ marginRight: 9 }}
+                />
+              }
               value={this.state.email}
               onChangeText={text => {
                 this.setState({ email: text });
               }}
+              inputStyle={{
+                color: "white",
+                backgroundColor: "rgba(0, 0, 0, 0.4)",
+                marginRight: 35,
+                paddingLeft: 10
+              }}
+              placeholderTextColor="white"
               keyboardType="email-address"
               autoCapitalize="none"
               autoCorrect={false}
             />
-
             <View style={{ paddingTop: 20 }} />
 
             <Input
-              leftIcon={<Icon name="lock" size={24} color="black" />}
+              leftIcon={
+                <Icon
+                  name="lock"
+                  size={24}
+                  color="white"
+                  style={{ marginRight: 10 }}
+                />
+              }
               style={{ borderLeftWidth: 0.5 }}
               value={this.state.password}
               onChangeText={text => {
                 this.setState({ password: text });
               }}
+              inputStyle={{
+                color: "white",
+                backgroundColor: "rgba(0, 0, 0, 0.4)",
+                marginRight: 35,
+                paddingLeft: 10
+              }}
+              placeholderTextColor="white"
               placeholder="Password"
               secureTextEntry={true}
             />
@@ -105,11 +145,26 @@ export default class SignupScreen extends React.Component {
             <View style={{ paddingTop: 20 }} />
 
             <Input
-              leftIcon={<Icon name="unlock" size={24} color="black" />}
+              leftIcon={
+                <Icon
+                  name="lock"
+                  size={24}
+                  color="white"
+                  style={{ marginRight: 10 }}
+                />
+              }
+              style={{ borderLeftWidth: 0.5 }}
               value={this.state.passwordConfirm}
               onChangeText={text => {
                 this.setState({ passwordConfirm: text });
               }}
+              inputStyle={{
+                color: "white",
+                backgroundColor: "rgba(0, 0, 0, 0.4)",
+                marginRight: 35,
+                paddingLeft: 10
+              }}
+              placeholderTextColor="white"
               placeholder="Confirm Password"
               secureTextEntry={true}
             />
@@ -120,8 +175,17 @@ export default class SignupScreen extends React.Component {
               <Button
                 title="Signup"
                 onPress={this.onSignupPress}
-                containerStyle={{ alignSelf: "center", width: "45%" }}
-                buttonStyle={{ backgroundColor: "green" }}
+                containerStyle={{ width: 150, alignSelf: "center" }}
+                buttonStyle={{
+                  borderColor: "black",
+                  borderWidth: 1.5,
+                  backgroundColor: "white",
+                  backgroundColor: "rgba(0, 0, 0, 0.6)",
+                  // borderRadius: 10,
+                  padding: 5,
+                  height: 40
+                }}
+                titleStyle={{ color: "white" }}
               />
 
               <View style={{ paddingTop: 20 }} />
@@ -129,22 +193,33 @@ export default class SignupScreen extends React.Component {
               <Button
                 title="Back to Login"
                 onPress={this.onBackToLoginPress}
-                containerStyle={{ alignSelf: "center", width: "45%" }}
+                containerStyle={{ width: 150, alignSelf: "center" }}
+                buttonStyle={{
+                  borderColor: "black",
+                  borderWidth: 1.5,
+                  backgroundColor: "white",
+                  backgroundColor: "rgba(0, 0, 0, 0.6)",
+                  // borderRadius: 10,
+                  padding: 5,
+                  height: 40
+                }}
+                titleStyle={{ color: "white" }}
               />
             </View>
           </View>
         </View>
-      </ScrollView>
+        {/* </ScrollView> */}
+      </ImageBackground>
     );
   }
 }
 
 const styles = StyleSheet.create({
   Wrapper: {
-    backgroundColor: "#dbdbdb",
+    backgroundColor: "rgba(0, 0, 44, 0.5)",
+    width: "100%",
     height: "100%",
-    paddingTop: 40,
-    paddingBottom: 200,
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "center"
   }
 });

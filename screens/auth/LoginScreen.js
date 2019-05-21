@@ -96,122 +96,130 @@ export default class LoginScreen extends React.Component {
           resizeMode: "cover"
         }}
       >
-        <Text
-          style={{
-            fontSize: 60,
-            color: "black",
-            fontFamily: "Pacifico"
-          }}
-        >
-          ReCaller
-        </Text>
-        <Header>Login if you have a account</Header>
+        <View style={styles.Wrapper}>
+          <Text
+            style={{
+              fontSize: 60,
+              color: "white",
+              fontFamily: "Pacifico"
+            }}
+          >
+            ReCaller
+          </Text>
+          <Header>Login if you have a account</Header>
 
-        <View style={{ width: "75%" }}>
-          <Input
-            placeholder="Email"
-            leftIcon={
-              <Icon
-                name="envelope"
-                size={18}
-                color="black"
-                style={{ marginRight: 10 }}
-              />
-            }
-            value={this.state.email}
-            onChangeText={text => {
-              this.setState({ email: text });
-            }}
-            inputStyle={{
-              color: "white",
-              backgroundColor: "rgba(0, 0, 0, 0.4)",
-              paddingLeft: 10
-            }}
-            placeholderTextColor="white"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-          <View style={{ paddingTop: 20 }} />
-          <Input
-            leftIcon={
-              <Icon
-                name="lock"
-                size={24}
-                color="black"
-                style={{ marginRight: 10 }}
-              />
-            }
-            style={{ borderLeftWidth: 0.5 }}
-            value={this.state.password}
-            onChangeText={text => {
-              this.setState({ password: text });
-            }}
-            inputStyle={{
-              color: "white",
-              backgroundColor: "rgba(0, 0, 0, 0.4)",
-              paddingLeft: 10
-            }}
-            placeholderTextColor="white"
-            placeholder="Password"
-            secureTextEntry={true}
-          />
-          <View style={{ paddingTop: 40 }} />
-          <View style={{ width: "50%", alignSelf: "center" }}>
-            <Button
-              title="Login"
-              type="solid"
-              onPress={this.onLoginPress}
-              containerStyle={{ width: 150 }}
-              buttonStyle={{
-                borderColor: "black",
-                borderWidth: 1.5,
-                backgroundColor: "rgba(0, 0, 0, 0.6)",
-                borderRadius: 10,
-                padding: 5
+          <View style={{ width: "75%" }}>
+            <Input
+              placeholder="Email"
+              leftIcon={
+                <Icon
+                  name="envelope"
+                  size={18}
+                  color="white"
+                  style={{ marginRight: 9 }}
+                />
+              }
+              value={this.state.email}
+              onChangeText={text => {
+                this.setState({ email: text });
               }}
-              titleStyle={{ color: "white" }}
+              inputStyle={{
+                color: "white",
+                backgroundColor: "rgba(0, 0, 0, 0.4)",
+                marginRight: 35,
+                paddingLeft: 10
+              }}
+              placeholderTextColor="white"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
             />
-
             <View style={{ paddingTop: 20 }} />
-
-            <Button
-              title="Create an account"
-              type="outline"
-              onPress={this.onCreateAccountPress}
-              containerStyle={{ width: 150 }}
-              buttonStyle={{
-                borderColor: "black",
-                borderWidth: 1.5,
-                backgroundColor: "white",
-                backgroundColor: "rgba(0, 0, 0, 0.6)",
-                borderRadius: 10,
-                padding: 5
+            <Input
+              leftIcon={
+                <Icon
+                  name="lock"
+                  size={24}
+                  color="white"
+                  style={{ marginRight: 10 }}
+                />
+              }
+              style={{ borderLeftWidth: 0.5 }}
+              value={this.state.password}
+              onChangeText={text => {
+                this.setState({ password: text });
               }}
-              titleStyle={{ color: "white" }}
+              inputStyle={{
+                color: "white",
+                backgroundColor: "rgba(0, 0, 0, 0.4)",
+                marginRight: 35,
+                paddingLeft: 10
+              }}
+              placeholderTextColor="white"
+              placeholder="Password"
+              secureTextEntry={true}
             />
+            <View style={{ paddingTop: 40 }} />
+            <View style={{ width: "50%", alignSelf: "center" }}>
+              <Button
+                title="Login"
+                type="solid"
+                onPress={this.onLoginPress}
+                containerStyle={{ width: 100, alignSelf: "center" }}
+                buttonStyle={{
+                  borderColor: "black",
+                  borderWidth: 1.5,
+                  backgroundColor: "rgba(0, 0, 0, 0.6)",
+                  // borderRadius: 10,
+                  padding: 5,
+                  height: 40
+                }}
+                titleStyle={{ color: "white" }}
+              />
 
-            <Icon
-              style={{ fontSize: 18, alignSelf: "center", marginTop: 5 }}
-              name="arrow-up"
+              <View style={{ paddingTop: 20 }} />
+
+              <Button
+                title="Create an account"
+                type="outline"
+                onPress={this.onCreateAccountPress}
+                containerStyle={{ width: 150, alignSelf: "center" }}
+                buttonStyle={{
+                  borderColor: "black",
+                  borderWidth: 1.5,
+                  backgroundColor: "white",
+                  backgroundColor: "rgba(0, 0, 0, 0.6)",
+                  // borderRadius: 10,
+                  padding: 5,
+                  height: 40
+                }}
+                titleStyle={{ color: "white" }}
+              />
+
+              <Icon
+                color="white"
+                style={{ fontSize: 18, alignSelf: "center", marginTop: 5 }}
+                name="arrow-up"
+              />
+              <Text style={{ marginTop: 5, alignSelf: "center" }}>
+                Otherwise create one{" "}
+              </Text>
+            </View>
+            <View style={{ paddingTop: 30 }} />
+            <Button
+              icon={<Icon name="google" size={15} color="white" />}
+              title="Sign In With Google"
+              onPress={this._signIn}
+              containerStyle={{ alignSelf: "center", width: "45%" }}
+              buttonStyle={{
+                backgroundColor: "red",
+                padding: 20,
+                borderRadius: 25,
+                height: 40
+              }}
+              titleStyle={{ fontSize: 14 }}
             />
-            <Text style={{ marginTop: 5, alignSelf: "center" }}>
-              Otherwise create one{" "}
-            </Text>
           </View>
-          <View style={{ paddingTop: 30 }} />
-          <Button
-            icon={<Icon name="google" size={15} color="white" />}
-            title="Sign In With Google"
-            onPress={this._signIn}
-            containerStyle={{ alignSelf: "center", width: "45%" }}
-            buttonStyle={{
-              backgroundColor: "red",
-              padding: 20,
-              borderRadius: 5,
-              height: 40
-            }}
-          />
         </View>
       </ImageBackground>
     );
@@ -220,7 +228,7 @@ export default class LoginScreen extends React.Component {
 
 const styles = StyleSheet.create({
   Wrapper: {
-    backgroundColor: "#dbdbdb",
+    backgroundColor: "rgba(0, 0, 44, 0.2)",
     width: "100%",
     height: "100%",
     alignItems: "center",
@@ -231,7 +239,7 @@ const styles = StyleSheet.create({
 const Header = styled.Text`
   font-size: 22;
   font-family: Roboto;
-  color: black;
+  color: white;
   margin-bottom: 5%;
   margin-top: 2%;
   /* text-decoration-line: underline; */

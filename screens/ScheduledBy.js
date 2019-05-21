@@ -2,7 +2,8 @@ import React from "react";
 import moment from "moment-timezone";
 import styled from "styled-components";
 import { firstNameOnly } from "../app/utils";
-import { View, Text, Image } from "react-native";
+import { View, Text } from "react-native";
+import { Avatar } from "react-native-elements";
 
 const ScheduledCall = ({ contact, user }) => {
   return (
@@ -14,12 +15,13 @@ const ScheduledCall = ({ contact, user }) => {
       </View>
       <View>
         <View>
-          <Text>{firstNameOnly(contact.user1.displayName)}</Text>{" "}
-          <Image
-            source={
-              contact.user1.photoUrl ||
-              "https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico"
-            }
+          <Text>{firstNameOnly(contact.user1.displayName)}</Text>
+          <Avatar
+            source={{
+              uri:
+                contact.user1.photoUrl ||
+                "https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico"
+            }}
           />
           <View>
             {/* <Link to={`/contact/${contact.id}/update`} state={{ contact }}>
@@ -34,11 +36,12 @@ const ScheduledCall = ({ contact, user }) => {
         </Text>
         <View>
           <Text>{firstNameOnly(contact.user2.displayName)}</Text>
-          <Image
-            source={
-              contact.user2.photoUrl ||
-              "https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico"
-            }
+          <Avatar
+            source={{
+              uri:
+                contact.user2.photoUrl ||
+                "https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico"
+            }}
           />
         </View>
       </View>

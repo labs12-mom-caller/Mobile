@@ -48,9 +48,9 @@ const ScheduledContacts = ({ user }) => {
     fetchData();
   }, [uid]);
 
-  const goCallInfo = () => {
-    Actions.contactinfo({ user, contactId });
-  };
+  // const goCallInfo = () => {
+  //   Actions.contactinfo({ user, contactId });
+  // };
 
   console.log(contacts, "from contacts");
 
@@ -85,6 +85,14 @@ const ScheduledContacts = ({ user }) => {
                         uri: c.user2.photoUrl
                       }}
                     />
+                    {
+                      (goCallInfo = () => {
+                        Actions.contactinfo({
+                          user,
+                          contactId: c.id
+                        });
+                      })
+                    }
                     <Text style={{ marginLeft: 10 }} onPress={goCallInfo}>
                       {firstNameOnly(c.user2.displayName)}
                     </Text>

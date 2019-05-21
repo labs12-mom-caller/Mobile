@@ -22,6 +22,7 @@ import ChooseCallPlan from "./screens/ChooseCallPlan";
 import ScheduleFreeCall from "./screens/ScheduleFreeCall";
 import CallConfirmation from "./screens/CallConfirmation";
 import CallInfo from "./screens/CallInfo";
+import ContactInfo from "./screens/ContactInfo";
 
 console.disableYellowBox = true;
 export default class App extends React.Component {
@@ -156,6 +157,7 @@ export default class App extends React.Component {
             <Scene key="schedulefreecall" component={ScheduleFreeCall} />
             <Scene key="callconfirmation" component={CallConfirmation} />
             <Scene key="callinfo" component={CallInfo} />
+            <Scene key="contactinfo" component={ContactInfo} />
           </Scene>
         </Scene>
       </Router>

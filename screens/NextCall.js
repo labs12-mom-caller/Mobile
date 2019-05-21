@@ -14,7 +14,7 @@ const ScheduledCall = ({ contact, user }) => {
       </View>
       <View>
         <View>
-          <Text>{firstNameOnly(contact.user1.displayName)}</Text>{" "}
+          <Text>{firstNameOnly(contact.user1.displayName)}</Text>
           <Image
             source={
               contact.user1.photoUrl ||

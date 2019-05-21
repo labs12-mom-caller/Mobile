@@ -41,6 +41,7 @@ export default class Dashboard extends React.Component {
     try {
       const value = await AsyncStorage.removeItem("token");
       // RNExitApp.exitApp();
+      this.props.changeAuth();
       Actions.login({ type: "reset" });
       // Actions.pop('login')
     } catch (err) {
@@ -125,7 +126,7 @@ export default class Dashboard extends React.Component {
 
   render() {
     if (this.state.user === null) {
-      return <Loading>Loading...</Loading>;
+      return <Text>Loading...</Text>;
     }
     // return this.state.user === null ? (
     //   <LoginScreen />

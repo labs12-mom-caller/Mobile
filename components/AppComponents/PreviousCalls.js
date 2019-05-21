@@ -4,6 +4,7 @@ import moment from "moment";
 import { db } from "../../constants/ApiKeys";
 // import { firstNameOnly } from "../../app/utils";
 import profileImage from "../../assets/recaller.png";
+import { Actions } from "react-native-router-flux";
 // import deepgram from "../../assets/images/deepgram-logo.svg";
 
 const PreviousCalls = ({ userId }) => {
@@ -52,17 +53,19 @@ const PreviousCalls = ({ userId }) => {
 
   if (calls.empty) return <Text>No Calls Available...</Text>;
 
-  console.log(calls, "from calls");
+  // console.log(calls, "from calls");
+  // console.log(userId, "from user id calls");
+
+  const gotoCall = (userId, call) => {
+    Actions.callinfo({ userId, callId: call.id });
+  };
 
   return (
     <View style={styles.Wrapper}>
-      {/* <View>
-        <Text>Contact</Text>
-        <Text style={{ marginTop: "10%", marginRight: "3%" }}>Transcripts</Text>
-      </View> */}
       {calls &&
         calls.map(call => (
-          <View style={styles.Contact}>
+          <View>
+            {console.log(call.id, "from render")}
             <View style={styles.Name}>
               <Text>{getFirst(call.user2.displayName)}</Text>
               <View style={styles.placeholder}>

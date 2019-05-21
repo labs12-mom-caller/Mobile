@@ -22,6 +22,7 @@ import ChooseCallPlan from "./screens/ChooseCallPlan";
 import ScheduleFreeCall from "./screens/ScheduleFreeCall";
 import CallConfirmation from "./screens/CallConfirmation";
 import ContactInfo from "./screens/ContactInfo";
+import CallInfo from "./screens/CallInfo";
 
 console.disableYellowBox = true;
 export default class App extends React.Component {
@@ -120,14 +121,19 @@ export default class App extends React.Component {
     }
   };
 
+  changeAuth = flag => {
+    this.setState({ isAuthenticated: false });
+  };
+
   render() {
     if (this.state.isAuthenticated) {
       this.retrieveData();
       // Actions.main();
     }
-    if (!this.state.isAuthenticated) {
-      return <LoginScreen />;
-    }
+    // if (!this.state.isAuthenticated) {
+    //   ////// Breaks signup
+    //   return <LoginScreen />;
+    // }
 
     return (
       <Router>
@@ -138,7 +144,12 @@ export default class App extends React.Component {
           </Scene>
 
           <Scene key="main" hideNavBar={true}>
-            <Scene key="dashboard" initial={true} component={Dashboard} />
+            <Scene
+              key="dashboard"
+              initial={true}
+              changeAuth={this.changeAuth}
+              component={Dashboard}
+            />
             <Scene key="update" component={UpdateAccount} />
             <Scene key="billing" component={Billing} />
             <Scene key="choosecontact" component={ChooseYourContact} />
@@ -146,6 +157,7 @@ export default class App extends React.Component {
             <Scene key="schedulefreecall" component={ScheduleFreeCall} />
             <Scene key="callconfirmation" component={CallConfirmation} />
             <Scene key="contactinfo" component={ContactInfo} />
+            <Scene key="callinfo" component={CallInfo} />
           </Scene>
         </Scene>
       </Router>

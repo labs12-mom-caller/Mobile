@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import moment from "moment";
 import { db } from "../../constants/ApiKeys";
-import { firstNameOnly } from "../../app/utils";
+// import { firstNameOnly } from "../../app/utils";
 import profileImage from "../../assets/recaller.png";
 // import deepgram from "../../assets/images/deepgram-logo.svg";
 
@@ -41,6 +41,11 @@ const PreviousCalls = ({ userId }) => {
     fetchData();
   }, [userId]);
 
+  const getFirst = name => {
+    const splitName = name.split(" ");
+    return splitName[0];
+  };
+
   // goPrevCalls = () => {
   //   this.props.navigation.navigate("PrevCalls");
   // };
@@ -59,7 +64,7 @@ const PreviousCalls = ({ userId }) => {
         calls.map(call => (
           <View style={styles.Contact}>
             <View style={styles.Name}>
-              <Text>{firstNameOnly(call.user2.displayName)}</Text>
+              <Text>{getFirst(call.user2.displayName)}</Text>
               <View style={styles.placeholder}>
                 <Image
                   source={call.user2.photoUrl || profileImage}

@@ -4,9 +4,11 @@ import { View, StyleSheet } from "react-native";
 import { Content, List, ListItem, Text, Left, Right } from "native-base";
 import { Avatar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { firstNameOnly } from "../../app/utils";
 
 import moment from "moment";
 import { db } from "../../constants/ApiKeys";
+import { Actions } from "react-native-router-flux";
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
@@ -27,7 +29,7 @@ const ScheduledContacts = ({ user }) => {
             const contact = {
               user2: {
                 ...user2Snap.data(),
-                id: user2Snap.id,
+                id: user2Snap.id
               },
               call_frequency: doc.data().call_frequency,
               next_call: doc.data().next_call,
@@ -46,8 +48,8 @@ const ScheduledContacts = ({ user }) => {
     fetchData();
   }, [uid]);
 
-  const goContacts = () => {
-    this.props.navigation.navigate("Contact");
+  const goCallInfo = () => {
+    Actions.contactinfo({ user, contactId });
   };
 
   console.log(contacts, "from contacts");
@@ -83,8 +85,8 @@ const ScheduledContacts = ({ user }) => {
                         uri: c.user2.photoUrl
                       }}
                     />
-                    <Text style={{ marginLeft: 10 }} onPress={this.goContacts}>
-                      {c.user2.displayName}
+                    <Text style={{ marginLeft: 10 }} onPress={goCallInfo}>
+                      {firstNameOnly(c.user2.displayName)}
                     </Text>
                   </Left>
                   <Right>

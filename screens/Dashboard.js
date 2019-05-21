@@ -109,7 +109,7 @@ export default class Dashboard extends React.Component {
   };
 
   gotoChooseContact = () => {
-    Actions.choosecontact({ user: this.state.user });
+    Actions.choosecallplan({ user: this.state.user });
   };
 
   formatForDisplay = num => {

@@ -6,8 +6,8 @@ import moment from "moment-timezone";
 import { formatPhoneNumber } from "../app/utils";
 
 import { db } from "../constants/ApiKeys";
-// console.log(calls, "from calls");
 const CallRecord = ({ callId }) => {
+  console.log(calls, "from calls");
   console.log(callId, "from user contact");
   const [call, setCall] = React.useState(null);
   const [contact, setContact] = React.useState(null);
@@ -61,7 +61,7 @@ const CallRecord = ({ callId }) => {
         <View>
           <View>
             <Image
-              src={
+              source={
                 contact.photoUrl ||
                 "https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico"
               }

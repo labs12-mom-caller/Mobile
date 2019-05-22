@@ -63,7 +63,9 @@ const PreviousCalls = ({ userId }) => {
         calls.map(call => (
           <ListItem onPress={() => gotoCall(call)} style={styles.Contacts}>
             <View style={styles.Name}>
-              <Text style={{marginBottom: 5, textAlign: "center"}}>{firstNameOnly(call.user2.displayName)}</Text>
+              <Text style={{ marginBottom: 5, textAlign: "center" }}>
+                {firstNameOnly(call.user2.displayName)}
+              </Text>
               <View style={styles.placeholder}>
                 {call.user2.photoUrl ? (
                   <Avatar
@@ -83,6 +85,12 @@ const PreviousCalls = ({ userId }) => {
                   call.deepgram.results.channels[0].alternatives[0]
                     .transcript &&
                   call.deepgram.results.channels[0].alternatives[0].transcript}
+              </Text>
+              <Text
+                style={{ color: "blue", marginTop: 25, paddingTop: 0 }}
+                onPress={() => gotoCall(call)}
+              >
+                Click to View
               </Text>
             </View>
           </ListItem>

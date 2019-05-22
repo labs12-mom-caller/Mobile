@@ -75,8 +75,6 @@ export default class SignupScreen extends React.Component {
             style={{
               fontSize: 16,
               color: "white",
-              marginBottom: "10%",
-              marginTop: "5%",
               width: "80%",
               textAlign: "center"
             }}
@@ -88,7 +86,7 @@ export default class SignupScreen extends React.Component {
           </Text>
 
           <View style={{ width: "75%" }}>
-            <View style={{ paddingTop: 20 }} />
+            <View style={{ paddingTop: 50 }} />
             <View style={{ alignSelf: "center", width: 350 }}>
               <Input
                 placeholder="Email"
@@ -110,6 +108,7 @@ export default class SignupScreen extends React.Component {
                   marginRight: 35,
                   paddingLeft: 10
                 }}
+                inputContainerStyle={{borderBottomWidth: 0}}
                 placeholderTextColor="white"
                 keyboardType="email-address"
                 autoCapitalize="none"
@@ -137,6 +136,7 @@ export default class SignupScreen extends React.Component {
                   marginRight: 35,
                   paddingLeft: 10
                 }}
+                inputContainerStyle={{borderBottomWidth: 0}}
                 placeholderTextColor="white"
                 placeholder="Password"
                 secureTextEntry={true}
@@ -164,6 +164,7 @@ export default class SignupScreen extends React.Component {
                   marginRight: 35,
                   paddingLeft: 10
                 }}
+                inputContainerStyle={{borderBottomWidth: 0}}
                 placeholderTextColor="white"
                 placeholder="Confirm Password"
                 secureTextEntry={true}
@@ -217,10 +218,10 @@ export default class SignupScreen extends React.Component {
 
 const styles = StyleSheet.create({
   Wrapper: {
-    backgroundColor: "rgba(0, 0, 44, 0.5)",
+    backgroundColor: "rgba(0, 0, 44, 0.4)",
     width: "100%",
     height: "100%",
     alignItems: "center",
-    justifyContent: "center"
+    // justifyContent: "center"
   }
 });

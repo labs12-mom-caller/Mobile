@@ -132,17 +132,13 @@ export default class Dashboard extends React.Component {
     return this.state.user === null ? (
       <LoginScreen />
     ) : (
-    // return (
-      <ScrollView style={{ paddingTop: 20 }}>
-        <Header
-          leftComponent={{ icon: "menu", color: "#fff" }}
-          centerComponent={{ text: "MY TITLE", style: { color: "#fff" } }}
-          rightComponent={{ icon: "home", color: "#fff" }}
-        />
-        <SignOut onPress={this._signOut}>Signout</SignOut>
+      // return (
+      <ScrollView style={{ paddingTop: 15 }}>
         <Container>
-          <Card>
+          <Card containerStyle={{ borderWidth: 0.5, borderColor: "black" }}>
+            {/* <SignOut onPress={this._signOut}>Signout</SignOut> */}
             <Avatar
+              overlayContainerStyle={{ borderColor: "black", borderWidth: 0.5 }}
               style={{ alignSelf: "center", width: 150, height: 150 }}
               source={{ uri: this.state.user.photoUrl }}
               // showEditButton
@@ -154,15 +150,18 @@ export default class Dashboard extends React.Component {
             <ProfileInfo>
               <ProfileText
                 onPress={this.updateAcc}
-                style={{ marginBottom: 20, color: "blue" }}
+                style={{ marginBottom: 10, marginTop: 10, color: "blue" }}
               >
                 Update Profile
               </ProfileText>
-              <ProfileText>{this.state.user.displayName}</ProfileText>
+
               <ProfileText>
-                {this.formatForDisplay(this.state.user.phoneNumber)}
+                DisplayName: {this.state.user.displayName}
               </ProfileText>
-              <ProfileText>{this.state.user.email}</ProfileText>
+              <ProfileText>
+                Phone: {this.formatForDisplay(this.state.user.phoneNumber)}
+              </ProfileText>
+              <ProfileText>Email: {this.state.user.email}</ProfileText>
             </ProfileInfo>
           </Card>
         </Container>
@@ -178,7 +177,7 @@ export default class Dashboard extends React.Component {
               borderColor: "black",
               marginTop: 10,
               marginHorizontal: 5,
-              width: 100
+              width: 125
             }}
             titleStyle={{ color: "black" }}
           />
@@ -191,11 +190,24 @@ export default class Dashboard extends React.Component {
               backgroundColor: "white",
               borderColor: "black",
               marginTop: 10,
-              width: 100
+              width: 125
             }}
             titleStyle={{ color: "black" }}
           />
         </View>
+        <Button
+          title="Sign Out"
+          type="outline"
+          onPress={this._signOut}
+          buttonStyle={{
+            backgroundColor: "white",
+            borderColor: "black",
+            marginTop: 10,
+            width: 125
+          }}
+          titleStyle={{ color: "red" }}
+          containerStyle={{ alignSelf: "center" }}
+        />
 
         <ComponentContainer>
           <List style={{ marginBottom: 35 }}>
@@ -221,7 +233,7 @@ export default class Dashboard extends React.Component {
 }
 
 const Container = styled.View`
-  width: 75%;
+  width: 90%;
   align-self: center;
 `;
 
@@ -238,11 +250,13 @@ const ProfileText = styled.Text`
 
 const SignOut = styled.Text`
   align-self: center;
+  margin-bottom: 10;
+  color: red;
 `;
 
 const ComponentContainer = styled.View`
   width: 90%;
-  margin-top: 25;
+  margin-top: 10;
   align-self: center;
 `;
 

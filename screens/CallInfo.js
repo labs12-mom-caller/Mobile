@@ -1,7 +1,9 @@
 import React from "react";
 import { View, Text, Image, ScrollView } from "react-native";
-import { Button } from "react-native-elements";
+import { Button, Avatar } from "react-native-elements";
 import moment from "moment-timezone";
+import profileImage from "../assets/recaller.png";
+import styled from "styled-components";
 
 import { formatPhoneNumber } from "../app/utils";
 
@@ -58,61 +60,80 @@ const CallRecord = ({ callId }) => {
   console.log(call);
   return (
     call && (
-      <ScrollView key={call.id}>
-        <View>
-          <View>
-            <Image
-              source={
-                contact.photoUrl ||
-                "https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico"
-              }
-              alt={contact.displayName}
-            />
+      <ImageBackground
+        source={require("../assets/decide.png")}
+        style={styles.Wrapper}
+        imageStyle={{
+          resizeMode: "cover"
+        }}
+      >
+        <ScrollView key={call.id}>
+          <Container>
             <View>
-              <Text>Previous Call</Text>
-              <Text>on</Text>
-              <Text>
-                {moment(call.call_time, "X").format(
-                  "dddd, MMMM Do [at] h:mm A"
+              <View>
+                {contact.photoUrl ? (
+                  <Avatar
+                    rounded
+                    source={{
+                      uri: contact.photoUrl
+                    }}
+                    size="xlarge"
+                  />
+                ) : (
+                  <Avatar rounded source={profileImage} size="xlarge" />
                 )}
-              </Text>
-              <Text>with</Text>
+                <View>
+                  <Text>Previous Call</Text>
+                  <Text>on</Text>
+                  <Text>
+                    {moment(call.call_time, "X").format(
+                      "dddd, MMMM Do [at] h:mm A"
+                    )}
+                  </Text>
+                  <Text>with</Text>
+                </View>
+                <View>
+                  <Text>{contact.displayName}</Text>
+                  <Text>{contact.email}</Text>
+                  <Text>{formatPhoneNumber(contact.phoneNumber)}</Text>
+                  {/* <Button title='Go Back' onPress={} /> */}
+                </View>
+              </View>
             </View>
             <View>
-              <Text>{contact.displayName}</Text>
-              <Text>{contact.email}</Text>
-              <Text>{formatPhoneNumber(contact.phoneNumber)}</Text>
-              {/* <Button title='Go Back' onPress={} /> */}
-            </View>
-          </View>
-        </View>
-        <View>
-          <View>
-            <Text>Call Record</Text>
-            <View>
-              {/* <Audio controls>
+              <View>
+                <Text>Call Record</Text>
+                <View>
+                  {/* <Audio controls>
                 <source src={call.audio} type='audio/wav' />
                 <track kind='captions' />
                 Your browser does not support the audio element
               </Audio> */}
-              <Text>Transcript</Text>
-              <View>
-                {call.simplified &&
-                  call.simplified.map(line => {
-                    return (
-                      <View>
-                        <Text>{line.user}</Text>
-                        <Text>{line.script}</Text>
-                      </View>
-                    );
-                  })}
+                  <Text>Transcript</Text>
+                  <View>
+                    {call.simplified &&
+                      call.simplified.map(line => {
+                        return (
+                          <View>
+                            <Text>{line.user}</Text>
+                            <Text>{line.script}</Text>
+                          </View>
+                        );
+                      })}
+                  </View>
+                </View>
               </View>
             </View>
-          </View>
-        </View>
-      </ScrollView>
+          </Container>
+        </ScrollView>
+      </ImageBackground>
     )
   );
 };
 
 export default CallRecord;
+
+const Container = styled.View`
+  align-items: center;
+  border: 1px solid green;
+`;

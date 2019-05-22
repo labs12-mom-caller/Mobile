@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import { ListItem } from "native-base";
+import { Avatar } from "react-native-elements";
 import moment from "moment";
 import { db } from "../../constants/ApiKeys";
 import { firstNameOnly } from "../../app/utils";
@@ -51,42 +53,39 @@ const PreviousCalls = ({ userId }) => {
   // console.log(calls, "from calls");
   // console.log(userId, "from user id calls");
 
-  // const gotoCall = (userId, call) => {
-  //   Actions.callinfo({ userId, callId: call.id });
-  // };
+  const gotoCall = call => {
+    Actions.callinfo({ userId, callId: call.id });
+  };
 
   return (
     <View style={styles.Wrapper}>
       {calls &&
         calls.map(call => (
-          <View>
-            {console.log(call.id, "from render")}
+          <ListItem onPress={() => gotoCall(call)} style={styles.Contacts}>
             <View style={styles.Name}>
-              {
-                (gotoCall = (userId) => {
-                  Actions.callinfo({ userId, callId: call.id });
-                })
-              }
-              <Text onPress={gotoCall}>
-                {firstNameOnly(call.user2.displayName)}
-              </Text>
+              <Text style={{marginBottom: 5, textAlign: "center"}}>{firstNameOnly(call.user2.displayName)}</Text>
               <View style={styles.placeholder}>
-                <Image
-                  source={call.user2.photoUrl || profileImage}
-                  style={{ height: 60, width: 60, flex: 1 }}
-                />
+                {call.user2.photoUrl ? (
+                  <Avatar
+                    rounded
+                    size="medium"
+                    source={{ uri: call.user2.photoUrl }}
+                  />
+                ) : (
+                  <Avatar rounded size="medium" source={profileImage} />
+                )}
               </View>
             </View>
             <View>
               <Text>{moment(call.call_time).format("MMM DD - h:mm A")}</Text>
-              <Text>
+              <Text style={{ width: 250, height: 50, overflow: "hidden" }}>
                 {call.deepgram &&
                   call.deepgram.results.channels[0].alternatives[0]
                     .transcript &&
                   call.deepgram.results.channels[0].alternatives[0].transcript}
               </Text>
             </View>
-          </View>
+          </ListItem>
         ))}
     </View>
   );
@@ -95,7 +94,6 @@ export default PreviousCalls;
 
 const styles = StyleSheet.create({
   Wrapper: {
-    flexDirection: "row",
     justifyContent: "space-around",
     flex: 1
   },
@@ -107,8 +105,8 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     borderColor: "black",
-    backgroundColor: "#eee",
-    // width: "20%",
+    // backgroundColor: "#eee",
+    width: "100%",
     height: 60
   },
   previewImage: {
@@ -119,5 +117,9 @@ const styles = StyleSheet.create({
     marginRight: "10%",
     marginBottom: "10%",
     textAlign: "center"
+  },
+  Contacts: {
+    flexDirection: "row",
+    width: "90%"
   }
 });

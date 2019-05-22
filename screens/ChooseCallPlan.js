@@ -5,17 +5,17 @@ import styled from "styled-components";
 import { Actions } from "react-native-router-flux";
 
 const ChooseCallPlan = ({ contactId, userId }) => {
-  const [free, setFree] = useState(null);
+  const [free, setFree] = useState("");
   const [paid, setPaid] = useState(null);
   const [show, setShow] = useState(false);
 
-  const freeFrequency = e => {
-    e.preventDefault();
-    if (e.target.innerText === free) {
-      setFree(null);
-    } else {
-      setFree(e.target.innerText);
-    }
+  const freeFrequency = () => {
+    // e.preventDefault();
+    // if (e.target.innerText === free) {
+    //   setFree(null);
+    // } else {
+    //   setFree(e.target.innerText);
+    // }
   };
 
   const paidFrequency = e => {
@@ -38,7 +38,12 @@ const ChooseCallPlan = ({ contactId, userId }) => {
   };
 
   const freecall = () => {
-    Actions.schedulefreecall({ userId, contactId, free });
+    if (free === "") {
+      return;
+    } else {
+    }
+    console.log(free, "what is free from freecall");
+    Actions.schedulefreecall({ userId, contactId, frequency: free });
   };
 
   const showBtns = () => {
@@ -132,7 +137,7 @@ const ChooseCallPlan = ({ contactId, userId }) => {
                 <Button
                   title="Bi-Weekly"
                   type="outline"
-                  onPress={this.addCall}
+                  onPress={() => setFree("Bi-Weekly")}
                   buttonStyle={{
                     backgroundColor: "black",
                     borderColor: "white",
@@ -154,7 +159,7 @@ const ChooseCallPlan = ({ contactId, userId }) => {
                 <Button
                   title="Monthly"
                   type="outline"
-                  onPress={this.addCall}
+                  onPress={() => setFree("Monthly")}
                   buttonStyle={{
                     backgroundColor: "black",
                     borderColor: "white",
@@ -173,20 +178,22 @@ const ChooseCallPlan = ({ contactId, userId }) => {
             </Button> */}
               </ButtonContainer>
               <Price>Free</Price>
-              <Button
-                title="Choose Plan"
-                type="outline"
-                onPress={freecall}
-                buttonStyle={{
-                  backgroundColor: "red",
-                  borderColor: "white",
-                  marginTop: 10,
-                  marginHorizontal: 5,
-                  width: 150,
-                  alignSelf: "center"
-                }}
-                titleStyle={{ color: "white" }}
-              />
+              {free !== "" ? (
+                <Button
+                  title="Choose Plan"
+                  type="outline"
+                  onPress={freecall}
+                  buttonStyle={{
+                    backgroundColor: "red",
+                    borderColor: "white",
+                    marginTop: 10,
+                    marginHorizontal: 5,
+                    width: 150,
+                    alignSelf: "center"
+                  }}
+                  titleStyle={{ color: "white" }}
+                />
+              ) : null}
             </Card>
           )}
           {/* <Button type="button" disabled={!free} onClick={selectFree}>

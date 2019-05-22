@@ -35,7 +35,7 @@ const CallConfirmation = ({ contactId }) => {
 
   const goToDashboard = e => {
     e.preventDefault();
-    Actions.main();
+    Actions.main({ type: "reset" });
     // navigate("/");
   };
 
@@ -65,9 +65,7 @@ const CallConfirmation = ({ contactId }) => {
             </View>
           )}
         </View>
-        <Button type="button" onPress={goToDashboard}>
-          Continue to Dashboard
-        </Button>
+        <Button onPress={goToDashboard} title="Continue to Dashboard" />
       </View>
     </View>
   ) : (

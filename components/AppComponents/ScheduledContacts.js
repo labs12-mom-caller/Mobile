@@ -86,12 +86,14 @@ const ScheduledContacts = ({ user }) => {
                       }}
                     />
                     {
+                      // THERE BE DRAGONS HERE... SHAWN AND JON REMEMBER THIS FOR THE FUTURE!!!
                       (goCallInfo = () => {
                         Actions.contactinfo({
                           user,
                           contactId: c.id
                         });
                       })
+                      // THERE BE DRAGONS HERE... SHAWN AND JON REMEMBER THIS FOR THE FUTURE!!!
                     }
                     <Text style={{ marginLeft: 10 }} onPress={goCallInfo}>
                       {firstNameOnly(c.user2.displayName)}

@@ -40,6 +40,7 @@ export default class SignupScreen extends React.Component {
       .catch(error => {
         Alert.alert(error.message);
       });
+    // Actions.main({ type: "reset" });
   };
 
   onBackToLoginPress = () => {
@@ -63,10 +64,9 @@ export default class SignupScreen extends React.Component {
         <View style={styles.Wrapper}>
           <Text
             style={{
-              fontSize: 30,
-              fontWeight: "bold",
+              fontSize: 60,
               color: "white",
-              fontFamily: "monospace"
+              fontFamily: "Pacifico"
             }}
           >
             ReCaller
@@ -89,85 +89,86 @@ export default class SignupScreen extends React.Component {
 
           <View style={{ width: "75%" }}>
             <View style={{ paddingTop: 20 }} />
+            <View style={{ alignSelf: "center", width: 350 }}>
+              <Input
+                placeholder="Email"
+                leftIcon={
+                  <Icon
+                    name="envelope"
+                    size={18}
+                    color="white"
+                    style={{ marginRight: 9 }}
+                  />
+                }
+                value={this.state.email}
+                onChangeText={text => {
+                  this.setState({ email: text });
+                }}
+                inputStyle={{
+                  color: "white",
+                  backgroundColor: "rgba(0, 0, 0, 0.4)",
+                  marginRight: 35,
+                  paddingLeft: 10
+                }}
+                placeholderTextColor="white"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              <View style={{ paddingTop: 20 }} />
 
-            <Input
-              placeholder="Email"
-              leftIcon={
-                <Icon
-                  name="envelope"
-                  size={18}
-                  color="white"
-                  style={{ marginRight: 9 }}
-                />
-              }
-              value={this.state.email}
-              onChangeText={text => {
-                this.setState({ email: text });
-              }}
-              inputStyle={{
-                color: "white",
-                backgroundColor: "rgba(0, 0, 0, 0.4)",
-                marginRight: 35,
-                paddingLeft: 10
-              }}
-              placeholderTextColor="white"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-            <View style={{ paddingTop: 20 }} />
+              <Input
+                leftIcon={
+                  <Icon
+                    name="lock"
+                    size={24}
+                    color="white"
+                    style={{ marginRight: 10 }}
+                  />
+                }
+                style={{ borderLeftWidth: 0.5 }}
+                value={this.state.password}
+                onChangeText={text => {
+                  this.setState({ password: text });
+                }}
+                inputStyle={{
+                  color: "white",
+                  backgroundColor: "rgba(0, 0, 0, 0.4)",
+                  marginRight: 35,
+                  paddingLeft: 10
+                }}
+                placeholderTextColor="white"
+                placeholder="Password"
+                secureTextEntry={true}
+              />
 
-            <Input
-              leftIcon={
-                <Icon
-                  name="lock"
-                  size={24}
-                  color="white"
-                  style={{ marginRight: 10 }}
-                />
-              }
-              style={{ borderLeftWidth: 0.5 }}
-              value={this.state.password}
-              onChangeText={text => {
-                this.setState({ password: text });
-              }}
-              inputStyle={{
-                color: "white",
-                backgroundColor: "rgba(0, 0, 0, 0.4)",
-                marginRight: 35,
-                paddingLeft: 10
-              }}
-              placeholderTextColor="white"
-              placeholder="Password"
-              secureTextEntry={true}
-            />
+              <View style={{ paddingTop: 20 }} />
 
-            <View style={{ paddingTop: 20 }} />
-
-            <Input
-              leftIcon={
-                <Icon
-                  name="lock"
-                  size={24}
-                  color="white"
-                  style={{ marginRight: 10 }}
-                />
-              }
-              style={{ borderLeftWidth: 0.5 }}
-              value={this.state.passwordConfirm}
-              onChangeText={text => {
-                this.setState({ passwordConfirm: text });
-              }}
-              inputStyle={{
-                color: "white",
-                backgroundColor: "rgba(0, 0, 0, 0.4)",
-                marginRight: 35,
-                paddingLeft: 10
-              }}
-              placeholderTextColor="white"
-              placeholder="Confirm Password"
-              secureTextEntry={true}
-            />
+              <Input
+                leftIcon={
+                  <Icon
+                    name="lock"
+                    size={24}
+                    color="white"
+                    style={{ marginRight: 10 }}
+                  />
+                }
+                style={{ borderLeftWidth: 0.5 }}
+                value={this.state.passwordConfirm}
+                onChangeText={text => {
+                  this.setState({ passwordConfirm: text });
+                }}
+                inputStyle={{
+                  color: "white",
+                  backgroundColor: "rgba(0, 0, 0, 0.4)",
+                  marginRight: 35,
+                  paddingLeft: 10
+                }}
+                placeholderTextColor="white"
+                placeholder="Confirm Password"
+                secureTextEntry={true}
+              />
+            </View>
 
             <View style={{ paddingTop: 20 }} />
 

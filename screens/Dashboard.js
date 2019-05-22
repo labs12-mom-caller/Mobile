@@ -72,6 +72,7 @@ export default class Dashboard extends React.Component {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
       // this.setState({ user: null }); // Remember to remove the user from your app's state as well
+      this.props.changeAuth();
       this.removeData();
     } catch (error) {
       console.error(error);
@@ -79,6 +80,7 @@ export default class Dashboard extends React.Component {
   };
 
   _signOut = async () => {
+    this.props.changeAuth();
     this.removeData();
     try {
       firebase
@@ -125,12 +127,12 @@ export default class Dashboard extends React.Component {
 
   render() {
     if (this.state.user === null) {
-      return <Loading>Loading...</Loading>;
+      return <Text>Loading...</Text>;
     }
-    // return this.state.user === null ? (
-    //   <LoginScreen />
-    // ) : (
-    return (
+    return this.state.user === null ? (
+      <LoginScreen />
+    ) : (
+    // return (
       <ScrollView style={{ paddingTop: 20 }}>
         <Header
           leftComponent={{ icon: "menu", color: "#fff" }}

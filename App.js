@@ -21,6 +21,8 @@ import ChooseYourContact from "./screens/ChooseYourContact";
 import ChooseCallPlan from "./screens/ChooseCallPlan";
 import ScheduleFreeCall from "./screens/ScheduleFreeCall";
 import CallConfirmation from "./screens/CallConfirmation";
+import CallInfo from "./screens/CallInfo";
+import ContactInfo from "./screens/ContactInfo";
 
 console.disableYellowBox = true;
 export default class App extends React.Component {
@@ -112,11 +114,15 @@ export default class App extends React.Component {
       // }
       if (!value) {
         // Actions.main({ type: "replace" });
-        Actions.main();
+        Actions.main({ type: "reset" });
       }
     } catch (err) {
       console.log(err);
     }
+  };
+
+  changeAuth = flag => {
+    this.setState({ isAuthenticated: false });
   };
 
   render() {
@@ -124,9 +130,10 @@ export default class App extends React.Component {
       this.retrieveData();
       // Actions.main();
     }
-    if (!this.state.isAuthenticated) {
-      return <LoginScreen />;
-    }
+    // if (!this.state.isAuthenticated) {
+    //   ////// Breaks signup
+    //   return <LoginScreen />;
+    // }
 
     return (
       <Router>
@@ -137,13 +144,20 @@ export default class App extends React.Component {
           </Scene>
 
           <Scene key="main" hideNavBar={true}>
-            <Scene key="dashboard" initial={true} component={Dashboard} />
+            <Scene
+              key="dashboard"
+              initial={true}
+              changeAuth={this.changeAuth}
+              component={Dashboard}
+            />
             <Scene key="update" component={UpdateAccount} />
             <Scene key="billing" component={Billing} />
             <Scene key="choosecontact" component={ChooseYourContact} />
             <Scene key="choosecallplan" component={ChooseCallPlan} />
             <Scene key="schedulefreecall" component={ScheduleFreeCall} />
             <Scene key="callconfirmation" component={CallConfirmation} />
+            <Scene key="callinfo" component={CallInfo} />
+            <Scene key="contactinfo" component={ContactInfo} />
           </Scene>
         </Scene>
       </Router>

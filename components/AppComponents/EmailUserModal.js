@@ -185,10 +185,14 @@ export default class EmailUserModal extends Component {
             { merge: true }
           )
           .then(user => {
-            Actions.main();
+            Actions.main({ type: "reset" });
+          })
+          .catch(err => {
+            // Alert.alert("Failed");
+            this.setState({ modalVisible: !this.state.modalVisible });
           });
 
-        this.setState({ modalVisible: !this.state.modalVisible });
+        // this.setState({ modalVisible: !this.state.modalVisible });
       }
     } else {
       Alert.alert("Please Enter a Valid Number and a Username");
@@ -203,9 +207,9 @@ export default class EmailUserModal extends Component {
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-          }}
+          // onRequestClose={() => {
+          //   Alert.alert("Modal has been closed.");
+          // }}
         >
           <View style={styles.Wrapper}>
             <View>

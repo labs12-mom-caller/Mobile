@@ -114,7 +114,7 @@ export default class App extends React.Component {
       // }
       if (!value) {
         // Actions.main({ type: "replace" });
-        Actions.main();
+        Actions.main({ type: "reset" });
       }
     } catch (err) {
       console.log(err);

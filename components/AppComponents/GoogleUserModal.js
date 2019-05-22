@@ -87,9 +87,9 @@ export default class GoogleUserModal extends Component {
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-          }}
+          // onRequestClose={() => {
+          //   Alert.alert("Modal has been closed.");
+          // }}
         >
           <View style={styles.Wrapper}>
             <Text style={styles.Label}>Please enter your phone number</Text>

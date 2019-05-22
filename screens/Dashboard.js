@@ -129,10 +129,10 @@ export default class Dashboard extends React.Component {
     if (this.state.user === null) {
       return <Text>Loading...</Text>;
     }
-    // return this.state.user === null ? (
-    //   <LoginScreen />
-    // ) : (
-    return (
+    return this.state.user === null ? (
+      <LoginScreen />
+    ) : (
+    // return (
       <ScrollView style={{ paddingTop: 20 }}>
         <Header
           leftComponent={{ icon: "menu", color: "#fff" }}

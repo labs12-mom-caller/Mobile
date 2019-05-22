@@ -108,67 +108,71 @@ export default class LoginScreen extends React.Component {
           </Text>
           <Header>Login if you have a account</Header>
 
-          <View style={{ width: "75%" }}>
-            <Input
-              placeholder="Email"
-              leftIcon={
-                <Icon
-                  name="envelope"
-                  size={18}
-                  color="white"
-                  style={{ marginRight: 9 }}
-                />
-              }
-              value={this.state.email}
-              onChangeText={text => {
-                this.setState({ email: text });
-              }}
-              inputStyle={{
-                color: "white",
-                backgroundColor: "rgba(0, 0, 0, 0.4)",
-                marginRight: 35,
-                paddingLeft: 10
-              }}
-              placeholderTextColor="white"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-            <View style={{ paddingTop: 20 }} />
-            <Input
-              leftIcon={
-                <Icon
-                  name="lock"
-                  size={24}
-                  color="white"
-                  style={{ marginRight: 10 }}
-                />
-              }
-              style={{ borderLeftWidth: 0.5 }}
-              value={this.state.password}
-              onChangeText={text => {
-                this.setState({ password: text });
-              }}
-              inputStyle={{
-                color: "white",
-                backgroundColor: "rgba(0, 0, 0, 0.4)",
-                marginRight: 35,
-                paddingLeft: 10
-              }}
-              placeholderTextColor="white"
-              placeholder="Password"
-              secureTextEntry={true}
-            />
+          <View style={{ width: "100%" }}>
+            <View style={{ alignSelf: "center", width: 350 }}>
+              <Input
+                placeholder="Email"
+                leftIcon={
+                  <Icon
+                    name="envelope"
+                    size={18}
+                    color="white"
+                    style={{ marginRight: 9 }}
+                    underlayColor={{ }}
+                  />
+                }
+                value={this.state.email}
+                onChangeText={text => {
+                  this.setState({ email: text });
+                }}
+                inputStyle={{
+                  color: "white",
+                  backgroundColor: "rgba(0, 0, 0, 0.4)",
+                  marginRight: 35,
+                  paddingLeft: 10
+                }}
+                placeholderTextColor="white"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              <View style={{ paddingTop: 20 }} />
+              <Input
+                leftIcon={
+                  <Icon
+                    name="lock"
+                    size={24}
+                    color="white"
+                    style={{ marginRight: 10 }}
+                  />
+                }
+                style={{ borderLeftWidth: 0.5 }}
+                value={this.state.password}
+                onChangeText={text => {
+                  this.setState({ password: text });
+                }}
+                inputStyle={{
+                  color: "white",
+                  backgroundColor: "rgba(0, 0, 0, 0.4)",
+                  marginRight: 35,
+                  paddingLeft: 10
+                }}
+                placeholderTextColor="white"
+                placeholder="Password"
+                secureTextEntry={true}
+              />
+            </View>
             <View style={{ paddingTop: 40 }} />
             <View style={{ width: "50%", alignSelf: "center" }}>
               <Button
                 title="Login"
                 type="solid"
                 onPress={this.onLoginPress}
-                containerStyle={{ width: 100, alignSelf: "center" }}
+                containerStyle={{ width: 150, alignSelf: "center" }}
                 buttonStyle={{
                   borderColor: "black",
                   borderWidth: 1.5,
+                  backgroundColor: "white",
                   backgroundColor: "rgba(0, 0, 0, 0.6)",
                   // borderRadius: 10,
                   padding: 5,

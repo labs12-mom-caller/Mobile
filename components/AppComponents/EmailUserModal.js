@@ -188,7 +188,7 @@ export default class EmailUserModal extends Component {
             Actions.main();
           });
 
-        this.setState({ modalVisible: !this.state.modalVisible });
+        this.setState({ modalVisible: false });
       }
     } else {
       Alert.alert("Please Enter a Valid Number and a Username");

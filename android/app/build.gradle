@@ -109,8 +109,8 @@ android {
         applicationId "com.recaller"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 12
-        versionName "0.5.5"
+        versionCode 13
+        versionName "0.6.0"
     }
     signingConfigs {
         release {

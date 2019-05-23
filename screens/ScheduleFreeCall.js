@@ -10,6 +10,7 @@ import { Button } from "react-native-elements";
 
 import { db } from "../constants/ApiKeys";
 import Time from "../components/AppComponents/Time";
+import { Actions } from "react-native-router-flux";
 
 const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   // const initialState = {
@@ -94,24 +95,25 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
 
   const handleSubmit = async () => {
     console.log("Fired");
-    // const thisTime = randomTime(info.timeList);
-    // let nextCall = moment(thisTime).toDate();
-    // console.log("this time: ", thisTime, nextCall);
-    // if (
-    //   nextCall <
-    //   moment()
-    //     .tz(info.time)
-    //     .toDate()
-    // ) {
-    //   nextCall = moment(nextCall)
-    //     .add(1, "w")
-    //     .toDate();
-    // }
+    console.log(frequency, "from handle submit");
+    const thisTime = randomTime(timeList);
+    let nextCall = moment1(thisTime).toDate();
+    console.log("this time: ", thisTime, nextCall);
+    if (
+      nextCall <
+      moment()
+        .tz(time)
+        .toDate()
+    ) {
+      nextCall = moment1(nextCall)
+        .add(1, "w")
+        .toDate();
+    }
     try {
       const docRef = await db.collection("contacts").add({
-        // call_frequency: frequency,
+        call_frequency: frequency,
         call_type: "free",
-        // next_call: nextCall,
+        next_call: nextCall,
         timezone: time,
         selected_times: timeList,
         user1: db.collection("users").doc(userId),
@@ -121,6 +123,7 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
         canceled: false
       });
       // navigate(`/confirmation/${docRef.id}`);
+      Actions.callconfirmation({ contactId: docRef.id });
       console.log("SUCCESS", docRef);
     } catch (err) {
       console.log(err);

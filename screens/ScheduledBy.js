@@ -4,98 +4,91 @@ import styled from "styled-components";
 import { firstNameOnly } from "../app/utils";
 import { View, Text } from "react-native";
 import { Avatar } from "react-native-elements";
+import profileImage from "../assets/recaller.png";
 
 const ScheduledCall = ({ contact, user }) => {
   return (
-    <View>
+    <Container>
+      <Sby>
+        <Info style={{ fontSize: 40 }}>Scheduled By</Info>
+      </Sby>
+      <Info>{firstNameOnly(contact.user1.displayName)}</Info>
+      {contact.user1.photoUrl ? (
+        <Avatar
+          rounded
+          source={{
+            uri: contact.user1.photoUrl
+          }}
+          size="xlarge"
+        />
+      ) : (
+        <Avatar rounded source={profileImage} size="xlarge" />
+      )}
       <View>
-        <Text>Scheduled By</Text>
-        <Text>On</Text>
-        <Text>With</Text>
-      </View>
-      <View>
-        <View>
-          <Text>{firstNameOnly(contact.user1.displayName)}</Text>
-          <Avatar
-            source={{
-              uri:
-                contact.user1.photoUrl ||
-                "https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico"
-            }}
-          />
-          <View>
-            {/* <Link to={`/contact/${contact.id}/update`} state={{ contact }}>
+        {/* <Link to={`/contact/${contact.id}/update`} state={{ contact }}>
               Update Call
             </Link> */}
-          </View>
-        </View>
-        <Text>
+      </View>
+      <Container>
+        <Info style={{ fontSize: 40 }}>With</Info>
+        <Info>{firstNameOnly(contact.user2.displayName)}</Info>
+        {contact.user2.photoUrl ? (
+          <Avatar
+            rounded
+            source={{
+              uri: contact.user2.photoUrl
+            }}
+            size="xlarge"
+          />
+        ) : (
+          <Avatar rounded source={profileImage} size="xlarge" />
+        )}
+        <Info style={{ margin: 10 }}>
           {moment(contact.created_at, "X")
             .tz(contact.timezone)
             .format("MMMM Do, YYYY")}
-        </Text>
-        <View>
-          <Text>{firstNameOnly(contact.user2.displayName)}</Text>
-          <Avatar
-            source={{
-              uri:
-                contact.user2.photoUrl ||
-                "https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico"
-            }}
-          />
-        </View>
-      </View>
-    </View>
+        </Info>
+      </Container>
+    </Container>
   );
 };
 
-// const Container = styled.div`
-//   display: flex;
-//   flex-direction: column;
+const Container = styled.View`
+  align-items: center;
+  justify-content: center;
+  min-width: 90%;
+  /* border: 1px solid purple; */
+  padding: 15px;
+  /* background: black; */
+  /* opacity: 0.8; */
+`;
 
-//   header {
-//     align-items: center;
-//     text-align: center;
-//     padding: 10px;
+const Sby = styled.View`
+  flex-direction: row;
+  /* border: 1px solid blue; */
+  min-width: 100%;
+  justify-content: center;
+`;
 
-//     .schedule {
-//       margin-left: 2rem;
-//     }
-
-//     .on {
-//       margin-right: 3rem;
-//     }
-
-//     .with {
-//       margin-right: 4.5rem;
-//     }
-//   }
-
-//   main {
-//     justify-content: space-between;
-//     align-items: center;
-//     padding: 2rem;
-//     text-align: center;
-
-//     img {
-//       width: 100px;
-//       border-radius: 100%;
-//     }
-
-//     .user {
-//       height: 200px;
-//       width: 120px;
-//       padding: 2rem;
-//       display: flex;
-//       flex-direction: column;
-//       justify-content: space-around;
-//       align-items: center;
-//     }
-
-//     .userTwoImage {
-//       margin-bottom: 3rem;
-//     }
-//   }
+// const SbyOnWith = styled.View`
+//   flex-direction: row;
+//   border: 1px solid blue;
+//   min-width: 100%;
+//   justify-content: space-evenly;
 // `;
+
+// const WhoonWho = styled.View`
+//   flex-direction: row;
+//   min-width: 100%;
+//   border: 1px solid red;
+//   justify-content: space-evenly;
+// `;
+
+const Info = styled.Text`
+  color: white;
+  font-weight: 600;
+  font-size: 30;
+  margin: 3% auto;
+`;
 
 export default ScheduledCall;

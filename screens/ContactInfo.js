@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { db } from "../constants/ApiKeys";
-import { View, Text } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  ScrollView
+} from "react-native";
+import { Button } from "react-native-elements";
 import ScheduledBy from "./ScheduledBy";
 import NextCall from "./NextCall";
 import PreviousCallsWithContact from "./PreviousCallsWithContact";
+import { Actions } from "react-native-router-flux";
 
 const ContactInfo = ({ contactId, user }) => {
   const [contact, setContact] = useState({});
@@ -48,29 +56,80 @@ const ContactInfo = ({ contactId, user }) => {
 
   console.log(calls);
   return contact.fetched ? (
-    <View>
-      <View>
-        <View>
-          <ScheduledBy contact={contact} user={user} />
-        </View>
-      </View>
+    <Container>
+      <ScrollView>
+        <ImageBackground
+          source={require("../assets/bgImage.jpg")}
+          style={styles.Wrapper}
+          imageStyle={{
+            resizeMode: "cover"
+          }}
+        >
+          <Container>
+            <View>
+              <View>
+                <ScheduledBy contact={contact} user={user} />
+              </View>
+            </View>
 
-      <View>
-        <View>
-          <NextCall contact={contact} />
-        </View>
-      </View>
+            <View>
+              <View>
+                <NextCall contact={contact} />
+              </View>
+            </View>
 
-      <View>
-        <PreviousCallsWithContact calls={calls} contact={contact} user={user} />
-      </View>
-    </View>
+            <View>
+              <PreviousCallsWithContact
+                calls={calls}
+                contact={contact}
+                user={user}
+              />
+              <Button
+                title="Go Back"
+                onPress={() => Actions.pop()}
+                type="outline"
+                buttonStyle={{
+                  backgroundColor: "white",
+                  borderColor: "black",
+                  marginTop: 10,
+                  marginBottom: 10,
+                  marginRight: "auto",
+                  marginLeft: "auto",
+                  // marginHorizontal: 5,
+                  alignItems: "center",
+                  width: 250
+                }}
+                titleStyle={{ color: "black" }}
+              />
+            </View>
+          </Container>
+        </ImageBackground>
+      </ScrollView>
+    </Container>
   ) : (
     <Text>Loading...</Text>
   );
 };
 
 export default ContactInfo;
+
+const styles = StyleSheet.create({
+  Wrapper: {
+    backgroundColor: "rgba(0, 0, 44, 0.8)",
+    width: "100%",
+    height: "100%",
+    alignItems: "center"
+    // justifyContent: "center"
+    // backgroundColor: "black"
+  }
+});
+
+const Container = styled.View`
+  background: #1d1d1d;
+  opacity: 0.9;
+  /* justify-content: center; */
+  align-items: center;
+`;
 
 // const Container = styled.div`
 //   display: flex;

@@ -40,7 +40,10 @@ export default class ChooseYourContact extends React.Component {
           .add(this.state)
           .then(ref => {
             Alert.alert("Success");
-            Actions.choosecallplan({ userId: this.props.user.uid, contactId: ref.id });
+            Actions.choosecallplan({
+              userId: this.props.user.uid,
+              contactId: ref.id
+            });
             // navigate(`/choose/${userId}/${ref.id}/call-plan`);
           });
       } else {
@@ -57,9 +60,18 @@ export default class ChooseYourContact extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={{justifyContent: "center", height: "100%"}}>
         <View>
-          <Text>
+          <Text
+            style={{
+              fontSize: 16,
+              color: "black",
+              width: "80%",
+              textAlign: "center",
+              alignSelf: "center",
+              marginBottom: 50
+            }}
+          >
             Remembering to keep in touch with loved ones has never been easier!
             Please enter your loved one's information below to schedule a call.
             Your loved one will receive an email letting them know an account
@@ -68,6 +80,7 @@ export default class ChooseYourContact extends React.Component {
         </View>
         <View>
           <View style={{ paddingTop: 20 }} />
+
           <Input
             placeholder="Your Contact's Name"
             leftIcon={
@@ -75,7 +88,8 @@ export default class ChooseYourContact extends React.Component {
                 name="user"
                 size={18}
                 color="black"
-                style={{ marginRight: 10 }}
+                style={{ marginRight: 9 }}
+                underlayColor={{}}
               />
             }
             value={this.state.displayName}
@@ -85,9 +99,12 @@ export default class ChooseYourContact extends React.Component {
             inputStyle={{
               color: "white",
               backgroundColor: "rgba(0, 0, 0, 0.4)",
+              marginRight: 35,
               paddingLeft: 10
             }}
+            inputContainerStyle={{ borderBottomWidth: 0 }}
             placeholderTextColor="white"
+            keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
           />
@@ -99,9 +116,10 @@ export default class ChooseYourContact extends React.Component {
             leftIcon={
               <Icon
                 name="envelope"
-                size={18}
+                size={16}
                 color="black"
-                style={{ marginRight: 10 }}
+                style={{ marginRight: 6 }}
+                underlayColor={{}}
               />
             }
             value={this.state.email}
@@ -111,13 +129,16 @@ export default class ChooseYourContact extends React.Component {
             inputStyle={{
               color: "white",
               backgroundColor: "rgba(0, 0, 0, 0.4)",
+              marginRight: 35,
               paddingLeft: 10
             }}
+            inputContainerStyle={{ borderBottomWidth: 0 }}
             placeholderTextColor="white"
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
           />
+
           <View style={{ paddingTop: 20 }} />
 
           <Input
@@ -125,9 +146,10 @@ export default class ChooseYourContact extends React.Component {
             leftIcon={
               <Icon
                 name="phone"
-                size={18}
+                size={16}
                 color="black"
-                style={{ marginRight: 10 }}
+                style={{ marginRight: 8 }}
+                underlayColor={{}}
               />
             }
             value={this.state.phoneNumber}
@@ -137,9 +159,14 @@ export default class ChooseYourContact extends React.Component {
             inputStyle={{
               color: "white",
               backgroundColor: "rgba(0, 0, 0, 0.4)",
+              marginRight: 35,
               paddingLeft: 10
             }}
+            inputContainerStyle={{ borderBottomWidth: 0, marginBottom: 40 }}
             placeholderTextColor="white"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
           />
 
           <View style={{ paddingTop: 20 }} />
@@ -148,13 +175,15 @@ export default class ChooseYourContact extends React.Component {
             title="Choose a Plan"
             type="solid"
             onPress={this.gotoChoosePlan}
-            containerStyle={{ width: 150 }}
+            containerStyle={{ width: 150, alignSelf: "center" }}
             buttonStyle={{
               borderColor: "black",
               borderWidth: 1.5,
+              backgroundColor: "white",
               backgroundColor: "rgba(0, 0, 0, 0.6)",
-              borderRadius: 10,
-              padding: 5
+              // borderRadius: 10,
+              padding: 5,
+              height: 40
             }}
             titleStyle={{ color: "white" }}
           />

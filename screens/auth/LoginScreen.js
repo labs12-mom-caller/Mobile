@@ -216,7 +216,7 @@ export default class LoginScreen extends React.Component {
               icon={<Icon name="google" size={15} color="white" />}
               title="Sign In With Google"
               onPress={this._signIn}
-              containerStyle={{ alignSelf: "center", width: "45%" }}
+              containerStyle={{ alignSelf: "center", width: "35%" }}
               buttonStyle={{
                 backgroundColor: "red",
                 padding: 20,

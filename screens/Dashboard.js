@@ -127,7 +127,7 @@ export default class Dashboard extends React.Component {
 
   render() {
     if (this.state.user === null) {
-      return <Text>Loading...</Text>;
+      return <Text>Logging in...</Text>;
     }
     return this.state.user === null ? (
       <LoginScreen />

@@ -25,7 +25,7 @@ const PreviousCallsWithContact = ({ calls, contact, user }) => {
         })
       ) : (
         <View>
-          <Text>You have no previous calls with this contact</Text>
+          <Info>You have no previous calls with this contact</Info>
         </View>
       )}
     </>

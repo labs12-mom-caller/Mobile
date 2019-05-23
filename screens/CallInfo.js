@@ -1,7 +1,16 @@
 import React from "react";
-import { View, Text, Image, ScrollView } from "react-native";
-import { Button } from "react-native-elements";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  StyleSheet,
+  ImageBackground
+} from "react-native";
+import { Button, Avatar } from "react-native-elements";
 import moment from "moment-timezone";
+import profileImage from "../assets/recaller.png";
+import styled from "styled-components";
 
 import { formatPhoneNumber } from "../app/utils";
 
@@ -58,61 +67,133 @@ const CallRecord = ({ callId }) => {
   console.log(call);
   return (
     call && (
-      <ScrollView key={call.id}>
-        <View>
-          <View>
-            <Image
-              source={
-                contact.photoUrl ||
-                "https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico"
-              }
-              alt={contact.displayName}
-            />
-            <View>
-              <Text>Previous Call</Text>
-              <Text>on</Text>
-              <Text>
-                {moment(call.call_time, "X").format(
-                  "dddd, MMMM Do [at] h:mm A"
-                )}
-              </Text>
-              <Text>with</Text>
-            </View>
-            <View>
-              <Text>{contact.displayName}</Text>
-              <Text>{contact.email}</Text>
-              <Text>{formatPhoneNumber(contact.phoneNumber)}</Text>
-              {/* <Button title='Go Back' onPress={} /> */}
-            </View>
-          </View>
-        </View>
-        <View>
-          <View>
-            <Text>Call Record</Text>
-            <View>
-              {/* <Audio controls>
+      <ImageBackground
+        source={require("../assets/decide.png")}
+        style={styles.Wrapper}
+        imageStyle={{
+          resizeMode: "cover"
+        }}
+      >
+        <ScrollView key={call.id}>
+          <Container>
+            <ContainerTop>
+              {contact.photoUrl ? (
+                <Avatar
+                  rounded
+                  source={{
+                    uri: contact.photoUrl
+                  }}
+                  size="xlarge"
+                />
+              ) : (
+                <Avatar rounded source={profileImage} size="xlarge" />
+              )}
+              <View>
+                <Info>Previous Call</Info>
+                <Info>on</Info>
+                <Info>
+                  {moment(call.call_time, "X").format(
+                    "dddd, MMMM Do [at] h:mm A"
+                  )}
+                </Info>
+                <Info>with</Info>
+              </View>
+              <View>
+                <Info>{contact.displayName}</Info>
+                <Info>{contact.email}</Info>
+                <Info>{formatPhoneNumber(contact.phoneNumber)}</Info>
+                {/* <Button title='Go Back' onPress={} /> */}
+              </View>
+            </ContainerTop>
+            <Container>
+              <View>
+                <Info>Call Record</Info>
+                <View>
+                  {/* <Audio controls>
                 <source src={call.audio} type='audio/wav' />
                 <track kind='captions' />
                 Your browser does not support the audio element
               </Audio> */}
-              <Text>Transcript</Text>
-              <View>
-                {call.simplified &&
-                  call.simplified.map(line => {
-                    return (
-                      <View>
-                        <Text>{line.user}</Text>
-                        <Text>{line.script}</Text>
-                      </View>
-                    );
-                  })}
+                  <Info>Transcript</Info>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      // justifyContent: "space-evenly",
+                      width: "100%"
+                    }}
+                  >
+                    <Text>User</Text>
+                    <Text>Message</Text>
+                  </View>
+                  <View>
+                    {call.simplified &&
+                      call.simplified.map(line => {
+                        return (
+                          <TransContainer>
+                            <Info2>{line.user}</Info2>
+                            <Info1>{line.script}</Info1>
+                          </TransContainer>
+                        );
+                      })}
+                  </View>
+                </View>
               </View>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
+            </Container>
+          </Container>
+        </ScrollView>
+      </ImageBackground>
     )
   );
 };
 
 export default CallRecord;
+
+const Container = styled.View`
+  align-items: center;
+  /* border: 1px solid green; */
+  background: #1d1d1d;
+  opacity: 0.9;
+  justify-content: center;
+`;
+
+const ContainerTop = styled.View`
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3%;
+`;
+
+const styles = StyleSheet.create({
+  Wrapper: {
+    backgroundColor: "rgba(0, 0, 44, 0.2)",
+    width: "100%",
+    height: "100%",
+    // alignItems: "center",
+    justifyContent: "center"
+  }
+});
+
+const Info = styled.Text`
+  color: white;
+  font-size: 25;
+  font-weight: 600;
+  text-align: center;
+`;
+
+const Info2 = styled.Text`
+  color: blue;
+  font-size: 24;
+  font-weight: 500;
+  text-align: left;
+`;
+
+const Info1 = styled(Info2)`
+  text-align: right;
+  font-size: 22;
+  font-weight: 100;
+  color: white;
+`;
+
+const TransContainer = styled.View`
+  width: 97%;
+  margin: 0 auto;
+`;

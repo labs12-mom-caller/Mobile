@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  ImageBackground,
+  StyleSheet
+} from "react-native";
 import { Button } from "react-native-elements";
 import styled from "styled-components";
 import { Actions } from "react-native-router-flux";
@@ -8,6 +14,8 @@ const ChooseCallPlan = ({ contactId, userId }) => {
   const [free, setFree] = useState("");
   const [paid, setPaid] = useState(null);
   const [show, setShow] = useState(false);
+  //tempshow to hide button for now unless we finish feature in time
+  const [tempShow] = useState(false);
 
   const freeFrequency = () => {
     // e.preventDefault();
@@ -51,32 +59,42 @@ const ChooseCallPlan = ({ contactId, userId }) => {
   };
 
   return (
-    <ScrollView>
+    // <ScrollView>
+    <ImageBackground
+      source={require("../assets/decide.png")}
+      style={styles.Wrapper}
+      imageStyle={{
+        resizeMode: "cover"
+      }}
+    >
       {show ? (
         <Container>
-          <ChooseText className="choose">Choose your plan</ChooseText>
-          <SubChoose>Don&apos;t worry, you can change this any time</SubChoose>
-          <Info>Up to 30 Minutes</Info>
-          <Info>Let&apos;s catch up</Info>
-          <Info>Pre-Scheduled</Info>
-          <PlanOptions onPress={showBtns}>Plan Options</PlanOptions>
-          {show && (
-            <Card>
-              <ButtonContainer>
-                <Button
-                  title="Bi-Weekly"
-                  type="outline"
-                  onPress={this.addCall}
-                  buttonStyle={{
-                    backgroundColor: "black",
-                    borderColor: "white",
-                    marginTop: 10,
-                    marginHorizontal: 5,
-                    width: 100
-                  }}
-                  titleStyle={{ color: "white" }}
-                />
-                {/* <Button
+          <CenterScreen>
+            <ChooseText className="choose">Choose your plan</ChooseText>
+            <SubChoose>
+              Don&apos;t worry, you can change this any time
+            </SubChoose>
+            <Info>Up to 30 Minutes</Info>
+            <Info>Let&apos;s catch up</Info>
+            <Info>Pre-Scheduled</Info>
+            <PlanOptions onPress={showBtns}>Plan Options</PlanOptions>
+            {tempShow && (
+              <Card>
+                <ButtonContainer>
+                  <Button
+                    title="Bi-Weekly"
+                    type="outline"
+                    onPress={this.addCall}
+                    buttonStyle={{
+                      backgroundColor: "black",
+                      borderColor: "white",
+                      marginTop: 10,
+                      marginHorizontal: 5,
+                      width: 100
+                    }}
+                    titleStyle={{ color: "white" }}
+                  />
+                  {/* <Button
               type="button"
               className={
                 paid === "Bi-Weekly" ? "frequency active" : "frequency"
@@ -85,52 +103,53 @@ const ChooseCallPlan = ({ contactId, userId }) => {
             >
               Bi-Weekly
             </Button> */}
-                <Button
-                  title="Monthly"
-                  type="outline"
-                  onPress={this.addCall}
-                  buttonStyle={{
-                    backgroundColor: "black",
-                    borderColor: "white",
-                    marginTop: 10,
-                    marginHorizontal: 5,
-                    width: 100
-                  }}
-                  titleStyle={{ color: "white" }}
-                />
-                {/* <Button
+                  <Button
+                    title="Monthly"
+                    type="outline"
+                    onPress={this.addCall}
+                    buttonStyle={{
+                      backgroundColor: "black",
+                      borderColor: "white",
+                      marginTop: 10,
+                      marginHorizontal: 5,
+                      width: 100
+                    }}
+                    titleStyle={{ color: "white" }}
+                  />
+                  {/* <Button
               type="button"
               className={paid === "Monthly" ? "frequency active" : "frequency"}
               onClick={paidFrequency}
             >
               Monthly
             </Button> */}
-              </ButtonContainer>
-              <Price>
-                {paid === "Bi-Weekly" ? "$5.00" : "$2.50"} per month
-              </Price>
-              <Button
-                title="Choose Plan"
-                type="outline"
-                onPress={this.addCall}
-                buttonStyle={{
-                  backgroundColor: "red",
-                  borderColor: "white",
-                  marginTop: 10,
-                  marginHorizontal: 5,
-                  width: 150,
-                  alignSelf: "center"
-                }}
-                titleStyle={{ color: "white" }}
-              />
-            </Card>
-          )}
-          {/* <Button type="button" disabled={!paid} onClick={selectPaid}>
+                </ButtonContainer>
+                <Price>
+                  {paid === "Bi-Weekly" ? "$5.00" : "$2.50"} per month
+                </Price>
+                <Button
+                  title="Choose Plan"
+                  type="outline"
+                  onPress={this.addCall}
+                  buttonStyle={{
+                    backgroundColor: "red",
+                    borderColor: "white",
+                    marginTop: 10,
+                    marginHorizontal: 5,
+                    width: 150,
+                    alignSelf: "center"
+                  }}
+                  titleStyle={{ color: "white" }}
+                />
+              </Card>
+            )}
+            {/* <Button type="button" disabled={!paid} onClick={selectPaid}>
             Choose Plan
           </Button> */}
-          <Info>Up to 10 Minutes</Info>
-          <Info>Just saying &quot;Hi&quot;</Info>
-          <Info>Randomly Scheduled</Info>
+            <Info>Up to 10 Minutes</Info>
+            <Info>Just saying &quot;Hi&quot;</Info>
+            <Info>Randomly Scheduled</Info>
+          </CenterScreen>
           {show && (
             <Card>
               <ButtonContainer>
@@ -202,29 +221,32 @@ const ChooseCallPlan = ({ contactId, userId }) => {
         </Container>
       ) : (
         <FalseContainer>
-          <ChooseText className="choose">Choose your plan</ChooseText>
-          <SubChoose>Don&apos;t worry, you can change this any time</SubChoose>
-          <Info>Up to 30 Minutes</Info>
-          <Info>Let&apos;s catch up</Info>
-          <Info>Pre-Scheduled</Info>
-          <PlanOptions onPress={showBtns}>Plan Options</PlanOptions>
-          {show && (
-            <Card>
-              <ButtonContainer>
-                <Button
-                  title="Bi-Weekly"
-                  type="outline"
-                  onPress={this.addCall}
-                  buttonStyle={{
-                    backgroundColor: "black",
-                    borderColor: "white",
-                    marginTop: 10,
-                    marginHorizontal: 5,
-                    width: 100
-                  }}
-                  titleStyle={{ color: "white" }}
-                />
-                {/* <Button
+          <FalseCenterScreen>
+            <ChooseText className="choose">Choose your plan</ChooseText>
+            <SubChoose>
+              Don&apos;t worry, you can change this any time
+            </SubChoose>
+            <Info>Up to 30 Minutes</Info>
+            <Info>Let&apos;s catch up</Info>
+            <Info>Pre-Scheduled</Info>
+            <PlanOptions onPress={showBtns}>Plan Options</PlanOptions>
+            {tempShow && (
+              <Card>
+                <ButtonContainer>
+                  <Button
+                    title="Bi-Weekly"
+                    type="outline"
+                    onPress={this.addCall}
+                    buttonStyle={{
+                      backgroundColor: "black",
+                      borderColor: "white",
+                      marginTop: 10,
+                      marginHorizontal: 5,
+                      width: 100
+                    }}
+                    titleStyle={{ color: "white" }}
+                  />
+                  {/* <Button
               type="button"
               className={
                 paid === "Bi-Weekly" ? "frequency active" : "frequency"
@@ -233,52 +255,53 @@ const ChooseCallPlan = ({ contactId, userId }) => {
             >
               Bi-Weekly
             </Button> */}
-                <Button
-                  title="Monthly"
-                  type="outline"
-                  onPress={this.addCall}
-                  buttonStyle={{
-                    backgroundColor: "black",
-                    borderColor: "white",
-                    marginTop: 10,
-                    marginHorizontal: 5,
-                    width: 100
-                  }}
-                  titleStyle={{ color: "white" }}
-                />
-                {/* <Button
+                  <Button
+                    title="Monthly"
+                    type="outline"
+                    onPress={this.addCall}
+                    buttonStyle={{
+                      backgroundColor: "black",
+                      borderColor: "white",
+                      marginTop: 10,
+                      marginHorizontal: 5,
+                      width: 100
+                    }}
+                    titleStyle={{ color: "white" }}
+                  />
+                  {/* <Button
               type="button"
               className={paid === "Monthly" ? "frequency active" : "frequency"}
               onClick={paidFrequency}
             >
               Monthly
             </Button> */}
-              </ButtonContainer>
-              <Price>
-                {paid === "Bi-Weekly" ? "$5.00" : "$2.50"} per month
-              </Price>
-              <Button
-                title="Choose Plan"
-                type="outline"
-                onPress={this.addCall}
-                buttonStyle={{
-                  backgroundColor: "red",
-                  borderColor: "white",
-                  marginTop: 10,
-                  marginHorizontal: 5,
-                  width: 150,
-                  alignSelf: "center"
-                }}
-                titleStyle={{ color: "white" }}
-              />
-            </Card>
-          )}
-          {/* <Button type="button" disabled={!paid} onClick={selectPaid}>
+                </ButtonContainer>
+                <Price>
+                  {paid === "Bi-Weekly" ? "$5.00" : "$2.50"} per month
+                </Price>
+                <Button
+                  title="Choose Plan"
+                  type="outline"
+                  onPress={this.addCall}
+                  buttonStyle={{
+                    backgroundColor: "red",
+                    borderColor: "white",
+                    marginTop: 10,
+                    marginHorizontal: 5,
+                    width: 150,
+                    alignSelf: "center"
+                  }}
+                  titleStyle={{ color: "white" }}
+                />
+              </Card>
+            )}
+            {/* <Button type="button" disabled={!paid} onClick={selectPaid}>
             Choose Plan
           </Button> */}
-          <Info>Up to 10 Minutes</Info>
-          <Info>Just saying &quot;Hi&quot;</Info>
-          <Info>Randomly Scheduled</Info>
+            <Info>Up to 10 Minutes</Info>
+            <Info>Just saying &quot;Hi&quot;</Info>
+            <Info>Randomly Scheduled</Info>
+          </FalseCenterScreen>
           {show && (
             <Card>
               <ButtonContainer>
@@ -347,7 +370,8 @@ const ChooseCallPlan = ({ contactId, userId }) => {
           </Button> */}
         </FalseContainer>
       )}
-    </ScrollView>
+    </ImageBackground>
+    // </ScrollView>
   );
 };
 
@@ -357,16 +381,19 @@ const Container = styled.View`
   /* border: 1px solid purple; */
   align-items: center;
   justify-content: center;
-  /* height: 100%; */
+  min-height: 100%;
   background: #1d1d1d;
   opacity: 0.8;
+  width: 100%;
   /* padding-bottom: 320; */
 `;
 
 const ChooseText = styled.Text`
   font-size: 30;
+  font-weight: 600;
   color: white;
   text-align: center;
+  opacity: 1;
 `;
 
 const SubChoose = styled(ChooseText)`
@@ -384,7 +411,7 @@ const ButtonContainer = styled.View`
   justify-content: space-around;
   /* border: 1px solid red; */
   width: 250;
-  margin-top: 3;
+  margin-top: 8;
   margin-bottom: 5;
 `;
 
@@ -413,4 +440,24 @@ const PlanOptions = styled(Info)`
 const FalseContainer = styled(Container)`
   padding-bottom: 320;
   padding-top: 150;
+`;
+
+const styles = StyleSheet.create({
+  Wrapper: {
+    // backgroundColor: "rgba(0, 0, 44, 0.2)",
+    width: "100%",
+    height: "100%",
+    // alignItems: "center",
+    justifyContent: "center"
+  }
+});
+
+const FalseCenterScreen = styled.View`
+  justify-content: center;
+  align-items: center;
+  margin-top: 100;
+`;
+
+const CenterScreen = styled(FalseCenterScreen)`
+  margin-top: 0;
 `;

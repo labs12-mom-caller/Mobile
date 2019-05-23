@@ -29,57 +29,75 @@ const Billing = ({ user }) => {
       <Text>Loading...</Text>
     </View>
   ) : (
-    <>
-      <Text>Billing information</Text>
-      <View>
+    <Container>
+      <Info>Billing information</Info>
+      <Center>
         {subs ? (
           subs.map(sub => {
             return (
               <View key={sub.contact_id}>
-                <Text>
-                  {" "}
-                  <Text>
-                    {sub.user2.displayName}
-                  </Text>{" "}
-                  | {sub.contact.call_frequency}
-                </Text>
+                <Info>
+                  <Info>{sub.user2.displayName}</Info> |
+                  {sub.contact.call_frequency}
+                </Info>
                 <View>
-                  <Text>
+                  <Info>
                     {sub.contact.scheduled_day}s at {sub.contact.scheduled_time}
-                  </Text>
+                  </Info>
                 </View>
                 {/* <Link to={`/contact/${sub.contact_id}`}>Contact Details</Link> */}
 
-                <Text>Previous Charges</Text>
+                <Info>Previous Charges</Info>
                 {sub.invoices.map(invoice => {
                   return (
                     <View key={invoice.id}>
-                      <Text>
+                      <Info>
                         {moment(invoice.paid_at, "X").format("MM/DD/YY")}
-                      </Text>
-                      <Text>${(invoice.amount_paid / 100).toFixed(2)}</Text>
-                      <Text>
-                        <Text>Receipt</Text>
-                      </Text>
+                      </Info>
+                      <Info>${(invoice.amount_paid / 100).toFixed(2)}</Info>
+                      <Info>
+                        <Info>Receipt</Info>
+                      </Info>
                     </View>
                   );
                 })}
-                <Text>
+                <Info>
                   Next Charge:{" "}
                   {sub.contact.call_frequency === "Monthly"
                     ? "$2.50 "
                     : "$5.00 "}
                   on {moment(sub.next_charge_date, "X").format("M/D/YY")}
-                </Text>
+                </Info>
               </View>
             );
           })
         ) : (
-          <Text>You have no previous premium calls scheduled</Text>
+          <Info>You have no previous premium calls scheduled</Info>
         )}
-      </View>
-    </>
+      </Center>
+    </Container>
   );
 };
 
 export default Billing;
+
+const Container = styled.View`
+  justify-content: center;
+  align-items: center;
+  background: #1d1d1d;
+  /* opacity: 0.8; */
+  height: 100%;
+  width: 100%;
+`;
+
+const Info = styled.Text`
+  color: white;
+  font-size: 22;
+  font-weight: 400;
+  text-align: center;
+  margin: 5% auto;
+`;
+
+const Center = styled.View`
+  justify-content: space-around;
+`;

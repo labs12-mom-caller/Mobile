@@ -68,7 +68,7 @@ const CallRecord = ({ callId }) => {
   return (
     call && (
       <ImageBackground
-        source={require("../assets/decide.png")}
+        source={require("../assets/girlPhone.jpg")}
         style={styles.Wrapper}
         imageStyle={{
           resizeMode: "cover"
@@ -80,6 +80,7 @@ const CallRecord = ({ callId }) => {
               {contact.photoUrl ? (
                 <Avatar
                   rounded
+                  containerStyle={{ marginTop: 100 }}
                   source={{
                     uri: contact.photoUrl
                   }}
@@ -121,10 +122,7 @@ const CallRecord = ({ callId }) => {
                       // justifyContent: "space-evenly",
                       width: "100%"
                     }}
-                  >
-                    <Text>User</Text>
-                    <Text>Message</Text>
-                  </View>
+                  />
                   <View>
                     {call.simplified &&
                       call.simplified.map(line => {
@@ -160,6 +158,7 @@ const ContainerTop = styled.View`
   align-items: center;
   justify-content: center;
   margin-bottom: 3%;
+  padding: 6%;
 `;
 
 const styles = StyleSheet.create({
@@ -180,7 +179,8 @@ const Info = styled.Text`
 `;
 
 const Info2 = styled.Text`
-  color: blue;
+  color: white;
+  text-decoration: underline;
   font-size: 24;
   font-weight: 500;
   text-align: left;
@@ -188,6 +188,7 @@ const Info2 = styled.Text`
 
 const Info1 = styled(Info2)`
   text-align: right;
+  text-decoration: none;
   font-size: 22;
   font-weight: 100;
   color: white;

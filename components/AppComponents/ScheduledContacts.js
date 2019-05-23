@@ -5,7 +5,7 @@ import { Content, List, ListItem, Text, Left, Right } from "native-base";
 import { Avatar } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { firstNameOnly } from "../../app/utils";
-
+import profileImage from "../../assets/recaller.png";
 import moment from "moment";
 import { db } from "../../constants/ApiKeys";
 import { Actions } from "react-native-router-flux";
@@ -54,6 +54,13 @@ const ScheduledContacts = ({ user }) => {
 
   console.log(contacts, "from contacts");
 
+  const goCallInfo = c => {
+    Actions.contactinfo({
+      user,
+      contactId: c.id
+    });
+  };
+
   return (
     <View style={styles.Wrapper}>
       <View
@@ -77,25 +84,20 @@ const ScheduledContacts = ({ user }) => {
                   flexDirection: "column"
                 }}
               >
-                <ListItem selected>
+                <ListItem onPress={() => goCallInfo(c)} selected>
                   <Left>
-                    <Avatar
-                      rounded
-                      source={{
-                        uri: c.user2.photoUrl
-                      }}
-                    />
-                    {
-                      // THERE BE DRAGONS HERE... SHAWN AND JON REMEMBER THIS FOR THE FUTURE!!!
-                      (goCallInfo = () => {
-                        Actions.contactinfo({
-                          user,
-                          contactId: c.id
-                        });
-                      })
-                      // THERE BE DRAGONS HERE... SHAWN AND JON REMEMBER THIS FOR THE FUTURE!!!
-                    }
-                    <Text style={{ marginLeft: 10 }} onPress={goCallInfo}>
+                    {c.user2.photoUrl ? (
+                      <Avatar
+                        rounded
+                        source={{
+                          uri: c.user2.photoUrl
+                        }}
+                        size="small"
+                      />
+                    ) : (
+                      <Avatar rounded source={profileImage} size="small" />
+                    )}
+                    <Text style={{ marginLeft: 10 }}>
                       {firstNameOnly(c.user2.displayName)}
                     </Text>
                   </Left>

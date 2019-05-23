@@ -118,7 +118,7 @@ export default class LoginScreen extends React.Component {
                     size={18}
                     color="white"
                     style={{ marginRight: 9 }}
-                    underlayColor={{ }}
+                    underlayColor={{}}
                   />
                 }
                 value={this.state.email}
@@ -131,6 +131,7 @@ export default class LoginScreen extends React.Component {
                   marginRight: 35,
                   paddingLeft: 10
                 }}
+                inputContainerStyle={{borderBottomWidth: 0}}
                 placeholderTextColor="white"
                 keyboardType="email-address"
                 autoCapitalize="none"
@@ -155,8 +156,9 @@ export default class LoginScreen extends React.Component {
                   color: "white",
                   backgroundColor: "rgba(0, 0, 0, 0.4)",
                   marginRight: 35,
-                  paddingLeft: 10
+                  paddingLeft: 10,
                 }}
+                inputContainerStyle={{borderBottomWidth: 0}}
                 placeholderTextColor="white"
                 placeholder="Password"
                 secureTextEntry={true}
@@ -205,7 +207,7 @@ export default class LoginScreen extends React.Component {
                 style={{ fontSize: 18, alignSelf: "center", marginTop: 5 }}
                 name="arrow-up"
               />
-              <Text style={{ marginTop: 5, alignSelf: "center" }}>
+              <Text style={{ marginTop: 5, alignSelf: "center", color: "white" }}>
                 Otherwise create one{" "}
               </Text>
             </View>
@@ -232,7 +234,7 @@ export default class LoginScreen extends React.Component {
 
 const styles = StyleSheet.create({
   Wrapper: {
-    backgroundColor: "rgba(0, 0, 44, 0.2)",
+    backgroundColor: "rgba(0, 0, 44, 0.4)",
     width: "100%",
     height: "100%",
     alignItems: "center",

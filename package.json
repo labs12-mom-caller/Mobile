@@ -10,7 +10,7 @@
     "axios": "^0.18.0",
     "firebase": "^6.0.2",
     "firebase-admin": "^7.3.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.25",
     "native-base": "^2.12.1",
     "react": "16.8.3",
